@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bv44bopltbmcm"]
+
+[ext_resource type="Texture2D" uid="uid://bgg68d0hdh8f4" path="res://Assets/Personaje/Final/Electrica/EfectosElectricos_2x2.png" id="1_electric_effect"]
+
+[sub_resource type="AtlasTexture" id="ElectricEffect0"]
+atlas = ExtResource("1_electric_effect")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="ElectricEffect1"]
+atlas = ExtResource("1_electric_effect")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="ElectricEffect2"]
+atlas = ExtResource("1_electric_effect")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="ElectricEffect3"]
+atlas = ExtResource("1_electric_effect")
+region = Rect2(24, 24, 24, 24)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("ElectricEffect0")
+}, {
+"duration": 1.0,
+"texture": SubResource("ElectricEffect1")
+}, {
+"duration": 1.0,
+"texture": SubResource("ElectricEffect2")
+}, {
+"duration": 1.0,
+"texture": SubResource("ElectricEffect3")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]

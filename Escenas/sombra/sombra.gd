@@ -11,6 +11,8 @@ const ANIM_JUMP: int = 2
 const SOLID_COLLISION_LAYER: int = 8
 
 @onready var animacion: AnimatedSprite2D = $Animacion
+@onready var fire_effect: AnimatedSprite2D = $EfectoFuego
+@onready var electric_effect: AnimatedSprite2D = $EfectoElectrico
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var interaction_area: Area2D = $InteractionArea
 @onready var interaction_shape: CollisionShape2D = $InteractionArea/CollisionShape2D
@@ -65,6 +67,7 @@ func restart_replay() -> void:
 	global_position = _recording[0]["position"]
 	_apply_visual(_recording[0]["animation"])
 	_apply_form(_recording[0].get("form", FormCatalog.NORMAL))
+	_update_form_effects(true)
 
 
 func _physics_process(delta: float) -> void:
@@ -154,6 +157,7 @@ func _apply_form(form_id: int) -> void:
 
 
 func _apply_form_visual() -> void:
+	_update_form_effects()
 	if is_instance_valid(_form_material):
 		var form_frames := FormCatalog.get_sprite_frames(_current_form)
 		if form_frames != null:
@@ -164,3 +168,21 @@ func _apply_form_visual() -> void:
 			animacion.sprite_frames = _normal_sprite_frames
 			_form_material.set_shader_parameter("tint_color", FormCatalog.get_tint(_current_form))
 			_form_material.set_shader_parameter("grayscale_strength", 1.0 if _current_form == FormCatalog.METAL else 0.0)
+
+
+func _update_form_effects(restart: bool = false) -> void:
+	_update_effect(fire_effect, _current_form == FormCatalog.FUEGO, restart)
+	_update_effect(electric_effect, _current_form == FormCatalog.ELECTRICA, restart)
+
+
+func _update_effect(effect: AnimatedSprite2D, should_play: bool, restart: bool) -> void:
+	if not is_instance_valid(effect):
+		return
+	if should_play:
+		effect.visible = true
+		if restart or not effect.is_playing():
+			effect.play("default")
+	else:
+		effect.visible = false
+		effect.stop()
+		effect.frame = 0

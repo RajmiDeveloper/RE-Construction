@@ -29,11 +29,14 @@ Formas:
   agregan tiempo ni movimiento al recorrido de las sombras.
 
 Formas planeadas:
-- metal: resistente a balas y pesado para activar botones.
-- electrica: puede conducir electricidad para activar mecanismos o pasar por trampas electricas.
+- metal: resistente a balas y pesado para activar botones. Su peso tambien puede bajar
+  plataformas elevadoras al pararse encima; al quitarse de la plataforma, esta puede volver
+  a subir.
+- electrica: activa circuitos y puede atravesar trampas electricas sin recibir dano.
 - pequeña: pasa por espacios pequeños.
-- puente: sirve para crear conexiones entre zonas o protecciones contra objetos que caen.
-- fuego: puede derretir cosas o pasar por zonas calientes.
+- puente: genera una estructura que la sombra puede volver solida al final de su recorrido.
+  La estructura sirve para caminar encima o bloquear objetos que caen desde arriba.
+- fuego: derrite hielo y permite caminar sobre lava.
 
 Arte del personaje:
 - El jugador y las sombras usan el SpriteFrames compartido de

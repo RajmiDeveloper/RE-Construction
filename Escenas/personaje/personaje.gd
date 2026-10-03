@@ -6,6 +6,9 @@ const FORM_SHADER = preload("res://Escenas/personaje/forma_tint.gdshader")
 @export var Trigger: Area2D
 @export var death_distance: float = 240.0
 
+@onready var fire_effect: AnimatedSprite2D = $EfectoFuego
+@onready var electric_effect: AnimatedSprite2D = $EfectoElectrico
+
 signal life_finished(recording: Array)
 signal form_changed(form_id: int)
 
@@ -38,7 +41,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _controls_enabled and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
+	if not get_tree().paused and _controls_enabled and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
 		die()
 
 
@@ -107,7 +110,7 @@ func reset_run() -> void:
 func transform_to(form_id: int) -> bool:
 	if not can_transform or current_form != FormCatalog.NORMAL:
 		return false
-	if form_id != FormCatalog.METAL:
+	if not FormCatalog.is_valid(form_id) or form_id == FormCatalog.NORMAL:
 		return false
 
 	current_form = form_id
@@ -176,6 +179,7 @@ func _setup_form_material() -> void:
 
 
 func _apply_form_visual() -> void:
+	_update_form_effects()
 	if not is_instance_valid(_form_material):
 		return
 	var form_frames := FormCatalog.get_sprite_frames(current_form)
@@ -187,6 +191,24 @@ func _apply_form_visual() -> void:
 		animacion.sprite_frames = _normal_sprite_frames
 		_form_material.set_shader_parameter("tint_color", FormCatalog.get_tint(current_form))
 		_form_material.set_shader_parameter("grayscale_strength", 1.0 if current_form == FormCatalog.METAL else 0.0)
+
+
+func _update_form_effects(restart: bool = false) -> void:
+	_update_effect(fire_effect, current_form == FormCatalog.FUEGO, restart)
+	_update_effect(electric_effect, current_form == FormCatalog.ELECTRICA, restart)
+
+
+func _update_effect(effect: AnimatedSprite2D, should_play: bool, restart: bool) -> void:
+	if not is_instance_valid(effect):
+		return
+	if should_play:
+		effect.visible = true
+		if restart or not effect.is_playing():
+			effect.play("default")
+	else:
+		effect.visible = false
+		effect.stop()
+		effect.frame = 0
 
 
 func _get_animation_id() -> int:

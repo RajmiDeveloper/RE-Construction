@@ -6,21 +6,31 @@ extends RefCounted
 enum FormId {
 	NORMAL,
 	METAL,
+	FUEGO,
+	ELECTRICA,
 }
 
 const NORMAL: int = FormId.NORMAL
 const METAL: int = FormId.METAL
+const FUEGO: int = FormId.FUEGO
+const ELECTRICA: int = FormId.ELECTRICA
 const METAL_TINT := Color(0.94, 0.95, 0.97, 1.0)
 const METAL_SPRITE_FRAMES: SpriteFrames = preload("res://Escenas/personaje/animacion_metal.tres")
+const FUEGO_SPRITE_FRAMES: SpriteFrames = preload("res://Escenas/personaje/animacion_fuego.tres")
+const ELECTRICA_SPRITE_FRAMES: SpriteFrames = preload("res://Escenas/personaje/animacion_electrica.tres")
 
 static func is_valid(form_id: int) -> bool:
-	return form_id == NORMAL or form_id == METAL
+	return form_id == NORMAL or form_id == METAL or form_id == FUEGO or form_id == ELECTRICA
 
 
 static func get_display_name(form_id: int) -> String:
 	match form_id:
 		METAL:
 			return "Metal"
+		FUEGO:
+			return "Fuego"
+		ELECTRICA:
+			return "Eléctrica"
 		_:
 			return "Normal"
 
@@ -34,6 +44,10 @@ static func get_tint(form_id: int) -> Color:
 static func get_sprite_frames(form_id: int) -> SpriteFrames:
 	if form_id == METAL:
 		return METAL_SPRITE_FRAMES
+	if form_id == FUEGO:
+		return FUEGO_SPRITE_FRAMES
+	if form_id == ELECTRICA:
+		return ELECTRICA_SPRITE_FRAMES
 	return null
 
 

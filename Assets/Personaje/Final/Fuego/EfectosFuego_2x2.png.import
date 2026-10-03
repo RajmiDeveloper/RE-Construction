@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3vqlopfm5nog"
-path="res://.godot/imported/button_pressed-export.png-b4a13e3c4eff2e469e5bc3557ed251bf.ctex"
+uid="uid://dtyy2htea4uax"
+path="res://.godot/imported/EfectosFuego_2x2.png-dba44de08a8f14a35959c7985274e600.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mapa/button_pressed-export.png"
-dest_files=["res://.godot/imported/button_pressed-export.png-b4a13e3c4eff2e469e5bc3557ed251bf.ctex"]
+source_file="res://Assets/Personaje/Final/Fuego/EfectosFuego_2x2.png"
+dest_files=["res://.godot/imported/EfectosFuego_2x2.png-dba44de08a8f14a35959c7985274e600.ctex"]
 
 [params]
 

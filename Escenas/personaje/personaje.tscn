@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://8ll4yhv6wh65" path="res://Escenas/personaje/personaje.gd" id="1_player"]
 [ext_resource type="SpriteFrames" uid="uid://cb046vrq8fdu0" path="res://Escenas/personaje/animacion_base.tres" id="2_frames"]
+[ext_resource type="SpriteFrames" uid="uid://bmja33aiaugci" path="res://Escenas/personaje/animacion_efecto_fuego.tres" id="3_fire_effect"]
+[ext_resource type="SpriteFrames" uid="uid://bv44bopltbmcm" path="res://Escenas/personaje/animacion_efecto_electrico.tres" id="4_electric_effect"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(13, 16)
@@ -19,6 +21,22 @@ position = Vector2(0, -2)
 sprite_frames = ExtResource("2_frames")
 animation = &"saltar"
 frame_progress = 0.0225887
+
+[node name="EfectoFuego" type="AnimatedSprite2D" parent="." unique_id=1433734138]
+visible = false
+z_index = 1
+texture_filter = 1
+position = Vector2(0, -2)
+scale = Vector2(0.68688583, 0.8348683)
+sprite_frames = ExtResource("3_fire_effect")
+frame_progress = 0.24016541
+
+[node name="EfectoElectrico" type="AnimatedSprite2D" parent="." unique_id=755201699]
+z_index = 1
+texture_filter = 1
+position = Vector2(0, 0.99999976)
+scale = Vector2(0.7999367, 0.98199624)
+sprite_frames = ExtResource("4_electric_effect")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=2103552631]
 position = Vector2(0, 2)

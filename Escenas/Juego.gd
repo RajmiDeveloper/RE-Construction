@@ -154,7 +154,7 @@ func _can_open_form_menu() -> bool:
 func _open_form_menu() -> void:
 	if not _can_open_form_menu():
 		return
-	form_menu.open([FormCatalog.METAL])
+	form_menu.open([FormCatalog.METAL, FormCatalog.FUEGO, FormCatalog.ELECTRICA])
 	get_tree().paused = true
 
 
