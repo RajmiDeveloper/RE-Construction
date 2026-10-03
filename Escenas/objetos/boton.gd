@@ -12,11 +12,29 @@ const SHADOW_LAYER: int = 8
 
 var is_pressed: bool = false
 var _pressing_bodies: Array[Node2D] = []
+var _pressing_areas: Array[Area2D] = []
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
+	area_entered.connect(_on_area_entered)
+	area_exited.connect(_on_area_exited)
 	_update_visual()
+
+
+func _physics_process(_delta: float) -> void:
+	# Tambien se consulta el area en cada frame para detectar cuerpos cuya
+	# colision se habilito mientras ya estaban superpuestos, como una sombra
+	# que acaba de solidificarse encima del boton.
+	_pressing_bodies.clear()
+	for body in get_overlapping_bodies():
+		if _is_pressing_body(body):
+			_pressing_bodies.append(body)
+	_pressing_areas.clear()
+	for area in get_overlapping_areas():
+		if _is_pressing_area(area):
+			_pressing_areas.append(area)
+	_update_state()
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -33,6 +51,18 @@ func _on_body_exited(body: Node2D) -> void:
 	_update_state()
 
 
+func _on_area_entered(area: Area2D) -> void:
+	if _is_pressing_area(area) and not _pressing_areas.has(area):
+		_pressing_areas.append(area)
+	_update_state()
+
+
+func _on_area_exited(area: Area2D) -> void:
+	if _pressing_areas.has(area):
+		_pressing_areas.erase(area)
+	_update_state()
+
+
 func _is_pressing_body(body: Node2D) -> bool:
 	if not is_instance_valid(body):
 		return false
@@ -45,12 +75,19 @@ func _is_pressing_body(body: Node2D) -> bool:
 	return (layer & PLAYER_LAYER) != 0 or (layer & SHADOW_LAYER) != 0
 
 
+func _is_pressing_area(area: Area2D) -> bool:
+	return is_instance_valid(area) and area.is_in_group("shadow_interaction")
+
+
 func _update_state() -> void:
 	for index in range(_pressing_bodies.size() - 1, -1, -1):
 		if not is_instance_valid(_pressing_bodies[index]):
 			_pressing_bodies.remove_at(index)
+	for index in range(_pressing_areas.size() - 1, -1, -1):
+		if not is_instance_valid(_pressing_areas[index]):
+			_pressing_areas.remove_at(index)
 
-	var new_state := not _pressing_bodies.is_empty()
+	var new_state := not _pressing_bodies.is_empty() or not _pressing_areas.is_empty()
 	if new_state == is_pressed:
 		return
 

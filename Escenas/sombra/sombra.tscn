@@ -109,3 +109,14 @@ animation = &"idle"
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_shadow")
 disabled = true
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_shadow")
+disabled = true

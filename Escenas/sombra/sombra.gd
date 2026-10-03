@@ -10,6 +10,8 @@ const SOLID_COLLISION_LAYER: int = 8
 
 @onready var animacion: AnimatedSprite2D = $Animacion
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var interaction_area: Area2D = $InteractionArea
+@onready var interaction_shape: CollisionShape2D = $InteractionArea/CollisionShape2D
 
 var _recording: Array[Dictionary] = []
 var _elapsed: float = 0.0
@@ -20,6 +22,11 @@ func _ready() -> void:
 	collision_shape.disabled = true
 	collision_layer = 0
 	collision_mask = 0
+	interaction_area.collision_layer = 0
+	interaction_area.collision_mask = 0
+	interaction_area.monitorable = false
+	interaction_area.monitoring = false
+	interaction_area.add_to_group("shadow_interaction")
 	modulate = Color(0.45, 0.55, 0.9, 0.62)
 
 
@@ -42,6 +49,9 @@ func restart_replay() -> void:
 	collision_layer = 0
 	collision_mask = 0
 	collision_shape.set_deferred("disabled", true)
+	interaction_area.collision_layer = 0
+	interaction_area.monitorable = false
+	interaction_shape.set_deferred("disabled", true)
 	_elapsed = 0.0
 	_point_index = 0
 	_replaying = true
@@ -100,3 +110,6 @@ func _become_solid() -> void:
 	collision_layer = SOLID_COLLISION_LAYER
 	collision_mask = 0
 	collision_shape.set_deferred("disabled", false)
+	interaction_area.collision_layer = SOLID_COLLISION_LAYER
+	interaction_area.monitorable = true
+	interaction_shape.set_deferred("disabled", false)
