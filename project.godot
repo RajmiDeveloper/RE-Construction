@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="RE:Construction"
-run/main_scene="uid://dhcsvmv5gmumo"
+run/main_scene="res://Escenas/Juego.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

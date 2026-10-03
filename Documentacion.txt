@@ -32,3 +32,12 @@ Colisiones e interacciones:
 - El boton reutilizable esta en Escenas/objetos/boton.tscn.
 - El boton detecta la capa del jugador y la capa de sombras, y cambia entre button-export.png y button_pressed-export.png mientras haya un cuerpo valido encima.
 - El boton emite state_changed(bool) para que puertas u otros mecanismos puedan conectarse en el futuro.
+
+Estructura de niveles:
+- Juego.tscn es la escena principal y contiene GameManager, NivelActual, transiciones, menu principal y menu de pausa.
+- Cada sala es una escena independiente de pantalla fija con Mundo, SpawnPoint, Jugador, Mecanismos, Sombras, Salida y Camera2D.
+- nivel_base.gd controla las vidas, las sombras, el reinicio de la sala y la señal level_completed.
+- Las sombras nunca pasan de una sala a otra: cambiar de nivel destruye la sala anterior y todo su estado.
+- La puerta de salida detecta solo al jugador y emite player_reached. Las sombras pueden activar botones, pero no terminar una sala.
+- controlador_puerta.gd abre una puerta cuando todos los botones configurados para esa puerta estan presionados.
+- Backspace reinicia rapidamente la sala durante el desarrollo. R crea una vida/sombra de prueba. Ambos controles son temporales.

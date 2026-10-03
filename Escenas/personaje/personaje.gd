@@ -18,21 +18,23 @@ var _death_y: float
 var _recording: Array[Dictionary] = []
 var _recording_time: float = 0.0
 var _dead: bool = false
+var _controls_enabled: bool = true
 
 func _ready() -> void:
 	_spawn_position = global_position
 	_death_y = global_position.y + death_distance
+	add_to_group("player")
 	_set_animation(ANIM_IDLE)
 	_record_point()
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
+	if _controls_enabled and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
 		die()
 
 
 func _physics_process(delta: float) -> void:
-	if _dead:
+	if _dead or not _controls_enabled:
 		return
 
 	# Gravedad.
@@ -89,6 +91,19 @@ func die() -> void:
 
 func reset_run() -> void:
 	_reset_life()
+
+
+func set_spawn_position(value: Vector2) -> void:
+	_spawn_position = value
+	_death_y = value.y + death_distance
+	global_position = value
+	velocity = Vector2.ZERO
+
+
+func set_controls_enabled(value: bool) -> void:
+	_controls_enabled = value
+	if not _controls_enabled:
+		velocity = Vector2.ZERO
 
 
 func _reset_life() -> void:

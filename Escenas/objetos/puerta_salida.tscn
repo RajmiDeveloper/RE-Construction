@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Escenas/objetos/puerta_salida.gd" id="1_exit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(18, 26)
+
+[node name="PuertaSalida" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_exit")
+
+[node name="DoorVisual" type="Polygon2D" parent="."]
+color = Color(0.360784, 0.721569, 0.360784, 1)
+polygon = PackedVector2Array(-9, 10, -9, -13, 9, -13, 9, 10)
+
+[node name="LightVisual" type="Polygon2D" parent="."]
+color = Color(0.776471, 0.945098, 0.541176, 1)
+polygon = PackedVector2Array(-4, 7, -4, -8, 4, -8, 4, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_exit")

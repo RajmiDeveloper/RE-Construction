@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://Escenas/niveles/nivel_base.gd" id="1_level"]
+[ext_resource type="PackedScene" path="res://Escenas/personaje/personaje.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="3_shadow"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/plataforma.tscn" id="4_platform"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/boton.tscn" id="5_button"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_salida.tscn" id="6_exit"]
+[ext_resource type="Script" path="res://Escenas/objetos/controlador_puerta.gd" id="7_controller"]
+
+[node name="Sala01" type="Node2D"]
+script = ExtResource("1_level")
+level_title = "Sala 1: Primer eco"
+shadow_scene = ExtResource("3_shadow")
+
+[node name="Mundo" type="Node2D" parent="."]
+
+[node name="Suelo" parent="Mundo" instance=ExtResource("4_platform")]
+position = Vector2(0, 104)
+platform_size = Vector2(400, 16)
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(-150, 88)
+
+[node name="Jugador" parent="." instance=ExtResource("2_player")]
+position = Vector2(-150, 88)
+
+[node name="Mecanismos" type="Node2D" parent="."]
+
+[node name="BotonA" parent="Mecanismos" instance=ExtResource("5_button")]
+position = Vector2(-42, 89)
+
+[node name="ControladorPuerta" type="Node" parent="."]
+script = ExtResource("7_controller")
+door_path = NodePath("../Salida")
+button_paths = [NodePath("../Mecanismos/BotonA")]
+
+[node name="Sombras" type="Node2D" parent="."]
+
+[node name="Salida" parent="." instance=ExtResource("6_exit")]
+position = Vector2(155, 86)
+is_open = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 72)
+zoom = Vector2(2.5, 2.5)
+enabled = true

@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://diev00aj8r57n"]
+
+[ext_resource type="Script" uid="uid://dfq68sj7h2epr" path="res://Escenas/niveles/nivel_base.gd" id="1_level"]
+[ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="3_shadow"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/plataforma.tscn" id="4_platform"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/boton.tscn" id="5_button"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_salida.tscn" id="6_exit"]
+[ext_resource type="Script" uid="uid://dpkskyj3rdn2y" path="res://Escenas/objetos/controlador_puerta.gd" id="7_controller"]
+
+[node name="Sala03" type="Node2D" unique_id=351629084]
+script = ExtResource("1_level")
+level_title = "Sala 3: Camino sin retorno"
+shadow_scene = ExtResource("3_shadow")
+
+[node name="Mundo" type="Node2D" parent="." unique_id=1634779529]
+
+[node name="Suelo" parent="Mundo" unique_id=40190306 instance=ExtResource("4_platform")]
+position = Vector2(0, 104)
+platform_size = Vector2(400, 16)
+
+[node name="PlataformaAlta" parent="Mundo" unique_id=1485597734 instance=ExtResource("4_platform")]
+position = Vector2(22, 58)
+platform_size = Vector2(92, 16)
+
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=1589517889]
+position = Vector2(-160, 73)
+
+[node name="Jugador" parent="." unique_id=13826076 instance=ExtResource("2_player")]
+position = Vector2(-160, 61)
+
+[node name="Mecanismos" type="Node2D" parent="." unique_id=914682681]
+
+[node name="BotonA" parent="Mecanismos" unique_id=1236718089 instance=ExtResource("5_button")]
+position = Vector2(22, 42)
+
+[node name="ControladorPuerta" type="Node" parent="." unique_id=381470495]
+script = ExtResource("7_controller")
+door_path = NodePath("../Salida")
+button_paths = Array[NodePath]([NodePath("../Mecanismos/BotonA")])
+
+[node name="Sombras" type="Node2D" parent="." unique_id=1510841675]
+
+[node name="Salida" parent="." unique_id=2009446554 instance=ExtResource("6_exit")]
+position = Vector2(160, 86)
+is_open = false
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=913672559]
+position = Vector2(0, 72)
+zoom = Vector2(2.5, 2.5)

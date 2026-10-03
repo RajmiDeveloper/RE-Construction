@@ -15,6 +15,7 @@ var _pressing_bodies: Array[Node2D] = []
 var _pressing_areas: Array[Area2D] = []
 
 func _ready() -> void:
+	add_to_group("level_resettable")
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	area_entered.connect(_on_area_entered)
@@ -101,3 +102,11 @@ func _update_visual() -> void:
 		return
 
 	sprite.texture = texture_pressed if is_pressed else texture_released
+
+
+func reset_state() -> void:
+	_pressing_bodies.clear()
+	_pressing_areas.clear()
+	is_pressed = false
+	_update_visual()
+	state_changed.emit(false)
