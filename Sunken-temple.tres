@@ -11,6 +11,9 @@ tile_data = PackedInt32Array(0, 262146, 44, 65536, 262146, 45, 131072, 262146, 4
 [sub_resource type="TileMapPattern" id="TileMapPattern_qjxct"]
 tile_data = PackedInt32Array(0, 2, 44, 65536, 2, 45, 131072, 2, 46, 196608, 2, 47, 262144, 2, 48, 327680, 2, 49, 1, 65538, 44, 65537, 65538, 45, 131073, 65538, 46, 196609, 65538, 47, 262145, 65538, 48, 327681, 65538, 49, 2, 131074, 44, 65538, 131074, 45, 131074, 131074, 46, 196610, 131074, 47, 262146, 131074, 48, 327682, 131074, 49, 3, 196610, 44, 65539, 196610, 45, 131075, 196610, 46, 196611, 196610, 47, 262147, 196610, 48, 327683, 196610, 49)
 
+[sub_resource type="TileMapPattern" id="TileMapPattern_na06y"]
+tile_data = PackedInt32Array(0, 1638402, 1, 65536, 1638402, 2, 131072, 1638402, 3, 196608, 1638402, 4, 1, 1703938, 1, 65537, 1703938, 2, 131073, 1703938, 3, 196609, 1703938, 4, 2, 1769474, 1, 65538, 1769474, 2, 131074, 1769474, 3, 196610, 1769474, 4, 3, 1835010, 1, 65539, 1835010, 2, 131075, 1835010, 3, 196611, 1835010, 4)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_51wqh"]
 texture = ExtResource("1_rhonn")
 0:0/0 = 0
@@ -1495,3 +1498,4 @@ sources/2 = SubResource("TileSetAtlasSource_51wqh")
 pattern_0 = SubResource("TileMapPattern_rhonn")
 pattern_1 = SubResource("TileMapPattern_51wqh")
 pattern_2 = SubResource("TileMapPattern_qjxct")
+pattern_3 = SubResource("TileMapPattern_na06y")

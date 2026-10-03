@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dr1o8mnrmg5r4"]
+
+[ext_resource type="Script" uid="uid://b031iun6gdoim" path="res://pinches.gd" id="1_4muq3"]
+[ext_resource type="Texture2D" uid="uid://dcye6scnuijes" path="res://Assets/tilesets/sunken_temple_v1/sunken_blocky.png" id="1_g5mkx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yke14"]
+size = Vector2(20, 13)
+
+[node name="Node2D" type="Node2D" unique_id=1779459369]
+script = ExtResource("1_4muq3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1099525702]
+texture = ExtResource("1_g5mkx")
+region_enabled = true
+region_rect = Rect2(289.10562, 296, 30.894379, 26.783966)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D" unique_id=451874861]
+position = Vector2(0.5, 6.5)
+shape = SubResource("RectangleShape2D_yke14")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=658067344]
+
+[node name="Timer" type="Timer" parent="." unique_id=1164648163]
