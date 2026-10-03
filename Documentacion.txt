@@ -1,0 +1,20 @@
+Titulo: "RE:Construccion"
+
+Core: El jugador al morir deja una "sombra" de su pasado que va a repetir las acciones que el hizo. Se puede transformar en distintas formas para cumplir. El jugador solo puede cambiar 1 vez por vida, asi que tendra
+que utilizar sombras para llegar a la meta
+
+Mecanicas:
+- Salto: se debe poder saltar
+- Cambio de forma:
+
+Formas:
+- metal: resistente a balas y pesado para activar botones. 
+- electrica: puede conducir electricidad para activar mecanismos o pasar por trampas electricas
+- pequeña: pasa por espacios pequeños (tal vez pelea con cucarachas???)
+
+
+
+datos a guardar(puede cambiar):
+3 flotantes
+1 int para la forma
+1 valor para la animacion
