@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 @export var is_open: bool = false
-@export_range(0.0, 256.0, 1.0) var opening_height: float = 64.0
+@export_range(0.0, 256.0, 1.0) var opening_height: float = 96.0
 @export_range(0.0, 2.0, 0.05) var move_duration: float = 0.55
 
 var _closed_position: Vector2

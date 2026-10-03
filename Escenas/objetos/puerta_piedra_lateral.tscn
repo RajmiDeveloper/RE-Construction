@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" path="res://Assets/Mapa/CompuertaPiedra/puerta_piedra_lateral.png" id="2_texture"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gate"]
-size = Vector2(88, 64)
+size = Vector2(64, 96)
 
 [node name="PuertaPiedraLateral" type="StaticBody2D"]
 texture_filter = 1
