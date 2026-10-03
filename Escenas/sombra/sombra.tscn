@@ -1,0 +1,111 @@
+[gd_scene load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://Escenas/sombra/sombra.gd" id="1_shadow"]
+[ext_resource type="Texture2D" path="res://Assets/Personaje/tilset_personaje.png" id="2_character"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vy5do"]
+atlas = ExtResource("2_character")
+region = Rect2(0, 724, 362, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0em06"]
+atlas = ExtResource("2_character")
+region = Rect2(362, 724, 362, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwbbr"]
+atlas = ExtResource("2_character")
+region = Rect2(724, 724, 362, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dj7hg"]
+atlas = ExtResource("2_character")
+region = Rect2(0, 1086, 362, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iecvo"]
+atlas = ExtResource("2_character")
+region = Rect2(362, 1086, 362, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3i006"]
+atlas = ExtResource("2_character")
+region = Rect2(724, 1086, 362, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fiuvs"]
+atlas = ExtResource("2_character")
+region = Rect2(0, 0, 362, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bg16"]
+atlas = ExtResource("2_character")
+region = Rect2(362, 0, 362, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17mgp"]
+atlas = ExtResource("2_character")
+region = Rect2(0, 362, 362, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvq4c"]
+atlas = ExtResource("2_character")
+region = Rect2(362, 362, 362, 362)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_shadow"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vy5do")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0em06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nwbbr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dj7hg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iecvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3i006")
+}],
+"loop": 1,
+"name": &"correr",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fiuvs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bg16")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17mgp")
+}, {
+"duration": 1000.0,
+"texture": SubResource("AtlasTexture_jvq4c")
+}],
+"loop": 1,
+"name": &"saltar",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shadow"]
+size = Vector2(13, 16)
+
+[node name="Sombra" type="StaticBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_shadow")
+
+[node name="Animacion" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -2)
+scale = Vector2(0.054, 0.054)
+sprite_frames = SubResource("SpriteFrames_shadow")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_shadow")
+disabled = true
