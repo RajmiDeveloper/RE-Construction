@@ -41,7 +41,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _controls_enabled and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
+	if not get_tree().paused and _controls_enabled and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
 		die()
 
 

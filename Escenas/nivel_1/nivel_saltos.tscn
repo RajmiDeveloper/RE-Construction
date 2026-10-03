@@ -1,0 +1,17 @@
+[gd_scene format=4 uid="uid://clut53p5yoep"]
+
+[ext_resource type="TileSet" uid="uid://rml0uyl3jisa" path="res://Assets/tilesets/bloques.tres" id="1_tileset"]
+[ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="2_personaje"]
+
+[node name="NivelSaltos" type="Node2D" unique_id=2089722078]
+
+[node name="Bloques" type="TileMapLayer" parent="." unique_id=166600300]
+tile_map_data = PackedByteArray("AAD//woAAAAAAAAAAAAAAAoAAAAAAAAAAAACAAkAAAAAAAAAAAAEAAgAAAAAAAAAAAAGAAcAAAAAAAAAAAAIAAYAAAAAAAAAAAAKAAUAAAAAAAAAAAAMAAQAAAAAAAAAAAAOAAMAAAAAAAAAAAAQAAIAAAAAAAAAAAA=")
+tile_set = ExtResource("1_tileset")
+
+[node name="Personaje" parent="." unique_id=2095673915 instance=ExtResource("2_personaje")]
+position = Vector2(8, 136)
+
+[node name="Camara" type="Camera2D" parent="Personaje" unique_id=1477024790]
+position = Vector2(0, -20)
+zoom = Vector2(2, 2)

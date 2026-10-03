@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Escenas/objetos/puerta_piedra_lateral.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://Assets/Mapa/CompuertaPiedra/puerta_piedra_lateral.png" id="2_texture"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gate"]
+size = Vector2(88, 64)
+
+[node name="PuertaPiedraLateral" type="StaticBody2D"]
+texture_filter = 1
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_texture")
+scale = Vector2(0.0625, 0.0625)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gate")
