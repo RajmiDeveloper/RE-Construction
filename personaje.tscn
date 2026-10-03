@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://bxktqi1enxltu"]
+
+[ext_resource type="Texture2D" uid="uid://bi28wsxuqaicr" path="res://Assets/Personaje/tilset_personaje.png" id="1_4e5bt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltgau"]
+atlas = ExtResource("1_4e5bt")
+region = Rect2(0, 724, 358, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yppqc"]
+atlas = ExtResource("1_4e5bt")
+region = Rect2(358, 724, 358, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gj0cs"]
+atlas = ExtResource("1_4e5bt")
+region = Rect2(716, 724, 358, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ck3sb"]
+atlas = ExtResource("1_4e5bt")
+region = Rect2(0, 0, 358, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cx4ix"]
+atlas = ExtResource("1_4e5bt")
+region = Rect2(358, 0, 358, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35kqm"]
+atlas = ExtResource("1_4e5bt")
+region = Rect2(716, 0, 358, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1y5k2"]
+atlas = ExtResource("1_4e5bt")
+region = Rect2(0, 362, 358, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8plh"]
+atlas = ExtResource("1_4e5bt")
+region = Rect2(358, 362, 358, 362)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqm5q"]
+atlas = ExtResource("1_4e5bt")
+region = Rect2(716, 362, 358, 362)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m0bck"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ltgau")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yppqc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gj0cs")
+}],
+"loop": 1,
+"name": &"correr",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ck3sb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cx4ix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35kqm")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1y5k2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8plh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqm5q")
+}],
+"loop": 1,
+"name": &"saltar",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m0bck"]
+radius = 43.0
+height = 276.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=118688135]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2070837301]
+sprite_frames = SubResource("SpriteFrames_m0bck")
+frame_progress = 0.053567596
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=446743725]
+position = Vector2(2, 42)
+shape = SubResource("CapsuleShape2D_m0bck")
