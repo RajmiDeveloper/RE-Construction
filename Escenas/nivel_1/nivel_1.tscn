@@ -1,0 +1,51 @@
+[gd_scene format=4 uid="uid://dhcsvmv5gmumo"]
+
+[ext_resource type="PackedScene" uid="uid://hw24h1f1ipa" path="res://Escenas/nivel_1/scenes/bordes.tscn" id="1_h0ibw"]
+[ext_resource type="Texture2D" uid="uid://deqlwra4lwpu" path="res://Assets/tileset_bloques_16.png" id="2_4f3do"]
+[ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="3_jfjvu"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oacnx"]
+texture = ExtResource("2_4f3do")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+2:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, -8, 8, 8, 8)
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_d5i3i"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
+physics_layer_1/collision_layer = 2
+physics_layer_1/collision_mask = 0
+sources/1 = SubResource("TileSetAtlasSource_oacnx")
+
+[node name="Node2D" type="Node2D" unique_id=292225927]
+position = Vector2(466, 239)
+
+[node name="Bordes" parent="." unique_id=1600339404 instance=ExtResource("1_h0ibw")]
+
+[node name="Nivel" type="TileMapLayer" parent="." unique_id=1070866597]
+tile_map_data = PackedByteArray("AAD7/wkAAQAAAAAAAAD8/wkAAQAAAAAAAAD8/wgAAQAAAAAAAAD9/wgAAQAAAAAAAAD9/wkAAQAAAAAAAAD+/wkAAQAAAAAAAAABAAgAAQAAAAAAAAACAAcAAQAAAAAAAAADAAcAAQACAAEAAAAEAAcAAQAAAAAAAAAGAAYAAQAAAAAAAAAIAAUAAQAAAAAAAAAJAAUAAQACAAEAAAALAAQAAQAAAAAAAAAMAAQAAQAAAAAAAAA=")
+tile_set = SubResource("TileSet_d5i3i")
+
+[node name="personaje" parent="." unique_id=1412559796 instance=ExtResource("3_jfjvu")]
+position = Vector2(-129, 80)
+scale = Vector2(0.95, 0.95)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1946344814]
+position = Vector2(31, 89)
+zoom = Vector2(2.99, 2.99)

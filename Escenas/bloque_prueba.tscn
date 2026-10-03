@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://c1c6tyabqjoxg"]
+
+[ext_resource type="Texture2D" uid="uid://djrfjda34nj6p" path="res://Assets/Sprite-0002.png" id="1_kkel3"]
+[ext_resource type="Texture2D" uid="uid://cq1bs5kx5qe35" path="res://Assets/Sprite-0001.png" id="1_usluj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_usluj"]
+size = Vector2(122, 119)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kbuar"]
+
+[node name="Bloque prueba" type="Node" unique_id=1447446306]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1117133177]
+position = Vector2(397, 173)
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D" unique_id=2050223315]
+scale = Vector2(1.865, 1.865)
+texture = ExtResource("1_kkel3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=824013417]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_usluj")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=817283239]
+position = Vector2(394, 493)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=720009230]
+scale = Vector2(1.865, 1.865)
+texture = ExtResource("1_usluj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1170363811]
+position = Vector2(-2, -58)
+shape = SubResource("WorldBoundaryShape2D_kbuar")

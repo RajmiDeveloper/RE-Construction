@@ -1,0 +1,54 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://ck6n1xix4s6oh"]
+
+[ext_resource type="Texture2D" uid="uid://deqlwra4lwpu" path="res://Assets/tileset_bloques_16.png" id="1_dlcha"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlu54"]
+atlas = ExtResource("1_dlcha")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlcha"]
+atlas = ExtResource("1_dlcha")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7tge"]
+atlas = ExtResource("1_dlcha")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wx4dw"]
+atlas = ExtResource("1_dlcha")
+region = Rect2(0, 48, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlu54")
+}],
+"loop": 1,
+"name": &"Correr",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlcha")
+}],
+"loop": 1,
+"name": &"Daño",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7tge")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wx4dw")
+}],
+"loop": 1,
+"name": &"Saltar",
+"speed": 5.0
+}]
