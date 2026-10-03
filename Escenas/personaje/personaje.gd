@@ -43,19 +43,22 @@ func _physics_process(delta: float) -> void:
 	var is_jumping := Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_accept")
 	if is_jumping and is_on_floor():
 		velocity.y = jump_velocity
-		_set_animation(ANIM_JUMP)
 
 	# Movimiento horizontal.
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = direction * walk_speed
-		if not is_jumping:
-			_set_animation(ANIM_RUN)
 		animacion.flip_h = direction < 0.0
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, walk_speed)
 
-	if is_on_floor() and is_zero_approx(velocity.x):
+	# La animacion depende primero de si el personaje esta en el aire.
+	# Asi, moverse horizontalmente durante un salto no cambia a correr.
+	if not is_on_floor() or is_jumping:
+		_set_animation(ANIM_JUMP)
+	elif direction:
+		_set_animation(ANIM_RUN)
+	else:
 		_set_animation(ANIM_IDLE)
 
 	move_and_slide()

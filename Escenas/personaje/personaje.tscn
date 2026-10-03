@@ -96,7 +96,6 @@ size = Vector2(13, 16)
 
 [node name="personaje" type="CharacterBody2D" unique_id=1412559796 node_paths=PackedStringArray("animacion", "Trigger")]
 collision_layer = 4
-collision_mask = 1
 script = ExtResource("1_g78av")
 animacion = NodePath("Animacion")
 Trigger = NodePath("Trigger")
@@ -106,15 +105,16 @@ unique_name_in_owner = true
 position = Vector2(0, -1.9999999)
 scale = Vector2(0.054, 0.054)
 sprite_frames = SubResource("SpriteFrames_4bdo0")
-animation = &"correr"
-frame_progress = 0.31485844
+animation = &"idle"
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=2103552631]
 position = Vector2(1, 0)
+scale = Vector2(0.6, 1)
 shape = SubResource("RectangleShape2D_kbuar")
 
 [node name="Trigger" type="Area2D" parent="." unique_id=992491174]
 unique_name_in_owner = true
+position = Vector2(1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger" unique_id=2066502406]
 shape = SubResource("RectangleShape2D_kbuar")

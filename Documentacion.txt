@@ -29,3 +29,6 @@ Colisiones e interacciones:
 - El jugador no utiliza esa capa en su mascara, por lo que nunca choca con una sombra solidificada.
 - Los botones y elementos del entorno que deban reaccionar ante sombras deben usar una collision_mask que incluya la capa de sombras, valor tecnico 8.
 - Las sombras mantienen collision_mask en 0: quedan fijas y pueden ser detectadas por Areas, pero no empujan ni interfieren con el jugador.
+- El boton reutilizable esta en Escenas/objetos/boton.tscn.
+- El boton detecta la capa del jugador y la capa de sombras, y cambia entre button-export.png y button_pressed-export.png mientras haya un cuerpo valido encima.
+- El boton emite state_changed(bool) para que puertas u otros mecanismos puedan conectarse en el futuro.

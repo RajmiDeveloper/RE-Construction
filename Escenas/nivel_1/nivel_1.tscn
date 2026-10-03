@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="3_jfjvu"]
 [ext_resource type="Script" path="res://Escenas/nivel_1/nivel_1.gd" id="4_level"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="5_shadow"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/boton.tscn" id="6_button"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oacnx"]
 texture = ExtResource("2_4f3do")
@@ -49,6 +50,9 @@ tile_set = SubResource("TileSet_d5i3i")
 [node name="personaje" parent="." unique_id=1412559796 instance=ExtResource("3_jfjvu")]
 position = Vector2(-129, 80)
 scale = Vector2(0.95, 0.95)
+
+[node name="Boton" parent="." instance=ExtResource("6_button")]
+position = Vector2(-96, 80)
 
 [node name="Sombras" type="Node2D" parent="."]
 
