@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bxktqi1enxltu"]
 
 [ext_resource type="Texture2D" uid="uid://bi28wsxuqaicr" path="res://Assets/Personaje/tilset_personaje.png" id="1_4e5bt"]
+[ext_resource type="Script" uid="uid://s6k1spfsmg52" path="res://personaje.gd" id="1_ltgau"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ltgau"]
 atlas = ExtResource("1_4e5bt")
@@ -65,7 +66,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_35kqm")
 }],
 "loop": 1,
-"name": &"default",
+"name": &"idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -87,11 +88,13 @@ animations = [{
 radius = 43.0
 height = 276.0
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=118688135]
+[node name="Personaje" type="CharacterBody2D" unique_id=118688135]
+script = ExtResource("1_ltgau")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2070837301]
 sprite_frames = SubResource("SpriteFrames_m0bck")
-frame_progress = 0.053567596
+animation = &"idle"
+frame_progress = 0.5895572
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=446743725]
 position = Vector2(2, 42)
