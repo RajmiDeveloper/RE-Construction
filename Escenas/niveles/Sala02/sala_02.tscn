@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://Escenas/niveles/nivel_base.gd" id="1_level"]
 [ext_resource type="PackedScene" path="res://Escenas/personaje/personaje.tscn" id="2_player"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" path="res://Escenas/objetos/plataforma/plataforma.tscn" id="4_platform"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/boton/boton.tscn" id="5_button"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="6_exit"]
-[ext_resource type="Script" path="res://Escenas/objetos/puerta_salida/controlador_puerta.gd" id="7_controller"]
 
 [node name="Sala02" type="Node2D"]
 script = ExtResource("1_level")
@@ -34,16 +33,10 @@ position = Vector2(-170, 88)
 [node name="BotonA" parent="Mecanismos" instance=ExtResource("5_button")]
 position = Vector2(-42, 89)
 
-[node name="ControladorPuerta" type="Node" parent="."]
-script = ExtResource("7_controller")
-door_path = NodePath("../Salida")
-button_paths = [NodePath("../Mecanismos/BotonA")]
-
 [node name="Sombras" type="Node2D" parent="."]
 
 [node name="Salida" parent="." instance=ExtResource("6_exit")]
 position = Vector2(160, 86)
-is_open = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 72)

@@ -4,7 +4,6 @@ extends Node2D
 
 @onready var player = $personaje
 @onready var shadows_container: Node2D = $Sombras
-@onready var form_menu = $FormMenu
 @onready var pause_menu: CanvasLayer = $PauseMenu
 
 var _spawn_position: Vector2
@@ -17,7 +16,6 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_spawn_position = player.global_position
 	player.life_finished.connect(_on_player_life_finished)
-	form_menu.form_selected.connect(_on_form_selected)
 	pause_menu.get_node("Panel/ContinueButton").pressed.connect(_resume_game)
 	pause_menu.get_node("Panel/RestartButton").pressed.connect(_restart_test)
 
@@ -26,24 +24,14 @@ func _input(event: InputEvent) -> void:
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
 
-	if form_menu.visible:
-		if event.keycode == KEY_TAB or event.keycode == KEY_ESCAPE:
-			_close_form_menu()
-			get_viewport().set_input_as_handled()
-		return
-
-	if event.keycode == KEY_TAB:
-		if not pause_menu.visible and player.can_transform and player.get_form_id() == FormCatalog.NORMAL:
-			form_menu.open([FormCatalog.METAL, FormCatalog.FUEGO, FormCatalog.ELECTRICA])
-			get_tree().paused = true
-		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_cancel"):
 		if pause_menu.visible:
 			_resume_game()
-		else:
+			get_viewport().set_input_as_handled()
+		elif not get_tree().paused:
 			_pause_game()
-		get_viewport().set_input_as_handled()
-	elif event.keycode == KEY_BACKSPACE:
+			get_viewport().set_input_as_handled()
+	elif event.keycode == KEY_BACKSPACE and not get_tree().paused:
 		_restart_test()
 		get_viewport().set_input_as_handled()
 
@@ -81,16 +69,6 @@ func reset_run() -> void:
 			resettable.reset_state()
 	player.reset_run()
 	player.global_position = _spawn_position
-
-
-func _on_form_selected(form_id: int) -> void:
-	player.transform_to(form_id)
-	_close_form_menu()
-
-
-func _close_form_menu() -> void:
-	form_menu.close()
-	get_tree().paused = false
 
 
 func _pause_game() -> void:

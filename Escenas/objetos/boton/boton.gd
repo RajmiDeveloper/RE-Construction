@@ -14,6 +14,7 @@ const SHADOW_LAYER: int = 8
 var is_pressed: bool = false
 var _pressing_bodies: Array[Node2D] = []
 var _pressing_areas: Array[Area2D] = []
+var _linked_gate: Node
 
 func _ready() -> void:
 	add_to_group("level_resettable")
@@ -116,3 +117,16 @@ func reset_state() -> void:
 	is_pressed = false
 	_update_visual()
 	state_changed.emit(false)
+
+
+func claim_gate(gate: Node) -> bool:
+	if is_instance_valid(_linked_gate) and _linked_gate != gate:
+		push_error("El boton %s ya esta asignado a la compuerta %s." % [name, _linked_gate.name])
+		return false
+	_linked_gate = gate
+	return true
+
+
+func release_gate(gate: Node) -> void:
+	if _linked_gate == gate:
+		_linked_gate = null

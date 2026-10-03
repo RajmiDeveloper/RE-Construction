@@ -4,6 +4,7 @@
 [ext_resource type="SpriteFrames" uid="uid://cb046vrq8fdu0" path="res://Escenas/personaje/animacion_base.tres" id="2_frames"]
 [ext_resource type="SpriteFrames" uid="uid://bmja33aiaugci" path="res://Escenas/personaje/animacion_efecto_fuego.tres" id="3_fire_effect"]
 [ext_resource type="SpriteFrames" uid="uid://bv44bopltbmcm" path="res://Escenas/personaje/animacion_efecto_electrico.tres" id="4_electric_effect"]
+[ext_resource type="Script" uid="uid://boqytgtjxmybu" path="res://Escenas/form_menu.gd" id="5_form_menu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(13, 16)
@@ -49,3 +50,71 @@ position = Vector2(0, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger" unique_id=2066502406]
 shape = SubResource("RectangleShape2D_player")
+
+[node name="FormMenu" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 40
+visible = false
+script = ExtResource("5_form_menu")
+
+[node name="Backdrop" type="ColorRect" parent="FormMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.027, 0.05, 0.86)
+
+[node name="Panel" type="VBoxContainer" parent="FormMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -210.0
+offset_right = 155.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="FormMenu/Panel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Elegir forma"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="FormMenu/Panel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.76, 0.86, 1)
+text = "Tab o Escape para cancelar"
+horizontal_alignment = 1
+
+[node name="MetalButton" type="Button" parent="FormMenu/Panel"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.84, 0.92, 1)
+theme_override_colors/font_hover_color = Color(0.86, 0.94, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "▰  METAL"
+tooltip_text = "Transformarse en metal: activa botones"
+
+[node name="FireButton" type="Button" parent="FormMenu/Panel"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.55, 0.18, 1)
+theme_override_colors/font_hover_color = Color(1, 0.78, 0.35, 1)
+theme_override_font_sizes/font_size = 24
+text = "FUEGO"
+tooltip_text = "Transformarse en fuego"
+
+[node name="ElectricButton" type="Button" parent="FormMenu/Panel"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.22, 1)
+theme_override_colors/font_hover_color = Color(1, 0.97, 0.62, 1)
+theme_override_font_sizes/font_size = 24
+text = "ELÉCTRICA"
+tooltip_text = "Transformarse en forma eléctrica"

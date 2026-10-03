@@ -14,11 +14,30 @@ func _ready() -> void:
 	electric_button.pressed.connect(_on_electric_pressed)
 
 
+func _input(event: InputEvent) -> void:
+	if not event is InputEventKey or not event.pressed or event.echo:
+		return
+	if visible:
+		if event.keycode == KEY_TAB or event.keycode == KEY_ESCAPE:
+			close()
+			get_viewport().set_input_as_handled()
+		return
+	if event.keycode != KEY_TAB or get_tree().paused:
+		return
+	var player = get_parent()
+	if player.has_method("can_open_form_menu") and player.can_open_form_menu():
+		open([FormCatalog.METAL, FormCatalog.FUEGO, FormCatalog.ELECTRICA])
+		get_viewport().set_input_as_handled()
+
+
 func open(available_forms: Array) -> void:
+	if visible or get_tree().paused:
+		return
 	metal_button.visible = available_forms.has(FormCatalog.METAL)
 	fire_button.visible = available_forms.has(FormCatalog.FUEGO)
 	electric_button.visible = available_forms.has(FormCatalog.ELECTRICA)
 	visible = true
+	get_tree().paused = true
 	if metal_button.visible:
 		metal_button.grab_focus()
 	elif fire_button.visible:
@@ -28,11 +47,19 @@ func open(available_forms: Array) -> void:
 
 
 func close() -> void:
+	if not visible:
+		return
 	visible = false
 	var focus_owner := get_viewport().gui_get_focus_owner()
 	if is_instance_valid(focus_owner):
 		focus_owner.release_focus()
+	get_tree().paused = false
 	menu_closed.emit()
+
+
+func _exit_tree() -> void:
+	if visible:
+		get_tree().paused = false
 
 
 func _on_metal_pressed() -> void:

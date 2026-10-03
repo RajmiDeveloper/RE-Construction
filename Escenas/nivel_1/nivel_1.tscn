@@ -6,9 +6,8 @@
 [ext_resource type="Script" uid="uid://b5y3nyhxcdc0r" path="res://Escenas/nivel_1/nivel_1.gd" id="4_level"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="5_shadow"]
 [ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="6_button"]
-[ext_resource type="Script" uid="uid://boqytgtjxmybu" path="res://Escenas/form_menu.gd" id="7_form_menu"]
 [ext_resource type="PackedScene" uid="uid://booh45x7qreql" path="res://Escenas/objetos/palanca/palanca.tscn" id="8_lever"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="9_stone_gate"]
+[ext_resource type="PackedScene" uid="uid://cbst5h3sfyuli" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="9_stone_gate"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oacnx"]
 texture = ExtResource("2_4f3do")
@@ -59,9 +58,15 @@ position = Vector2(-97, 156)
 
 [node name="CompuertaPiedra" parent="." unique_id=343836135 instance=ExtResource("9_stone_gate")]
 position = Vector2(184, 118)
+opening_height = 34.0
+button_path = NodePath("../Boton")
 
 [node name="Palanca" parent="." unique_id=1340177619 instance=ExtResource("8_lever")]
 position = Vector2(-49, 142)
+
+[node name="CompuertaPiedra2" parent="." unique_id=651133313 instance=ExtResource("9_stone_gate")]
+position = Vector2(103, 118)
+button_path = NodePath("../Boton")
 
 [node name="Sombras" type="Node2D" parent="." unique_id=1182552290]
 
@@ -111,71 +116,3 @@ text = "Continuar"
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Reiniciar campo"
-
-[node name="FormMenu" type="CanvasLayer" parent="." unique_id=326585003]
-process_mode = 3
-layer = 40
-visible = false
-script = ExtResource("7_form_menu")
-
-[node name="Backdrop" type="ColorRect" parent="FormMenu" unique_id=78323313]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.02, 0.027, 0.05, 0.86)
-
-[node name="Panel" type="VBoxContainer" parent="FormMenu" unique_id=507769001]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -155.0
-offset_top = -210.0
-offset_right = 155.0
-offset_bottom = 210.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 14
-
-[node name="Title" type="Label" parent="FormMenu/Panel" unique_id=1076071769]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 28
-text = "Elegir forma"
-horizontal_alignment = 1
-
-[node name="Hint" type="Label" parent="FormMenu/Panel" unique_id=1459248836]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.7, 0.76, 0.86, 1)
-text = "Tab o Escape para cancelar"
-horizontal_alignment = 1
-
-[node name="MetalButton" type="Button" parent="FormMenu/Panel" unique_id=157386237]
-custom_minimum_size = Vector2(0, 90)
-layout_mode = 2
-tooltip_text = "Transformarse en metal: activa botones"
-theme_override_colors/font_color = Color(0.72, 0.84, 0.92, 1)
-theme_override_colors/font_hover_color = Color(0.86, 0.94, 1, 1)
-theme_override_font_sizes/font_size = 24
-text = "▰  METAL"
-
-[node name="FireButton" type="Button" parent="FormMenu/Panel" unique_id=1541572099]
-custom_minimum_size = Vector2(0, 90)
-layout_mode = 2
-tooltip_text = "Transformarse en fuego"
-theme_override_colors/font_color = Color(1, 0.55, 0.18, 1)
-theme_override_colors/font_hover_color = Color(1, 0.78, 0.35, 1)
-theme_override_font_sizes/font_size = 24
-text = "FUEGO"
-
-[node name="ElectricButton" type="Button" parent="FormMenu/Panel" unique_id=1975950286]
-custom_minimum_size = Vector2(0, 90)
-layout_mode = 2
-tooltip_text = "Transformarse en forma eléctrica"
-theme_override_colors/font_color = Color(1, 0.88, 0.22, 1)
-theme_override_colors/font_hover_color = Color(1, 0.97, 0.62, 1)
-theme_override_font_sizes/font_size = 24
-text = "ELÉCTRICA"

@@ -63,19 +63,21 @@ Colisiones e interacciones:
 - El boton reutilizable esta en Escenas/objetos/boton.tscn.
 - El boton detecta la capa del jugador y la capa de sombras, y cambia entre button-export.png y button_pressed-export.png mientras haya un cuerpo valido encima.
 - En la primera version solo acepta cuerpos con get_form_id() == Metal. El jugador Normal y las sombras Normal no lo activan.
-- El boton emite state_changed(bool) para que puertas u otros mecanismos puedan conectarse en el futuro.
+- Cada boton solo puede asignarse a una compuerta. La compuerta recibe un unico button_path desde el Inspector y expone is_open, opening_height, move_duration y activated_texture para ajustar su comportamiento.
+- El boton emite state_changed(bool) para actualizar la compuerta asignada; una segunda compuerta no puede reclamar el mismo boton.
 
 Menu de formas:
-- FormMenu vive en Juego.tscn y usa PROCESS_MODE_ALWAYS para recibir input mientras el arbol esta pausado.
-- El GameManager solo lo abre con una sala activa, sin transicion, pausa general ni sala completada.
-- El menu muestra inicialmente una unica opcion temporal: "Metal", representada como una viga.
+- FormMenu vive en personaje.tscn y usa PROCESS_MODE_ALWAYS para recibir input mientras el arbol esta pausado.
+- El propio jugador lo abre con Tab si tiene los controles activos y aun puede transformarse, sin depender de Juego.tscn ni del orden de las salas.
+- El menu ofrece Metal, Fuego y Electrica; al elegir una forma, el jugador se transforma y el juego se reanuda.
 
 Estructura de niveles:
 - Juego.tscn es la escena principal y contiene GameManager, NivelActual, transiciones, menu principal y menu de pausa.
 - Cada sala es una escena independiente de pantalla fija con Mundo, SpawnPoint, Jugador, Mecanismos, Sombras, Salida y Camera2D.
 - nivel_base.gd controla las vidas, las sombras, el reinicio de la sala y la señal level_completed.
-- Sala01 conserva el mapa del templo y ahora usa el jugador compartido, el sistema base de sombras, un boton Metal y una puerta conectada al boton.
+- Sala01 conserva el mapa del templo y usa el jugador compartido, el sistema base de sombras, un boton Metal y una salida independiente.
 - Las sombras nunca pasan de una sala a otra: cambiar de nivel destruye la sala anterior y todo su estado.
-- La puerta de salida detecta solo al jugador y emite player_reached. Las sombras pueden activar botones, pero no terminar una sala.
-- controlador_puerta.gd abre una puerta cuando todos los botones configurados para esa puerta estan presionados.
+- La puerta de salida es el objetivo del nivel, detecta solo al jugador y emite player_reached. No se conecta a botones.
+- Los botones activan compuertas u otros mecanismos. Las sombras pueden activarlos, pero no terminar una sala.
+- controlador_puerta.gd abre la compuerta configurada cuando todos sus botones estan presionados.
 - Backspace reinicia rapidamente la sala durante el desarrollo. R crea una vida/sombra de prueba. Ambos controles son temporales.

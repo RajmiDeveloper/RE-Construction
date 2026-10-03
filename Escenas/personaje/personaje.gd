@@ -8,6 +8,7 @@ const FORM_SHADER = preload("res://Escenas/personaje/forma_tint.gdshader")
 
 @onready var fire_effect: AnimatedSprite2D = $EfectoFuego
 @onready var electric_effect: AnimatedSprite2D = $EfectoElectrico
+@onready var form_menu = $FormMenu
 
 signal life_finished(recording: Array)
 signal form_changed(form_id: int)
@@ -34,6 +35,7 @@ func _ready() -> void:
 	_spawn_position = global_position
 	_death_y = global_position.y + death_distance
 	add_to_group("player")
+	form_menu.form_selected.connect(_on_form_selected)
 	_setup_form_material()
 	reset_form()
 	_set_animation(ANIM_IDLE)
@@ -128,6 +130,17 @@ func get_form_id() -> int:
 	return current_form
 
 
+func can_open_form_menu() -> bool:
+	return not _dead and _controls_enabled and can_transform and current_form == FormCatalog.NORMAL
+
+
+func _on_form_selected(form_id: int) -> void:
+	if not form_menu.visible:
+		return
+	transform_to(form_id)
+	form_menu.close()
+
+
 func reset_form() -> void:
 	var changed := current_form != FormCatalog.NORMAL or not can_transform
 	current_form = FormCatalog.NORMAL
@@ -147,6 +160,7 @@ func set_spawn_position(value: Vector2) -> void:
 func set_controls_enabled(value: bool) -> void:
 	_controls_enabled = value
 	if not _controls_enabled:
+		form_menu.close()
 		velocity = Vector2.ZERO
 
 

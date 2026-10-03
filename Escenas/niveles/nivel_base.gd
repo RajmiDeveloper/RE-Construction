@@ -56,23 +56,6 @@ func restart_current_life() -> void:
 	player.set_controls_enabled(_active)
 
 
-func can_transform_player() -> bool:
-	return _active and not _completed and is_instance_valid(player) \
-		and player.can_transform and player.get_form_id() == FormCatalog.NORMAL
-
-
-func transform_player(form_id: int) -> bool:
-	if not can_transform_player():
-		return false
-	return player.transform_to(form_id)
-
-
-func get_player_form() -> int:
-	if not is_instance_valid(player):
-		return FormCatalog.NORMAL
-	return player.get_form_id()
-
-
 func _on_player_life_finished(recording: Array) -> void:
 	if not _active or _completed:
 		return

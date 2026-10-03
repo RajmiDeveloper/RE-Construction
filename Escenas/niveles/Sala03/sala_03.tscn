@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" path="res://Escenas/objetos/plataforma/plataforma.tscn" id="4_platform"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/boton/boton.tscn" id="5_button"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="6_exit"]
-[ext_resource type="Script" uid="uid://dpkskyj3rdn2y" path="res://Escenas/objetos/puerta_salida/controlador_puerta.gd" id="7_controller"]
 
 [node name="Sala03" type="Node2D" unique_id=351629084]
 script = ExtResource("1_level")
@@ -34,16 +33,10 @@ position = Vector2(-160, 61)
 [node name="BotonA" parent="Mecanismos" unique_id=1236718089 instance=ExtResource("5_button")]
 position = Vector2(22, 42)
 
-[node name="ControladorPuerta" type="Node" parent="." unique_id=381470495]
-script = ExtResource("7_controller")
-door_path = NodePath("../Salida")
-button_paths = Array[NodePath]([NodePath("../Mecanismos/BotonA")])
-
 [node name="Sombras" type="Node2D" parent="." unique_id=1510841675]
 
 [node name="Salida" parent="." unique_id=2009446554 instance=ExtResource("6_exit")]
 position = Vector2(160, 86)
-is_open = false
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=913672559]
 position = Vector2(0, 72)

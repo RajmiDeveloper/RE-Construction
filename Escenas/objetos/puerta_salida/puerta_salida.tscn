@@ -1,25 +1,25 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://bntej8xllgwpn"]
 
-[ext_resource type="Script" path="res://Escenas/objetos/puerta_salida/puerta_salida.gd" id="1_exit"]
-[ext_resource type="Texture2D" path="res://Assets/Mapa/Puerta/puerta_cerrada.png" id="2_closed"]
-[ext_resource type="Texture2D" path="res://Assets/Mapa/Puerta/puerta_abierta.png" id="3_open"]
+[ext_resource type="Script" uid="uid://cvuig7037fp1i" path="res://Escenas/objetos/puerta_salida/puerta_salida.gd" id="1_exit"]
+[ext_resource type="Texture2D" uid="uid://dohcuch6qljir" path="res://Assets/Mapa/Puerta/puerta_cerrada.png" id="2_closed"]
+[ext_resource type="Texture2D" uid="uid://c020i8c0mpj0j" path="res://Assets/Mapa/Puerta/puerta_abierta.png" id="3_open"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
-size = Vector2(36, 32)
+size = Vector2(43, 57)
 
-[node name="PuertaSalida" type="Area2D"]
+[node name="PuertaSalida" type="Area2D" unique_id=255757686]
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_exit")
 
-[node name="PuertaCerrada" type="Sprite2D" parent="."]
+[node name="PuertaCerrada" type="Sprite2D" parent="." unique_id=1359213965]
 z_index = -1
 texture_filter = 1
 position = Vector2(0, -18)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_closed")
 
-[node name="PuertaAbierta" type="Sprite2D" parent="."]
+[node name="PuertaAbierta" type="Sprite2D" parent="." unique_id=1531382111]
 visible = false
 z_index = -1
 texture_filter = 1
@@ -27,6 +27,6 @@ position = Vector2(0, -18)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_open")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -10)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=505875627]
+position = Vector2(-0.5, -17.5)
 shape = SubResource("RectangleShape2D_exit")

@@ -4,7 +4,7 @@ extends AnimatableBody2D
 @export_range(0.0, 256.0, 1.0) var opening_height: float = 96.0
 @export_range(0.0, 2.0, 0.05) var move_duration: float = 2.0
 @export var activated_texture: Texture2D
-@export var button_path: NodePath = NodePath("../Boton")
+@export_node_path("Area2D") var button_path: NodePath
 
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -20,9 +20,14 @@ func _ready() -> void:
 	_closed_position = position
 	_initial_open_state = is_open
 	_closed_texture = sprite.texture
-	_button = get_node_or_null(button_path)
-	if is_instance_valid(_button) and _button.has_signal("state_changed"):
-		_button.state_changed.connect(_on_button_state_changed)
+	if not button_path.is_empty():
+		_button = get_node_or_null(button_path)
+	if is_instance_valid(_button):
+		if not _button.has_signal("state_changed") or not _button.has_method("claim_gate") or not _button.claim_gate(self):
+			push_error("La compuerta %s necesita un boton libre con la señal state_changed." % name)
+			_button = null
+		else:
+			_button.state_changed.connect(_on_button_state_changed)
 	_move_to_state(is_open, false)
 	call_deferred("_sync_button_state")
 
@@ -49,6 +54,11 @@ func _on_button_state_changed(pressed: bool) -> void:
 func _sync_button_state() -> void:
 	if is_instance_valid(_button):
 		set_open(bool(_button.get("is_pressed")))
+
+
+func _exit_tree() -> void:
+	if is_instance_valid(_button) and _button.has_method("release_gate"):
+		_button.release_gate(self)
 
 
 func _move_to_state(open: bool, animate: bool) -> void:
