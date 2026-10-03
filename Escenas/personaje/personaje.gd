@@ -56,7 +56,8 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Salto con flecha arriba o barra espaciadora.
-	var is_jumping := Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_accept")
+	var enter_pressed := Input.is_key_pressed(KEY_ENTER) or Input.is_key_pressed(KEY_KP_ENTER)
+	var is_jumping := Input.is_action_just_pressed("ui_up") or (Input.is_action_just_pressed("ui_accept") and not enter_pressed)
 	if is_jumping and is_on_floor():
 		velocity.y = jump_velocity
 

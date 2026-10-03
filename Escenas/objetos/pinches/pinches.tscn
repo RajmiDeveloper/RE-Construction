@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dr1o8mnrmg5r4"]
 
-[ext_resource type="Script" uid="uid://b031iun6gdoim" path="res://Assets/Mapa/pinches/pinches.gd" id="1_4muq3"]
+[ext_resource type="Script" uid="uid://b031iun6gdoim" path="res://Escenas/objetos/pinches/pinches.gd" id="1_4muq3"]
 [ext_resource type="Texture2D" uid="uid://dcye6scnuijes" path="res://Assets/tilesets/sunken_temple_v1/sunken_blocky.png" id="1_g5mkx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0bck"]

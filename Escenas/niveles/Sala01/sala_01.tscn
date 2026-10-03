@@ -5,10 +5,10 @@
 [ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Sunken-temple.tres" id="5_l2pov"]
 [ext_resource type="Script" uid="uid://bttkh2ocbt2jk" path="res://Escenas/niveles/Sala01/sala_01_controller.gd" id="6_controller"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="7_shadow"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/boton.tscn" id="8_button"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_salida.tscn" id="9_exit"]
-[ext_resource type="PackedScene" uid="uid://dr1o8mnrmg5r4" path="res://Assets/Mapa/pinches/pinches.tscn" id="9_nbcrp"]
-[ext_resource type="Script" uid="uid://dpkskyj3rdn2y" path="res://Escenas/objetos/controlador_puerta.gd" id="10_door_controller"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/boton/boton.tscn" id="8_button"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="9_exit"]
+[ext_resource type="PackedScene" uid="uid://dr1o8mnrmg5r4" path="res://Escenas/objetos/pinches/pinches.tscn" id="9_nbcrp"]
+[ext_resource type="Script" uid="uid://dpkskyj3rdn2y" path="res://Escenas/objetos/puerta_salida/controlador_puerta.gd" id="10_door_controller"]
 
 [node name="Sala01" type="Node2D" unique_id=2119282324]
 script = ExtResource("6_controller")

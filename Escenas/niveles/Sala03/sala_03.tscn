@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://dfq68sj7h2epr" path="res://Escenas/niveles/nivel_base.gd" id="1_level"]
 [ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="2_player"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="3_shadow"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/plataforma.tscn" id="4_platform"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/boton.tscn" id="5_button"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_salida.tscn" id="6_exit"]
-[ext_resource type="Script" uid="uid://dpkskyj3rdn2y" path="res://Escenas/objetos/controlador_puerta.gd" id="7_controller"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/plataforma/plataforma.tscn" id="4_platform"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/boton/boton.tscn" id="5_button"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="6_exit"]
+[ext_resource type="Script" uid="uid://dpkskyj3rdn2y" path="res://Escenas/objetos/puerta_salida/controlador_puerta.gd" id="7_controller"]
 
 [node name="Sala03" type="Node2D" unique_id=351629084]
 script = ExtResource("1_level")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cafidh4oq1rgs"
-path="res://.godot/imported/button_pressed.png-87fe963fc16ed2cf527395ebc9f80132.ctex"
+uid="uid://df8d7j2q4nak"
+path="res://.godot/imported/palanca_bajar.png-10e2918fcb0f93678354d87ab9824429.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mapa/boton/button_pressed.png"
-dest_files=["res://.godot/imported/button_pressed.png-87fe963fc16ed2cf527395ebc9f80132.ctex"]
+source_file="res://Assets/Mapa/Palanca/palanca_bajar.png"
+dest_files=["res://.godot/imported/palanca_bajar.png-10e2918fcb0f93678354d87ab9824429.ctex"]
 
 [params]
 

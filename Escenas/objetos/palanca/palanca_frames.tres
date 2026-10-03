@@ -1,0 +1,62 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cnlyo16t7mflb"]
+
+[ext_resource type="Texture2D" uid="uid://db5mt2exr3kp4" path="res://Assets/Mapa/Palanca/palanca.png" id="1_lever"]
+[ext_resource type="Texture2D" uid="uid://df8d7j2q4nak" path="res://Assets/Mapa/Palanca/palanca_bajar.png" id="2_lower"]
+[ext_resource type="Texture2D" path="res://Assets/Mapa/Palanca/palanca_inicial_ajustada.png" id="3_start"]
+
+[sub_resource type="AtlasTexture" id="LeverLeft"]
+atlas = ExtResource("3_start")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="LeverUp"]
+atlas = ExtResource("2_lower")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="LeverStep1"]
+atlas = ExtResource("2_lower")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="LeverStep2"]
+atlas = ExtResource("2_lower")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="LeverStep3"]
+atlas = ExtResource("2_lower")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="LeverStep4"]
+atlas = ExtResource("2_lower")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="LeverRight"]
+atlas = ExtResource("2_lower")
+region = Rect2(64, 32, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("LeverLeft")
+}, {
+"duration": 1.0,
+"texture": SubResource("LeverUp")
+}, {
+"duration": 1.0,
+"texture": SubResource("LeverStep1")
+}, {
+"duration": 1.0,
+"texture": SubResource("LeverStep2")
+}, {
+"duration": 1.0,
+"texture": SubResource("LeverStep3")
+}, {
+"duration": 1.0,
+"texture": SubResource("LeverStep4")
+}, {
+"duration": 1.0,
+"texture": SubResource("LeverRight")
+}],
+"loop": 0,
+"name": &"activar",
+"speed": 8.0
+}]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://Escenas/objetos/puerta_salida.gd" id="1_exit"]
+[ext_resource type="Script" path="res://Escenas/objetos/puerta_salida/puerta_salida.gd" id="1_exit"]
 [ext_resource type="Texture2D" path="res://Assets/Mapa/Puerta/puerta_cerrada.png" id="2_closed"]
 [ext_resource type="Texture2D" path="res://Assets/Mapa/Puerta/puerta_abierta.png" id="3_open"]
 
