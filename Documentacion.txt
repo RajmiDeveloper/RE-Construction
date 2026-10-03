@@ -11,6 +11,8 @@ Formas:
 - metal: resistente a balas y pesado para activar botones. 
 - electrica: puede conducir electricidad para activar mecanismos o pasar por trampas electricas
 - pequeña: pasa por espacios pequeños (tal vez pelea con cucarachas???)
+- puente: Sirve para crear conexion entre zonas o crear protecciones de cosas que caen
+- fuego: puede derretir cosas o pasar por zonas calientes
 
 
 
