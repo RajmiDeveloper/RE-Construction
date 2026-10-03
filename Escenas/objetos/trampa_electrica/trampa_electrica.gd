@@ -8,6 +8,7 @@ const CANTIDAD_CUADROS: int = 4
 @export_node_path("Sprite2D") var modulo_superior_path: NodePath
 @export_node_path("Sprite2D") var modulo_inferior_path: NodePath
 @export var starts_active: bool = true
+@export var horizontal: bool = false
 @export_range(1.0, 24.0, 1.0) var cuadros_por_segundo: float = 8.0
 @export_range(1.0, 48.0, 1.0) var ancho_zona_peligro: float = 14.0
 
@@ -20,6 +21,7 @@ var _segmentos: Array[Sprite2D] = []
 var _ultimo_inicio: Vector2
 var _ultimo_fin: Vector2
 var _ultimo_ancho_zona: float = -1.0
+var _ultima_orientacion_horizontal: bool = false
 var _geometria_valida: bool = false
 var _active: bool = true
 var _initial_active: bool = true
@@ -58,12 +60,13 @@ func _process(delta: float) -> void:
 			update_configuration_warnings()
 		return
 
-	var inicio := _obtener_borde_inferior(_modulo_superior)
-	var fin := _obtener_borde_superior(_modulo_inferior)
-	if not _geometria_valida or inicio != _ultimo_inicio or fin != _ultimo_fin or ancho_zona_peligro != _ultimo_ancho_zona:
+	var inicio := _obtener_inicio(_modulo_superior)
+	var fin := _obtener_fin(_modulo_inferior)
+	if not _geometria_valida or inicio != _ultimo_inicio or fin != _ultimo_fin or ancho_zona_peligro != _ultimo_ancho_zona or horizontal != _ultima_orientacion_horizontal:
 		_ultimo_inicio = inicio
 		_ultimo_fin = fin
 		_ultimo_ancho_zona = ancho_zona_peligro
+		_ultima_orientacion_horizontal = horizontal
 		_geometria_valida = true
 		_reconstruir_descarga(inicio, fin)
 
@@ -114,37 +117,69 @@ func _obtener_borde_superior(modulo: Sprite2D) -> Vector2:
 	return extremo_a if extremo_a.y < extremo_b.y else extremo_b
 
 
+func _obtener_borde_izquierdo(modulo: Sprite2D) -> Vector2:
+	var ancho := _ancho_modulo(modulo)
+	var extremo_a := to_local(modulo.to_global(Vector2(-ancho * 0.5, 0.0)))
+	var extremo_b := to_local(modulo.to_global(Vector2(ancho * 0.5, 0.0)))
+	return extremo_a if extremo_a.x < extremo_b.x else extremo_b
+
+
+func _obtener_borde_derecho(modulo: Sprite2D) -> Vector2:
+	var ancho := _ancho_modulo(modulo)
+	var extremo_a := to_local(modulo.to_global(Vector2(-ancho * 0.5, 0.0)))
+	var extremo_b := to_local(modulo.to_global(Vector2(ancho * 0.5, 0.0)))
+	return extremo_a if extremo_a.x > extremo_b.x else extremo_b
+
+
+func _obtener_inicio(modulo: Sprite2D) -> Vector2:
+	return _obtener_borde_derecho(modulo) if horizontal else _obtener_borde_inferior(modulo)
+
+
+func _obtener_fin(modulo: Sprite2D) -> Vector2:
+	return _obtener_borde_izquierdo(modulo) if horizontal else _obtener_borde_superior(modulo)
+
+
 func _alto_modulo(modulo: Sprite2D) -> float:
 	if modulo.texture == null:
 		return CUADRO
 	return float(modulo.texture.get_height())
 
 
+func _ancho_modulo(modulo: Sprite2D) -> float:
+	if modulo.texture == null:
+		return CUADRO
+	return float(modulo.texture.get_width())
+
+
 func _reconstruir_descarga(inicio: Vector2, fin: Vector2) -> void:
 	_limpiar_descarga()
-	var alineados := absf(inicio.x - fin.x) <= 0.5
-	var distancia := fin.y - inicio.y
+	var alineados := absf(inicio.y - fin.y) <= 0.5 if horizontal else absf(inicio.x - fin.x) <= 0.5
+	var distancia := fin.x - inicio.x if horizontal else fin.y - inicio.y
 	if not alineados or distancia < CUADRO:
 		if Engine.is_editor_hint():
 			update_configuration_warnings()
 		return
 
 	var forma := RectangleShape2D.new()
-	forma.size = Vector2(ancho_zona_peligro, distancia)
+	forma.size = Vector2(distancia, ancho_zona_peligro) if horizontal else Vector2(ancho_zona_peligro, distancia)
 	zona_peligro.shape = forma
-	zona_peligro.position = Vector2((inicio.x + fin.x) * 0.5, (inicio.y + fin.y) * 0.5)
+	zona_peligro.position = (inicio + fin) * 0.5
 	zona_peligro.disabled = false
 
 	var cantidad: int = maxi(1, roundi(distancia / CUADRO))
-	var alto_segmento: float = distancia / float(cantidad)
+	var largo_segmento: float = distancia / float(cantidad)
 	for indice in range(cantidad):
 		var segmento := Sprite2D.new()
 		segmento.name = "Rayo%d" % indice
 		segmento.texture = RAYO_SHEET
 		segmento.hframes = CANTIDAD_CUADROS
 		segmento.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		segmento.position = Vector2((inicio.x + fin.x) * 0.5, inicio.y + (float(indice) + 0.5) * alto_segmento)
-		segmento.scale = Vector2(1.0, alto_segmento / CUADRO)
+		if horizontal:
+			segmento.position = Vector2(inicio.x + (float(indice) + 0.5) * largo_segmento, (inicio.y + fin.y) * 0.5)
+			segmento.rotation = PI * 0.5
+		else:
+			segmento.position = Vector2((inicio.x + fin.x) * 0.5, inicio.y + (float(indice) + 0.5) * largo_segmento)
+		segmento.scale = Vector2(1.0, largo_segmento / CUADRO)
 		segmento.frame = (_cuadro_actual + indice) % CANTIDAD_CUADROS
 		rayos.add_child(segmento)
 		_segmentos.append(segmento)
@@ -183,9 +218,12 @@ func _get_configuration_warnings() -> PackedStringArray:
 		avisos.append("Asigna el modulo electrico inferior en el Inspector.")
 	if superior == null or inferior == null:
 		return avisos
-	if absf(_obtener_borde_inferior(superior).x - _obtener_borde_superior(inferior).x) > 0.5:
-		avisos.append("Los modulos deben estar alineados verticalmente.")
-	var distancia := _obtener_borde_superior(inferior).y - _obtener_borde_inferior(superior).y
+	var inicio := _obtener_inicio(superior)
+	var fin := _obtener_fin(inferior)
+	var desalineacion := absf(inicio.y - fin.y) if horizontal else absf(inicio.x - fin.x)
+	if desalineacion > 0.5:
+		avisos.append("Con la trampa horizontal, los modulos deben alinearse de izquierda a derecha." if horizontal else "Los modulos deben estar alineados verticalmente.")
+	var distancia := fin.x - inicio.x if horizontal else fin.y - inicio.y
 	if distancia < CUADRO:
 		avisos.append("Separa los modulos para dejar al menos 24 píxeles para el rayo.")
 	return avisos

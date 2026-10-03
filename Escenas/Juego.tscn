@@ -1,14 +1,15 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://Escenas/Juego.gd" id="1_game"]
 [ext_resource type="PackedScene" path="res://Escenas/niveles/Sala01/sala_01.tscn" id="2_level_01"]
 [ext_resource type="PackedScene" path="res://Escenas/niveles/Sala02/sala_02.tscn" id="3_level_02"]
 [ext_resource type="PackedScene" path="res://Escenas/niveles/Sala03/sala_03.tscn" id="4_level_03"]
 [ext_resource type="PackedScene" path="res://Escenas/niveles/Sala04/sala_04.tscn" id="5_level_04"]
+[ext_resource type="PackedScene" path="res://Escenas/niveles/Sala05/sala_05.tscn" id="6_level_05"]
 
 [node name="Juego" type="Node"]
 script = ExtResource("1_game")
-level_scenes = [ExtResource("2_level_01"), ExtResource("3_level_02"), ExtResource("4_level_03"), ExtResource("5_level_04")]
+level_scenes = [ExtResource("2_level_01"), ExtResource("3_level_02"), ExtResource("4_level_03"), ExtResource("5_level_04"), ExtResource("6_level_05")]
 
 [node name="NivelActual" type="Node2D" parent="."]
 

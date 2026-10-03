@@ -65,8 +65,9 @@ Colisiones e interacciones:
 - En la primera version solo acepta cuerpos con get_form_id() == Metal. El jugador Normal y las sombras Normal no lo activan.
 - Cada boton solo puede asignarse a una compuerta. La compuerta recibe un unico button_path desde el Inspector y expone is_open, opening_height, move_duration y activated_texture para ajustar su comportamiento.
 - El boton emite state_changed(bool) para actualizar la compuerta asignada; una segunda compuerta no puede reclamar el mismo boton.
-- La trampa electrica se arma con dos instancias independientes de modulo_electrico.tscn y una de trampa_electrica.tscn. En el Inspector de la trampa, asigna modulo_superior_path y modulo_inferior_path; el rayo visual y su colision peligrosa se generan entre ambos.
+- La trampa electrica se arma con dos instancias independientes de modulo_electrico.tscn y una de trampa_electrica.tscn. En el Inspector de la trampa, asigna modulo_superior_path y modulo_inferior_path; el rayo visual y su colision peligrosa se generan entre ambos. Con horizontal activado, el primer modulo va a la izquierda y el segundo a la derecha.
 - La palanca expone trampa_electrica_path para apagar el rayo y su zona peligrosa al activarse; al reiniciar el nivel se restaura el estado inicial de la trampa.
+- La plataforma Metal reutilizable esta en Escenas/objetos/plataforma_metal/plataforma_metal.tscn. Sus marcadores PuntoSuperior, PuntoInferior y FinColumna definen la altura inicial, el limite de bajada y el extremo fijo de la columna. Baja con el jugador Metal o una sombra Metal solidificada encima; por defecto vuelve a subir al quitar el peso. Las velocidades y ese retorno se configuran desde el Inspector. El campo de pruebas nivel_1 ya incluye una instancia.
 
 Menu de formas:
 - FormMenu vive en personaje.tscn y usa PROCESS_MODE_ALWAYS para recibir input mientras el arbol esta pausado.
@@ -83,3 +84,21 @@ Estructura de niveles:
 - Los botones activan compuertas u otros mecanismos. Las sombras pueden activarlos, pero no terminar una sala.
 - controlador_puerta.gd abre la compuerta configurada cuando todos sus botones estan presionados.
 - Backspace reinicia rapidamente la sala durante el desarrollo. R crea una vida/sombra de prueba. Ambos controles son temporales.
+
+Sala05: Tres ecos
+- Escena jugable: Escenas/niveles/Sala05/sala_05.tscn. Esta integrada despues de Sala04
+  en Juego.tscn y tambien puede ejecutarse directamente con F6.
+- Reutiliza background_chico.tscn de Sala01, con camara fija ajustada para mostrar la sala
+  completa. Mundo/Terreno es un TileMapLayer editable con el TileSet del templo.
+- El recorrido combina dos placas Metal con sus compuertas, escalones de 16 px,
+  pinchos ciclicos, una barrera de hielo y un rayo vertical antes de la salida.
+- Solucion prevista en cuatro vidas: dejar una sombra Metal sobre la placa I; en la
+  segunda vida subir la escalera y dejar otra sombra Metal en la placa II; en la tercera
+  saltar los pinchos y dejar una sombra Fuego junto al hielo; en la cuarta elegir
+  Electrica, esperar a que los ecos abran el camino y atravesar el rayo hasta la salida.
+- R inicia otra vida conservando las sombras; Backspace reinicia la sala y las elimina.
+  Cada muerte, tambien por trampas, restaura los obstaculos para que los ecos vuelvan
+  a activar sus mecanismos. El hielo necesita cuatro segundos de calor sostenido.
+- El HUD muestra la cantidad de ecos y el estado de las placas y el hielo. Enter junto
+  a la salida completa el nivel. Las compuertas se cierran rapido para impedir cruzarlas
+  abandonando una placa sin dejar una sombra.

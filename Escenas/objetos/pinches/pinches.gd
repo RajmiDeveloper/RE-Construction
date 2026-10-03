@@ -14,6 +14,7 @@ enum State { RETRACTED, EXTENDING, EXTENDED, RETRACTING }
 
 var state: State = State.RETRACTED
 var _frame_accumulator: float = 0.0
+var _last_kill_physics_frame: int = -1
 
 
 func _ready() -> void:
@@ -90,4 +91,10 @@ func _on_retract_timer_timeout() -> void:
 
 func _on_killzone_body_entered(body: Node2D) -> void:
 	if state != State.RETRACTED and body.is_in_group("player") and body.has_method("die"):
+		# body_entered y la consulta de solapamientos pueden detectar el mismo
+		# contacto. Encola una sola muerte para no crear un segundo eco al respawn.
+		var physics_frame := Engine.get_physics_frames()
+		if _last_kill_physics_frame == physics_frame:
+			return
+		_last_kill_physics_frame = physics_frame
 		body.call_deferred("die")

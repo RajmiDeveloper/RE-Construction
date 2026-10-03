@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Escenas/objetos/plataforma_metal/plataforma_metal.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://Assets/Mapa/PlataformaMetal/plataforma_64x32.png" id="2_plataforma"]
+
+[sub_resource type="RectangleShape2D" id="Superficie"]
+size = Vector2(64, 16)
+
+[sub_resource type="RectangleShape2D" id="SensorPeso"]
+size = Vector2(60, 18)
+
+[node name="PlataformaMetal" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_script")
+
+[node name="PuntoSuperior" type="Marker2D" parent="."]
+
+[node name="PuntoInferior" type="Marker2D" parent="."]
+position = Vector2(0, 96)
+
+[node name="FinColumna" type="Marker2D" parent="."]
+position = Vector2(0, 160)
+
+[node name="Columnas" type="Node2D" parent="."]
+
+[node name="Cuerpo" type="AnimatableBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+sync_to_physics = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Cuerpo"]
+texture = ExtResource("2_plataforma")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cuerpo"]
+position = Vector2(0, -8)
+shape = SubResource("Superficie")
+
+[node name="ZonaPeso" type="Area2D" parent="Cuerpo"]
+collision_layer = 0
+collision_mask = 12
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cuerpo/ZonaPeso"]
+position = Vector2(0, -19)
+shape = SubResource("SensorPeso")

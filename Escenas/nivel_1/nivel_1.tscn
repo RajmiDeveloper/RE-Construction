@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cbst5h3sfyuli" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="9_stone_gate"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/trampa_electrica.tscn" id="10_rvvl0"]
 [ext_resource type="PackedScene" uid="uid://ixetx4dgiaq5" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="11_module"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/plataforma_metal/plataforma_metal.tscn" id="12_metal_platform"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oacnx"]
 texture = ExtResource("2_4f3do")
@@ -131,3 +132,14 @@ rotation = 3.1415927
 position = Vector2(0, 75)
 modulo_superior_path = NodePath("../ModuloElectrico")
 modulo_inferior_path = NodePath("../ModuloElectrico2")
+
+[node name="PlataformaMetal" parent="." unique_id=933048396 instance=ExtResource("12_metal_platform")]
+position = Vector2(42, 87)
+
+[node name="PuntoInferior" parent="PlataformaMetal" index="1"]
+position = Vector2(0, 48)
+
+[node name="FinColumna" parent="PlataformaMetal" index="2"]
+position = Vector2(0, 72)
+
+[editable path="PlataformaMetal"]
