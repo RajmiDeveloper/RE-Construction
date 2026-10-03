@@ -1,26 +1,25 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://3h823soyy8gf"]
 
-[ext_resource type="Script" path="res://Escenas/objetos/boton/boton.gd" id="1_button"]
-[ext_resource type="Texture2D" path="res://Assets/Mapa/boton/button..png" id="2_released"]
-[ext_resource type="Texture2D" path="res://Assets/Mapa/boton/button_pressed.png" id="3_pressed"]
+[ext_resource type="Script" uid="uid://dnm4bpbk30q68" path="res://Escenas/objetos/boton/boton.gd" id="1_button"]
+[ext_resource type="Texture2D" uid="uid://do0mgqrupoig1" path="res://Assets/Mapa/boton/button..png" id="2_released"]
+[ext_resource type="Texture2D" uid="uid://cafidh4oq1rgs" path="res://Assets/Mapa/boton/button_pressed.png" id="3_pressed"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_button"]
-size = Vector2(14, 8)
+size = Vector2(40.5, 17)
 
-[node name="Boton" type="Area2D"]
+[node name="Boton" type="Area2D" unique_id=2037307257]
 collision_layer = 0
 collision_mask = 12
-monitoring = true
 script = ExtResource("1_button")
 texture_released = ExtResource("2_released")
 texture_pressed = ExtResource("3_pressed")
-required_form_id = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2020424870]
 texture_filter = 1
-scale = Vector2(0.25, 0.25)
+position = Vector2(0, -12)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_released")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1339628296]
+scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_button")

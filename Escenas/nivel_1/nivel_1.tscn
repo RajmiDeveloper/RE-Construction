@@ -5,9 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="3_jfjvu"]
 [ext_resource type="Script" uid="uid://b5y3nyhxcdc0r" path="res://Escenas/nivel_1/nivel_1.gd" id="4_level"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="5_shadow"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/boton/boton.tscn" id="6_button"]
+[ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="6_button"]
 [ext_resource type="Script" uid="uid://boqytgtjxmybu" path="res://Escenas/form_menu.gd" id="7_form_menu"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/palanca/palanca.tscn" id="8_lever"]
+[ext_resource type="PackedScene" uid="uid://booh45x7qreql" path="res://Escenas/objetos/palanca/palanca.tscn" id="8_lever"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="9_stone_gate"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oacnx"]
 texture = ExtResource("2_4f3do")
@@ -54,10 +55,13 @@ position = Vector2(-129, 80)
 scale = Vector2(0.95, 0.95)
 
 [node name="Boton" parent="." unique_id=353612186 instance=ExtResource("6_button")]
-position = Vector2(-93, 152)
+position = Vector2(-97, 156)
+
+[node name="CompuertaPiedra" parent="." unique_id=343836135 instance=ExtResource("9_stone_gate")]
+position = Vector2(184, 118)
 
 [node name="Palanca" parent="." unique_id=1340177619 instance=ExtResource("8_lever")]
-position = Vector2(56, 112)
+position = Vector2(-49, 142)
 
 [node name="Sombras" type="Node2D" parent="." unique_id=1182552290]
 

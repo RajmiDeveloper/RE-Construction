@@ -1,22 +1,24 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://booh45x7qreql"]
 
-[ext_resource type="Script" path="res://Escenas/objetos/palanca/palanca.gd" id="1_script"]
-[ext_resource type="SpriteFrames" path="res://Escenas/objetos/palanca/palanca_frames.tres" id="2_frames"]
+[ext_resource type="Script" uid="uid://c1nkcgd81n5c1" path="res://Escenas/objetos/palanca/palanca.gd" id="1_script"]
+[ext_resource type="SpriteFrames" uid="uid://cnlyo16t7mflb" path="res://Escenas/objetos/palanca/palanca_frames.tres" id="2_frames"]
 
 [sub_resource type="RectangleShape2D" id="LeverInteraction"]
 size = Vector2(48, 32)
 
-[node name="Palanca" type="Area2D"]
+[node name="Palanca" type="Area2D" unique_id=837606050]
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_script")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=851940989]
 texture_filter = 1
-position = Vector2(0, -16)
+position = Vector2(0, -24)
+scale = Vector2(0.5, 0.5)
 sprite_frames = ExtResource("2_frames")
 animation = &"activar"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -16)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1046205558]
+position = Vector2(0, -22)
+scale = Vector2(0.5, 0.5)
 shape = SubResource("LeverInteraction")

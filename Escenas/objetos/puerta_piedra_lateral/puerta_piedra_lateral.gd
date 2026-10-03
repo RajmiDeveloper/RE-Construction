@@ -1,9 +1,10 @@
-extends StaticBody2D
+extends AnimatableBody2D
 
 @export var is_open: bool = false
 @export_range(0.0, 256.0, 1.0) var opening_height: float = 96.0
-@export_range(0.0, 2.0, 0.05) var move_duration: float = 0.55
+@export_range(0.0, 2.0, 0.05) var move_duration: float = 2.0
 @export var activated_texture: Texture2D
+@export var button_path: NodePath = NodePath("../Boton")
 
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -11,6 +12,7 @@ var _closed_position: Vector2
 var _initial_open_state: bool
 var _move_tween: Tween
 var _closed_texture: Texture2D
+var _button: Node
 
 
 func _ready() -> void:
@@ -18,7 +20,11 @@ func _ready() -> void:
 	_closed_position = position
 	_initial_open_state = is_open
 	_closed_texture = sprite.texture
+	_button = get_node_or_null(button_path)
+	if is_instance_valid(_button) and _button.has_signal("state_changed"):
+		_button.state_changed.connect(_on_button_state_changed)
 	_move_to_state(is_open, false)
+	call_deferred("_sync_button_state")
 
 
 func set_open(value: bool) -> void:
@@ -29,8 +35,20 @@ func set_open(value: bool) -> void:
 
 
 func reset_state() -> void:
-	is_open = _initial_open_state
-	_move_to_state(is_open, true)
+	if is_instance_valid(_button):
+		call_deferred("_sync_button_state")
+	else:
+		is_open = _initial_open_state
+		_move_to_state(is_open, true)
+
+
+func _on_button_state_changed(pressed: bool) -> void:
+	set_open(pressed)
+
+
+func _sync_button_state() -> void:
+	if is_instance_valid(_button):
+		set_open(bool(_button.get("is_pressed")))
 
 
 func _move_to_state(open: bool, animate: bool) -> void:
@@ -38,7 +56,7 @@ func _move_to_state(open: bool, animate: bool) -> void:
 		return
 	if _move_tween != null and _move_tween.is_running():
 		_move_tween.kill()
-	sprite.texture = activated_texture if open and animate and activated_texture != null else _closed_texture
+	sprite.texture = activated_texture if open and animate and move_duration > 0.0 and activated_texture != null else _closed_texture
 
 	var target_position := _closed_position
 	if open:
@@ -49,5 +67,6 @@ func _move_to_state(open: bool, animate: bool) -> void:
 		return
 
 	_move_tween = create_tween()
+	_move_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	_move_tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 	_move_tween.tween_property(self, "position", target_position, move_duration)

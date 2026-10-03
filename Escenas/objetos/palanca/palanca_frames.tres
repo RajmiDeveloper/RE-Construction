@@ -1,60 +1,65 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://cnlyo16t7mflb"]
 
-[ext_resource type="Texture2D" uid="uid://db5mt2exr3kp4" path="res://Assets/Mapa/Palanca/palanca.png" id="1_lever"]
-[ext_resource type="Texture2D" uid="uid://df8d7j2q4nak" path="res://Assets/Mapa/Palanca/palanca_bajar.png" id="2_lower"]
-[ext_resource type="Texture2D" path="res://Assets/Mapa/Palanca/palanca_inicial_ajustada.png" id="3_start"]
+[ext_resource type="Texture2D" uid="uid://df8d7j2q4nak" path="res://Assets/Mapa/Palanca/palanca_bajar.png" id="1_sheet"]
 
-[sub_resource type="AtlasTexture" id="LeverLeft"]
-atlas = ExtResource("3_start")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="LeverFrame0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="LeverUp"]
-atlas = ExtResource("2_lower")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="LeverFrame1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(48, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="LeverStep1"]
-atlas = ExtResource("2_lower")
-region = Rect2(32, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="LeverFrame2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(96, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="LeverStep2"]
-atlas = ExtResource("2_lower")
-region = Rect2(64, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="LeverFrame3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(144, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="LeverStep3"]
-atlas = ExtResource("2_lower")
-region = Rect2(0, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="LeverFrame4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 48, 48, 48)
 
-[sub_resource type="AtlasTexture" id="LeverStep4"]
-atlas = ExtResource("2_lower")
-region = Rect2(32, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="LeverFrame5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(48, 48, 48, 48)
 
-[sub_resource type="AtlasTexture" id="LeverRight"]
-atlas = ExtResource("2_lower")
-region = Rect2(64, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="LeverFrame6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="LeverFrame7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(144, 48, 48, 48)
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("LeverLeft")
+"texture": SubResource("LeverFrame0")
 }, {
 "duration": 1.0,
-"texture": SubResource("LeverUp")
+"texture": SubResource("LeverFrame1")
 }, {
 "duration": 1.0,
-"texture": SubResource("LeverStep1")
+"texture": SubResource("LeverFrame2")
 }, {
 "duration": 1.0,
-"texture": SubResource("LeverStep2")
+"texture": SubResource("LeverFrame3")
 }, {
 "duration": 1.0,
-"texture": SubResource("LeverStep3")
+"texture": SubResource("LeverFrame4")
 }, {
 "duration": 1.0,
-"texture": SubResource("LeverStep4")
+"texture": SubResource("LeverFrame5")
 }, {
 "duration": 1.0,
-"texture": SubResource("LeverRight")
+"texture": SubResource("LeverFrame6")
+}, {
+"duration": 1.0,
+"texture": SubResource("LeverFrame7")
 }],
 "loop": 0,
 "name": &"activar",
