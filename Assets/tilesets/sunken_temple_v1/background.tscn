@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://8pux4c52nlep"]
 
-[ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Sunken-temple.tres" id="1_oabld"]
+[ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="1_oabld"]
 
 [node name="Background" type="Node2D" unique_id=1937250153]
 

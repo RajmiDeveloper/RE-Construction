@@ -1,13 +1,14 @@
 [gd_scene format=4 uid="uid://by5doqrhlbecl"]
 
 [ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="4_player"]
-[ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Sunken-temple.tres" id="5_l2pov"]
+[ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="5_l2pov"]
 [ext_resource type="Script" uid="uid://bttkh2ocbt2jk" path="res://Escenas/niveles/Sala01/sala_01_controller.gd" id="6_controller"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="7_shadow"]
 [ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="8_button"]
 [ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="9_exit"]
 [ext_resource type="PackedScene" uid="uid://dr1o8mnrmg5r4" path="res://Escenas/objetos/pinches/pinches.tscn" id="9_nbcrp"]
 [ext_resource type="PackedScene" uid="uid://n4v6wbkxnyrb" path="res://Assets/tilesets/background_chico.tscn" id="9_vd2ea"]
+[ext_resource type="Script" uid="uid://dpkskyj3rdn2y" path="res://Escenas/objetos/puerta_salida/controlador_puerta.gd" id="10_door_controller"]
 
 [node name="Sala01" type="Node2D" unique_id=2119282324]
 script = ExtResource("6_controller")
@@ -19,7 +20,10 @@ z_index = -1
 position = Vector2(0, 1)
 
 [node name="piso" type="TileMapLayer" parent="BackgroundChico" unique_id=138049636]
-tile_map_data = PackedByteArray("AAApADEAAgADABAAAAAqADEAAgAEABAAAAArADEAAgAFABAAAAAsADEAAgAGABAAAAAtADEAAgADABAAAAAuADEAAgAEABAAAAAvADEAAgAFABAAAAAwADEAAgAGABAAAAAxADEAAgADABAAAAAyADEAAgAEABAAAAAzADEAAgAFABAAAAA0ADEAAgAGABAAAAA1ADEAAgADABAAAAA2ADEAAgAEABAAAAA3ADEAAgAFABAAAAA4ADEAAgAGABAAAAA5ADEAAgADABAAAAA6ADEAAgAEABAAAAA7ADEAAgAFABAAAAA8ADEAAgAGABAAAAA9ADEAAgADABAAAAA+ADEAAgAEABAAAAA/ADEAAgAFABAAAABAADEAAgAGABAAAABBADEAAgADABAAAABCADEAAgAEABAAAABDADEAAgAFABAAAABEADEAAgAGABAAAABFADEAAgADABAAAABGADEAAgAEABAAAABHADEAAgAFABAAAABIADEAAgAGABAAAABJADEAAgADABAAAABKADEAAgAEABAAAABLADEAAgAFABAAAABMADEAAgAGABAAAABNADEAAgADABAAAABOADEAAgAEABAAAABPADEAAgAFABAAAABQADEAAgAGABAAAABRADEAAgADABAAAABSADEAAgAEABAAAABTADEAAgAFABAAAAAxAC8AAgACAA4AAAAxADAAAgACAA8AAAAyAC8AAgADAA4AAAAyADAAAgADAA8AAAAzAC8AAgAEAA4AAAAzADAAAgAEAA8AAAA0AC8AAgAFAA4AAAA0ADAAAgAFAA8AAAA1ADAAAgAGAA8AAAA8ADAAAgAHAA8AAAA9ADAAAgAIAA8AAAA+ADAAAgAJAA8AAAA/ADAAAgAHAA8AAABAADAAAgAIAA8AAABBADAAAgAJAA8AAABCADAAAgAKAA8AAABDADAAAgALAA8AAABEADAAAgAMAA8AAABFADAAAgANAA8AAABLADAAAgAMAA8AAABMADAAAgANAA8AAABNADAAAgAMAA8AAAA+ACUAAgAIABAAAAA+ACYAAgAIABEAAAA/ACUAAgAJABAAAAA/ACYAAgAJABEAAABAACUAAgAKABAAAABAACYAAgAKABEAAABBACUAAgALABAAAABBACYAAgALABEAAABCACUAAgAMABAAAABCACYAAgAMABEAAABDACUAAgAIABAAAABEACUAAgAQABAAAABFACYAAgARABEAAABGACcAAgAIABAAAABHACcAAgANABAAAABFACcAAgAIABEAAABEACYAAgAIABEAAAA=")
+tile_map_data = PackedByteArray("AAApADEAAgADABAAAAAqADEAAgAEABAAAAArADEAAgAFABAAAAAsADEAAgAGABAAAAAtADEAAgADABAAAAAuADEAAgAEABAAAAAvADEAAgAFABAAAAAwADEAAgAGABAAAAAxADEAAgADABAAAAAyADEAAgAEABAAAAAzADEAAgAFABAAAAA0ADEAAgAGABAAAAA1ADEAAgADABAAAAA2ADEAAgAEABAAAAA3ADEAAgAFABAAAAA4ADEAAgAGABAAAAA5ADEAAgADABAAAAA6ADEAAgAEABAAAAA7ADEAAgAFABAAAAA8ADEAAgAGABAAAAA9ADEAAgADABAAAAA+ADEAAgAEABAAAAA/ADEAAgAFABAAAABAADEAAgAGABAAAABBADEAAgADABAAAABCADEAAgAEABAAAABDADEAAgAFABAAAABEADEAAgAGABAAAABFADEAAgADABAAAABGADEAAgAEABAAAABHADEAAgAFABAAAABIADEAAgAGABAAAABJADEAAgADABAAAABKADEAAgAEABAAAABLADEAAgAFABAAAABMADEAAgAGABAAAABNADEAAgADABAAAABOADEAAgAEABAAAABPADEAAgAFABAAAABQADEAAgAGABAAAABRADEAAgADABAAAABSADEAAgAEABAAAABTADEAAgAFABAAAAA+ACUAAgAIABAAAAA+ACYAAgAIABEAAAA/ACUAAgAJABAAAAA/ACYAAgAJABEAAABAACUAAgAKABAAAABAACYAAgAKABEAAABBACUAAgALABAAAABBACYAAgALABEAAABCACUAAgAMABAAAABCACYAAgAMABEAAABDACUAAgAIABAAAABEACUAAgAQABAAAABFACYAAgARABEAAABGACcAAgAIABAAAABHACcAAgANABAAAABFACcAAgAIABEAAABEACYAAgAIABEAAAA=")
+tile_set = ExtResource("5_l2pov")
+
+[node name="decoracion" type="TileMapLayer" parent="BackgroundChico/piso" unique_id=21974396]
 tile_set = ExtResource("5_l2pov")
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=411096757]
@@ -32,13 +36,17 @@ position = Vector2(706, 774)
 position = Vector2(6, 296)
 
 [node name="Boton" parent="Mecanismos" unique_id=1663129348 instance=ExtResource("8_button")]
-position = Vector2(769, 485)
+position = Vector2(767, 485)
 
 [node name="Salida" parent="." unique_id=1624026952 instance=ExtResource("9_exit")]
 position = Vector2(1297, 772)
 
+[node name="ControladorPuerta" type="Node" parent="." unique_id=1951384001]
+script = ExtResource("10_door_controller")
+door_path = NodePath("../Salida")
+button_paths = Array[NodePath]([NodePath("../Mecanismos/Boton")])
+
 [node name="Sombras" type="Node2D" parent="." unique_id=1019067976]
 
 [node name="Pinches" parent="." unique_id=1779459369 instance=ExtResource("9_nbcrp")]
-position = Vector2(904, 763)
-spike_move_distance = 15.0
+position = Vector2(874, 786)

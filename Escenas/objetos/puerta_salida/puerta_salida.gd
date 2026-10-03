@@ -4,14 +4,18 @@ signal player_reached
 
 const PLAYER_LAYER: int = 4
 
+@export var is_open: bool = true
+
 @onready var closed_visual: Sprite2D = $PuertaCerrada
 @onready var open_visual: Sprite2D = $PuertaAbierta
 
 var _player_nearby: bool = false
 var _completed: bool = false
+var _initial_open_state: bool
 
 
 func _ready() -> void:
+	_initial_open_state = is_open
 	add_to_group("level_resettable")
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
@@ -22,6 +26,14 @@ func _ready() -> void:
 func reset_state() -> void:
 	_completed = false
 	_player_nearby = false
+	is_open = _initial_open_state
+	_update_visuals()
+
+
+func set_open(value: bool) -> void:
+	if is_open == value:
+		return
+	is_open = value
 	_update_visuals()
 
 
@@ -30,7 +42,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event.keycode != KEY_ENTER and event.keycode != KEY_KP_ENTER:
 		return
-	if not _player_nearby or _completed:
+	if not is_open or not _player_nearby or _completed:
 		return
 
 	_completed = true
@@ -58,6 +70,5 @@ func _is_player(body: Node2D) -> bool:
 func _update_visuals() -> void:
 	if not is_node_ready():
 		return
-	var show_open_door := _player_nearby
-	closed_visual.visible = not show_open_door
-	open_visual.visible = show_open_door
+	closed_visual.visible = not is_open
+	open_visual.visible = is_open

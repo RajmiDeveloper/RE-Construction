@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cafidh4oq1rgs" path="res://Assets/Mapa/boton/button_pressed.png" id="3_pressed"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_button"]
-size = Vector2(40.5, 17)
+size = Vector2(20, 5.125)
 
 [node name="Boton" type="Area2D" unique_id=2037307257]
 collision_layer = 0
@@ -20,6 +20,14 @@ position = Vector2(0, -12)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_released")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1339628296]
+[node name="trigger" type="CollisionShape2D" parent="." unique_id=1339628296]
+position = Vector2(0, -4)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_button")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1767910057]
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1657508333]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=749666103]
+polygon = PackedVector2Array(14, 6, -14, 6, -6, -2, 6, -2)
