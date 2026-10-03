@@ -15,6 +15,7 @@ func _ready() -> void:
 	# mantiene el input activo mientras el arbol esta pausado.
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_spawn_position = player.global_position
+	player.restart_requested.connect(_on_player_restart_requested)
 	player.life_finished.connect(_on_player_life_finished)
 	pause_menu.get_node("Panel/ContinueButton").pressed.connect(_resume_game)
 	pause_menu.get_node("Panel/RestartButton").pressed.connect(_restart_test)
@@ -58,17 +59,25 @@ func _on_player_life_finished(recording: Array) -> void:
 	_shadows.append(shadow)
 
 
+func _on_player_restart_requested() -> void:
+	_reset_mechanisms()
+
+
 func reset_run() -> void:
 	for shadow in _shadows:
 		if is_instance_valid(shadow):
 			shadow.queue_free()
 	_shadows.clear()
 	_recordings.clear()
+	_reset_mechanisms()
+	player.reset_run()
+	player.global_position = _spawn_position
+
+
+func _reset_mechanisms() -> void:
 	for resettable in get_tree().get_nodes_in_group("level_resettable"):
 		if is_ancestor_of(resettable) and resettable.has_method("reset_state"):
 			resettable.reset_state()
-	player.reset_run()
-	player.global_position = _spawn_position
 
 
 func _pause_game() -> void:

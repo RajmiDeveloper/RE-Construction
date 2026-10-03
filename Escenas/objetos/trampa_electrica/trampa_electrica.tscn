@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Escenas/objetos/trampa_electrica/trampa_electrica.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="ZonaPeligro"]
+size = Vector2(14, 24)
+
+[node name="TrampaElectrica" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("1_script")
+
+[node name="Rayos" type="Node2D" parent="."]
+
+[node name="ZonaPeligro" type="CollisionShape2D" parent="."]
+disabled = true
+shape = SubResource("ZonaPeligro")

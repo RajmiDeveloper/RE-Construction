@@ -17,6 +17,7 @@ var _completed: bool = false
 
 func _ready() -> void:
 	player.set_spawn_position(spawn_point.global_position)
+	player.restart_requested.connect(_on_player_restart_requested)
 	player.life_finished.connect(_on_player_life_finished)
 	if is_instance_valid(exit_door) and exit_door.has_signal("player_reached"):
 		exit_door.player_reached.connect(_on_player_reached_exit)
@@ -36,9 +37,7 @@ func reset_level() -> void:
 			shadow.queue_free()
 	_shadows.clear()
 
-	for mechanism in get_tree().get_nodes_in_group("level_resettable"):
-		if is_ancestor_of(mechanism) and mechanism.has_method("reset_state"):
-			mechanism.reset_state()
+	_reset_mechanisms()
 
 	player.set_spawn_position(spawn_point.global_position)
 	player.reset_run()
@@ -54,6 +53,16 @@ func restart_current_life() -> void:
 	player.set_spawn_position(spawn_point.global_position)
 	player.reset_run()
 	player.set_controls_enabled(_active)
+
+
+func _on_player_restart_requested() -> void:
+	_reset_mechanisms()
+
+
+func _reset_mechanisms() -> void:
+	for mechanism in get_tree().get_nodes_in_group("level_resettable"):
+		if is_ancestor_of(mechanism) and mechanism.has_method("reset_state"):
+			mechanism.reset_state()
 
 
 func _on_player_life_finished(recording: Array) -> void:

@@ -12,6 +12,7 @@ const FORM_SHADER = preload("res://Escenas/personaje/forma_tint.gdshader")
 
 signal life_finished(recording: Array)
 signal form_changed(form_id: int)
+signal restart_requested
 
 const walk_speed: float = 100.0
 const jump_velocity: float = -250.0
@@ -19,6 +20,7 @@ const jump_velocity: float = -250.0
 const ANIM_IDLE: int = 0
 const ANIM_RUN: int = 1
 const ANIM_JUMP: int = 2
+const STATIONARY_POSITION_TOLERANCE_SQUARED: float = 0.01
 
 var _spawn_position: Vector2
 var _death_y: float
@@ -44,6 +46,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not get_tree().paused and _controls_enabled and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
+		restart_requested.emit()
 		die()
 
 
@@ -97,11 +100,12 @@ func die() -> void:
 		return
 
 	_dead = true
-	var finished_recording: Array = _recording.duplicate(true)
+	var finished_recording: Array[Dictionary] = _recording.duplicate(true)
 	if finished_recording.is_empty():
 		_record_point()
 		finished_recording = _recording.duplicate(true)
 
+	_trim_stationary_tail(finished_recording)
 	life_finished.emit(finished_recording)
 	_reset_life()
 
@@ -182,6 +186,34 @@ func _record_point() -> void:
 		"animation": _get_animation_id(),
 		"form": current_form,
 	})
+
+
+func _trim_stationary_tail(recording: Array[Dictionary]) -> void:
+	if recording.size() < 2:
+		return
+
+	var final_index := recording.size() - 1
+	var final_point: Dictionary = recording[final_index]
+	var final_position: Vector2 = final_point["position"]
+	var stationary_start := final_index
+
+	while stationary_start > 0:
+		var previous_position: Vector2 = recording[stationary_start - 1]["position"]
+		if previous_position.distance_squared_to(final_position) > STATIONARY_POSITION_TOLERANCE_SQUARED:
+			break
+		stationary_start -= 1
+
+	if stationary_start == final_index:
+		return
+
+	# Mantiene el punto donde termino el movimiento y lo actualiza al estado
+	# final para quitar la espera inmovil antes de que se pulsara R.
+	var final_stationary_point: Dictionary = recording[stationary_start].duplicate(true)
+	final_stationary_point["position"] = final_position
+	final_stationary_point["animation"] = final_point["animation"]
+	final_stationary_point["form"] = final_point.get("form", FormCatalog.NORMAL)
+	recording.resize(stationary_start + 1)
+	recording[stationary_start] = final_stationary_point
 
 
 func _setup_form_material() -> void:

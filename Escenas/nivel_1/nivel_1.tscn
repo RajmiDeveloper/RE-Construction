@@ -7,7 +7,10 @@
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="5_shadow"]
 [ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="6_button"]
 [ext_resource type="PackedScene" uid="uid://booh45x7qreql" path="res://Escenas/objetos/palanca/palanca.tscn" id="8_lever"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/bloque_hielo/bloque_hielo.tscn" id="9_0n6oh"]
 [ext_resource type="PackedScene" uid="uid://cbst5h3sfyuli" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="9_stone_gate"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/trampa_electrica.tscn" id="10_rvvl0"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="11_module"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oacnx"]
 texture = ExtResource("2_4f3do")
@@ -64,9 +67,8 @@ button_path = NodePath("../Boton")
 [node name="Palanca" parent="." unique_id=1340177619 instance=ExtResource("8_lever")]
 position = Vector2(-49, 142)
 
-[node name="CompuertaPiedra2" parent="." unique_id=651133313 instance=ExtResource("9_stone_gate")]
-position = Vector2(103, 118)
-button_path = NodePath("../Boton")
+[node name="BloqueHielo" parent="." unique_id=566022194 instance=ExtResource("9_0n6oh")]
+position = Vector2(51, 113)
 
 [node name="Sombras" type="Node2D" parent="." unique_id=1182552290]
 
@@ -116,3 +118,15 @@ text = "Continuar"
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Reiniciar campo"
+
+[node name="ModuloElectricoSuperior" parent="." unique_id=1773995001 instance=ExtResource("11_module")]
+position = Vector2(-1, 29)
+
+[node name="ModuloElectricoInferior" parent="." unique_id=1773995002 instance=ExtResource("11_module")]
+position = Vector2(-1, 149)
+flip_v = true
+
+[node name="TrampaElectrica" parent="." unique_id=1581410531 instance=ExtResource("10_rvvl0")]
+position = Vector2(-1, 29)
+modulo_superior_path = NodePath("../ModuloElectricoSuperior")
+modulo_inferior_path = NodePath("../ModuloElectricoInferior")
