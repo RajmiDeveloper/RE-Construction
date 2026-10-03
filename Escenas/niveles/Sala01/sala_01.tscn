@@ -50,3 +50,6 @@ button_paths = Array[NodePath]([NodePath("../Mecanismos/Boton")])
 
 [node name="Pinches" parent="." unique_id=1779459369 instance=ExtResource("9_nbcrp")]
 position = Vector2(874, 786)
+animation_frame_duration = 0.09999999999999999
+retracted_duration = 1.0
+extended_duration = 1.0

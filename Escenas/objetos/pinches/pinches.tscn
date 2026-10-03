@@ -1,19 +1,19 @@
 [gd_scene format=3 uid="uid://dr1o8mnrmg5r4"]
 
 [ext_resource type="Script" uid="uid://b031iun6gdoim" path="res://Escenas/objetos/pinches/pinches.gd" id="1_4muq3"]
-[ext_resource type="Texture2D" path="res://Escenas/objetos/pinches/pinches_sprite.png" id="1_g5mkx"]
+[ext_resource type="Texture2D" uid="uid://bwgp8ept0t6no" path="res://Escenas/objetos/pinches/pinches_sprite.png" id="2_m2efn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0bck"]
-size = Vector2(20, 19)
+size = Vector2(20, 16)
 
 [node name="Pinches" type="Node2D" unique_id=1779459369]
 script = ExtResource("1_4muq3")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1099525702]
-texture = ExtResource("1_g5mkx")
 texture_filter = 1
-centered = false
 position = Vector2(-12, -24)
+texture = ExtResource("2_m2efn")
+centered = false
 hframes = 2
 vframes = 2
 
@@ -22,8 +22,8 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="killzone" unique_id=108890196]
-disabled = true
 shape = SubResource("RectangleShape2D_m0bck")
+disabled = true
 
 [node name="retract_timer" type="Timer" parent="." unique_id=1164648163]
 process_callback = 0

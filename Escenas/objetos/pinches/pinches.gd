@@ -65,14 +65,14 @@ func _advance_animation(delta: float, direction: int) -> void:
 
 func _set_frame(frame_index: int) -> void:
 	spike_sprite.frame = frame_index
-	var frame_heights: Array[float] = [0.0, 5.0, 12.0, 19.0]
+	var frame_heights: Array[float] = [0.0, 5.0, 10.0, 16.0]
 	var frame_widths: Array[float] = [0.0, 20.0, 20.0, 20.0]
 	var height := frame_heights[frame_index]
 	killzone_shape.disabled = height == 0.0
 	if height > 0.0:
 		var rectangle := killzone_shape.shape as RectangleShape2D
 		rectangle.size = Vector2(frame_widths[frame_index], height)
-		killzone_shape.position = Vector2(0.0, -height / 2.0)
+		killzone_shape.position = Vector2(0.0, -6.0 - height / 2.0)
 
 
 func _on_spike_timer_timeout() -> void:
