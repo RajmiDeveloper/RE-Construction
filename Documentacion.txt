@@ -32,6 +32,14 @@ Formas planeadas:
 - puente: sirve para crear conexiones entre zonas o protecciones contra objetos que caen.
 - fuego: puede derretir cosas o pasar por zonas calientes.
 
+Arte del personaje:
+- El jugador y las sombras usan el SpriteFrames compartido de
+  Escenas/personaje/animacion_base.tres.
+- Ese recurso toma los frames de Assets/Personaje/Final/Base/AnimationSheet.png,
+  organizado en celdas de 24x24 px.
+- La configuracion actual usa la fila 0 para idle, la fila 4 para correr y los
+  dos frames de la fila 5 para saltar.
+
 Datos guardados por punto:
 - position.x: flotante.
 - position.y: flotante.
