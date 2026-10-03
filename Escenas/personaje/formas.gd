@@ -11,6 +11,7 @@ enum FormId {
 const NORMAL: int = FormId.NORMAL
 const METAL: int = FormId.METAL
 const METAL_TINT := Color(0.94, 0.95, 0.97, 1.0)
+const METAL_SPRITE_FRAMES: SpriteFrames = preload("res://Escenas/personaje/animacion_metal.tres")
 
 static func is_valid(form_id: int) -> bool:
 	return form_id == NORMAL or form_id == METAL
@@ -30,8 +31,9 @@ static func get_tint(form_id: int) -> Color:
 	return Color.WHITE
 
 
-static func get_sprite_frames(_form_id: int) -> SpriteFrames:
-	# Punto de extension para el sprite de viga de acero futuro.
+static func get_sprite_frames(form_id: int) -> SpriteFrames:
+	if form_id == METAL:
+		return METAL_SPRITE_FRAMES
 	return null
 
 

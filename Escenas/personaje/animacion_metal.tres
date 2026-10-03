@@ -1,0 +1,77 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://2bbveyqbwy6k"]
+
+[ext_resource type="Texture2D" uid="uid://bvcl74rl78o5x" path="res://Assets/Personaje/Final/Metal/AnimationSheet.png" id="1_metal_sheet"]
+
+[sub_resource type="AtlasTexture" id="Run0"]
+atlas = ExtResource("1_metal_sheet")
+region = Rect2(0, 96, 24, 24)
+
+[sub_resource type="AtlasTexture" id="Run1"]
+atlas = ExtResource("1_metal_sheet")
+region = Rect2(24, 96, 24, 24)
+
+[sub_resource type="AtlasTexture" id="Run2"]
+atlas = ExtResource("1_metal_sheet")
+region = Rect2(48, 96, 24, 24)
+
+[sub_resource type="AtlasTexture" id="Run3"]
+atlas = ExtResource("1_metal_sheet")
+region = Rect2(72, 96, 24, 24)
+
+[sub_resource type="AtlasTexture" id="Idle0"]
+atlas = ExtResource("1_metal_sheet")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="Idle1"]
+atlas = ExtResource("1_metal_sheet")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="Jump0"]
+atlas = ExtResource("1_metal_sheet")
+region = Rect2(0, 120, 24, 24)
+
+[sub_resource type="AtlasTexture" id="Jump1"]
+atlas = ExtResource("1_metal_sheet")
+region = Rect2(24, 120, 24, 24)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Run0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Run1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Run2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Run3")
+}],
+"loop": 1,
+"name": &"correr",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Idle0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Idle1")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Jump0")
+}, {
+"duration": 1000.0,
+"texture": SubResource("Jump1")
+}],
+"loop": 1,
+"name": &"saltar",
+"speed": 1.0
+}]

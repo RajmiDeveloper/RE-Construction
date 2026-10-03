@@ -17,6 +17,9 @@ Formas:
   conserva temporalmente el sprite y la hitbox actuales, y puede activar botones.
 - El catalogo esta en Escenas/personaje/formas.gd. Cuando exista el sprite de viga,
   se podra asociar como SpriteFrames sin reescribir la logica de transformacion.
+- La forma Metal usa Assets/Personaje/Final/Metal/AnimationSheet.png y
+  Escenas/personaje/animacion_metal.tres, con las mismas regiones y animaciones
+  que la forma Base.
 - El shader se instancia por separado en cada jugador y sombra.
 - Al morir o reiniciar la sala, el jugador vuelve a Normal y recupera su transformacion.
 - La sombra registra y reproduce la forma en cada punto, y se solidifica conservando
@@ -68,6 +71,7 @@ Estructura de niveles:
 - Juego.tscn es la escena principal y contiene GameManager, NivelActual, transiciones, menu principal y menu de pausa.
 - Cada sala es una escena independiente de pantalla fija con Mundo, SpawnPoint, Jugador, Mecanismos, Sombras, Salida y Camera2D.
 - nivel_base.gd controla las vidas, las sombras, el reinicio de la sala y la señal level_completed.
+- Sala01 conserva el mapa del templo y ahora usa el jugador compartido, el sistema base de sombras, un boton Metal y una puerta conectada al boton.
 - Las sombras nunca pasan de una sala a otra: cambiar de nivel destruye la sala anterior y todo su estado.
 - La puerta de salida detecta solo al jugador y emite player_reached. Las sombras pueden activar botones, pero no terminar una sala.
 - controlador_puerta.gd abre una puerta cuando todos los botones configurados para esa puerta estan presionados.

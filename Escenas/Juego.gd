@@ -73,6 +73,11 @@ func _load_level(index: int) -> void:
 	_clear_current_level()
 	_current_index = index
 	_current_level = level_scenes[index].instantiate()
+	if not _current_level.has_signal("level_completed") or not _current_level.has_method("set_active"):
+		push_error("La escena del nivel %d no implementa la interfaz requerida (level_completed y set_active)." % (index + 1))
+		_current_level.queue_free()
+		_current_level = null
+		return
 	level_container.add_child(_current_level)
 	_current_level.level_completed.connect(_on_level_completed)
 	_current_level.set_active(true)
@@ -142,6 +147,7 @@ func _can_open_form_menu() -> bool:
 		and not main_menu.visible \
 		and not pause_menu.visible \
 		and not end_ui.visible \
+		and _current_level.has_method("can_transform_player") \
 		and _current_level.can_transform_player()
 
 
