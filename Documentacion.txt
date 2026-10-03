@@ -66,6 +66,7 @@ Colisiones e interacciones:
 - Cada boton solo puede asignarse a una compuerta. La compuerta recibe un unico button_path desde el Inspector y expone is_open, opening_height, move_duration y activated_texture para ajustar su comportamiento.
 - El boton emite state_changed(bool) para actualizar la compuerta asignada; una segunda compuerta no puede reclamar el mismo boton.
 - La trampa electrica se arma con dos instancias independientes de modulo_electrico.tscn y una de trampa_electrica.tscn. En el Inspector de la trampa, asigna modulo_superior_path y modulo_inferior_path; el rayo visual y su colision peligrosa se generan entre ambos.
+- La palanca expone trampa_electrica_path para apagar el rayo y su zona peligrosa al activarse; al reiniciar el nivel se restaura el estado inicial de la trampa.
 
 Menu de formas:
 - FormMenu vive en personaje.tscn y usa PROCESS_MODE_ALWAYS para recibir input mientras el arbol esta pausado.

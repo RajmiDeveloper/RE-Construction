@@ -1,13 +1,18 @@
 extends Area2D
 
+@export_node_path("Area2D") var trampa_electrica_path: NodePath
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var _player_in_range: Node2D
 var _activated: bool = false
+var _trampa_electrica: Node
 
 
 func _ready() -> void:
 	add_to_group("level_resettable")
+	if not trampa_electrica_path.is_empty():
+		_trampa_electrica = get_node_or_null(trampa_electrica_path)
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	animated_sprite.stop()
@@ -22,15 +27,31 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.keycode != KEY_ENTER and event.keycode != KEY_KP_ENTER:
 		return
 
+	_activate()
+	if _player_in_range.has_method("record_interaction"):
+		_player_in_range.call("record_interaction", self, &"activate")
+	get_viewport().set_input_as_handled()
+
+
+func activate_from_shadow() -> void:
+	_activate()
+
+
+func _activate() -> void:
+	if _activated:
+		return
 	_activated = true
 	animated_sprite.play("activar")
-	get_viewport().set_input_as_handled()
+	if is_instance_valid(_trampa_electrica) and _trampa_electrica.has_method("set_active"):
+		_trampa_electrica.call("set_active", false)
 
 
 func reset_state() -> void:
 	_activated = false
 	animated_sprite.stop()
 	animated_sprite.frame = 0
+	if is_instance_valid(_trampa_electrica) and _trampa_electrica.has_method("reset_state"):
+		_trampa_electrica.call("reset_state")
 
 
 func _on_body_entered(body: Node2D) -> void:

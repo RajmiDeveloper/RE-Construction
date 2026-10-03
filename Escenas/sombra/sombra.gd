@@ -20,6 +20,7 @@ const SOLID_COLLISION_LAYER: int = 8
 var _recording: Array[Dictionary] = []
 var _elapsed: float = 0.0
 var _point_index: int = 0
+var _processed_action_index: int = -1
 var _replaying: bool = false
 var _current_form: int = FormCatalog.NORMAL
 var _form_material: ShaderMaterial
@@ -63,6 +64,7 @@ func restart_replay() -> void:
 	interaction_shape.set_deferred("disabled", true)
 	_elapsed = 0.0
 	_point_index = 0
+	_processed_action_index = -1
 	_replaying = true
 	global_position = _recording[0]["position"]
 	_apply_visual(_recording[0]["animation"])
@@ -82,6 +84,8 @@ func _physics_process(delta: float) -> void:
 		global_position = _recording.back()["position"]
 		_apply_visual(_recording.back()["animation"])
 		_apply_form(_recording.back().get("form", FormCatalog.NORMAL))
+		_process_recorded_actions_through(_recording.size() - 1)
+		global_position = _recording.back()["position"]
 		_become_solid()
 		return
 
@@ -100,9 +104,27 @@ func _physics_process(delta: float) -> void:
 	global_position = from_point["position"].lerp(to_point["position"], segment_progress)
 	_apply_visual(from_point["animation"])
 	_apply_form(from_point.get("form", FormCatalog.NORMAL))
+	_process_recorded_actions_through(_point_index)
 
 	if not is_zero_approx(to_point["position"].x - from_point["position"].x):
 		animacion.flip_h = to_point["position"].x < from_point["position"].x
+
+
+func _process_recorded_actions_through(target_index: int) -> void:
+	var level_root := get_parent().get_parent()
+	var replay_position := global_position
+	while _processed_action_index < target_index:
+		_processed_action_index += 1
+		var point: Dictionary = _recording[_processed_action_index]
+		for action in point.get("actions", []):
+			if not action is Dictionary or action.get("type") != &"activate":
+				continue
+			var target_path: NodePath = action.get("target_path", NodePath())
+			var target := level_root.get_node_or_null(target_path)
+			if is_instance_valid(target) and target.has_method("activate_from_shadow"):
+				global_position = point["position"]
+				target.call("activate_from_shadow")
+	global_position = replay_position
 
 
 func _apply_visual(animation_id: int) -> void:

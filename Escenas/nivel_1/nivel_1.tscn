@@ -7,10 +7,10 @@
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="5_shadow"]
 [ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="6_button"]
 [ext_resource type="PackedScene" uid="uid://booh45x7qreql" path="res://Escenas/objetos/palanca/palanca.tscn" id="8_lever"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/bloque_hielo/bloque_hielo.tscn" id="9_0n6oh"]
+[ext_resource type="PackedScene" uid="uid://k835lpiyrl6o" path="res://Escenas/objetos/bloque_hielo/bloque_hielo.tscn" id="9_0n6oh"]
 [ext_resource type="PackedScene" uid="uid://cbst5h3sfyuli" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="9_stone_gate"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/trampa_electrica.tscn" id="10_rvvl0"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="11_module"]
+[ext_resource type="PackedScene" uid="uid://ixetx4dgiaq5" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="11_module"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oacnx"]
 texture = ExtResource("2_4f3do")
@@ -49,7 +49,7 @@ shadow_scene = ExtResource("5_shadow")
 tile_map_data = PackedByteArray("AAD5/woAAAADAAIAAAD4/woAAAADAAIAAAD3/woAAAADAAIAAAD2/woAAAADAAIAAAD2/wkAAAADAAIAAAD2/wgAAAADAAIAAAD2/wcAAAADAAIAAAD2/wYAAAADAAIAAAD2/wUAAAADAAIAAAD2/wQAAAADAAIAAAD2/wMAAAADAAIAAAD2/wIAAAADAAIAAAD2/wEAAAADAAIAAAD2/wAAAAADAAIAAAD3/wAAAAADAAIAAAD4/wAAAAADAAIAAAD5/wAAAAADAAIAAAD6/wAAAAADAAIAAAD7/wAAAAADAAIAAAD8/wAAAAADAAIAAAD9/wAAAAADAAIAAAD+/wAAAAADAAIAAAD//wAAAAADAAIAAAADAAAAAAADAAIAAAAEAAAAAAADAAIAAAAFAAAAAAADAAIAAAAGAAAAAAADAAIAAAAHAAAAAAADAAIAAAAIAAAAAAADAAIAAAAJAAAAAAADAAIAAAAKAAAAAAADAAIAAAALAAAAAAADAAIAAAAMAAAAAAADAAIAAAANAAAAAAADAAIAAAANAAEAAAADAAIAAAANAAIAAAADAAIAAAANAAMAAAADAAIAAAANAAQAAAADAAIAAAANAAUAAAADAAIAAAANAAYAAAADAAIAAAANAAcAAAADAAIAAAANAAgAAAADAAIAAAANAAoAAAADAAIAAAAMAAoAAAADAAIAAAALAAoAAAADAAIAAAAKAAoAAAADAAIAAAAJAAoAAAADAAIAAAAIAAoAAAADAAIAAAAHAAoAAAADAAIAAAAGAAoAAAADAAIAAAAFAAoAAAADAAIAAAAEAAoAAAADAAIAAAADAAoAAAADAAIAAAACAAoAAAADAAIAAAABAAoAAAADAAIAAAAAAAoAAAADAAIAAAD//woAAAADAAIAAAD+/woAAAADAAIAAAD9/woAAAADAAIAAAD8/woAAAADAAIAAAD7/woAAAADAAIAAAD6/woAAAADAAIAAAAAAAAAAAADAAIAAAABAAAAAAADAAIAAAACAAAAAAADAAIAAAA=")
 
 [node name="Nivel" type="TileMapLayer" parent="." unique_id=1070866597]
-tile_map_data = PackedByteArray("AAD7/wkAAQAAAAAAAAD8/wkAAQAAAAAAAAD8/wgAAQAAAAAAAAD9/wgAAQAAAAAAAAD9/wkAAQAAAAAAAAD+/wkAAQAAAAAAAAABAAgAAQAAAAAAAAACAAcAAQAAAAAAAAADAAcAAQACAAEAAAAEAAcAAQAAAAAAAAAGAAYAAQAAAAAAAAAIAAUAAQAAAAAAAAAJAAUAAQACAAEAAAALAAQAAQAAAAAAAAAMAAQAAQAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAD7/wkAAQAAAAAAAAD8/wkAAQAAAAAAAAD8/wgAAQAAAAAAAAD9/wgAAQAAAAAAAAD9/wkAAQAAAAAAAAD+/wkAAQAAAAAAAAACAAcAAQAAAAAAAAADAAcAAQACAAEAAAAEAAcAAQAAAAAAAAAGAAYAAQAAAAAAAAAIAAUAAQAAAAAAAAAJAAUAAQACAAEAAAALAAQAAQAAAAAAAAAMAAQAAQAAAAAAAAA=")
 tile_set = SubResource("TileSet_d5i3i")
 
 [node name="personaje" parent="." unique_id=1412559796 instance=ExtResource("3_jfjvu")]
@@ -65,10 +65,11 @@ opening_height = 34.0
 button_path = NodePath("../Boton")
 
 [node name="Palanca" parent="." unique_id=1340177619 instance=ExtResource("8_lever")]
-position = Vector2(-49, 142)
+position = Vector2(73, 173)
+trampa_electrica_path = NodePath("../TrampaElectrica")
 
 [node name="BloqueHielo" parent="." unique_id=566022194 instance=ExtResource("9_0n6oh")]
-position = Vector2(51, 113)
+position = Vector2(130, 151)
 
 [node name="Sombras" type="Node2D" parent="." unique_id=1182552290]
 
@@ -119,14 +120,14 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Reiniciar campo"
 
-[node name="ModuloElectricoSuperior" parent="." unique_id=1773995001 instance=ExtResource("11_module")]
-position = Vector2(-1, 29)
+[node name="ModuloElectrico" parent="." unique_id=1422984175 instance=ExtResource("11_module")]
+position = Vector2(0, 27)
 
-[node name="ModuloElectricoInferior" parent="." unique_id=1773995002 instance=ExtResource("11_module")]
-position = Vector2(-1, 149)
-flip_v = true
+[node name="ModuloElectrico2" parent="." unique_id=1643180325 instance=ExtResource("11_module")]
+position = Vector2(0, 149)
+rotation = 3.1415927
 
-[node name="TrampaElectrica" parent="." unique_id=1581410531 instance=ExtResource("10_rvvl0")]
-position = Vector2(-1, 29)
-modulo_superior_path = NodePath("../ModuloElectricoSuperior")
-modulo_inferior_path = NodePath("../ModuloElectricoInferior")
+[node name="TrampaElectrica" parent="." unique_id=991238280 instance=ExtResource("10_rvvl0")]
+position = Vector2(0, 75)
+modulo_superior_path = NodePath("../ModuloElectrico")
+modulo_inferior_path = NodePath("../ModuloElectrico2")

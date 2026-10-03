@@ -7,6 +7,7 @@ const CANTIDAD_CUADROS: int = 4
 
 @export_node_path("Sprite2D") var modulo_superior_path: NodePath
 @export_node_path("Sprite2D") var modulo_inferior_path: NodePath
+@export var starts_active: bool = true
 @export_range(1.0, 24.0, 1.0) var cuadros_por_segundo: float = 8.0
 @export_range(1.0, 48.0, 1.0) var ancho_zona_peligro: float = 14.0
 
@@ -20,18 +21,30 @@ var _ultimo_inicio: Vector2
 var _ultimo_fin: Vector2
 var _ultimo_ancho_zona: float = -1.0
 var _geometria_valida: bool = false
+var _active: bool = true
+var _initial_active: bool = true
 var _tiempo: float = 0.0
 var _cuadro_actual: int = 0
 
 
 func _ready() -> void:
+	_initial_active = starts_active
+	_active = starts_active
+	monitoring = _active
 	set_process(true)
 	if not Engine.is_editor_hint():
+		add_to_group("level_resettable")
 		body_entered.connect(_on_body_entered)
+	if not _active:
+		_limpiar_descarga()
+		return
 	_process(0.0)
 
 
 func _process(delta: float) -> void:
+	if not _active:
+		return
+
 	var modulo_superior_actual := _resolver_modulo(modulo_superior_path)
 	var modulo_inferior_actual := _resolver_modulo(modulo_inferior_path)
 	if modulo_superior_actual != _modulo_superior or modulo_inferior_actual != _modulo_inferior:
@@ -65,6 +78,22 @@ func _process(delta: float) -> void:
 		_actualizar_cuadros()
 
 
+func set_active(value: bool) -> void:
+	if _active == value:
+		return
+	_active = value
+	monitoring = _active
+	if not _active:
+		_limpiar_descarga()
+		return
+	_geometria_valida = false
+	_process(0.0)
+
+
+func reset_state() -> void:
+	set_active(_initial_active)
+
+
 func _resolver_modulo(path: NodePath) -> Sprite2D:
 	if path.is_empty():
 		return null
@@ -73,12 +102,16 @@ func _resolver_modulo(path: NodePath) -> Sprite2D:
 
 func _obtener_borde_inferior(modulo: Sprite2D) -> Vector2:
 	var alto := _alto_modulo(modulo)
-	return to_local(modulo.to_global(Vector2(0.0, alto * 0.5)))
+	var extremo_a := to_local(modulo.to_global(Vector2(0.0, -alto * 0.5)))
+	var extremo_b := to_local(modulo.to_global(Vector2(0.0, alto * 0.5)))
+	return extremo_a if extremo_a.y > extremo_b.y else extremo_b
 
 
 func _obtener_borde_superior(modulo: Sprite2D) -> Vector2:
 	var alto := _alto_modulo(modulo)
-	return to_local(modulo.to_global(Vector2(0.0, -alto * 0.5)))
+	var extremo_a := to_local(modulo.to_global(Vector2(0.0, -alto * 0.5)))
+	var extremo_b := to_local(modulo.to_global(Vector2(0.0, alto * 0.5)))
+	return extremo_a if extremo_a.y < extremo_b.y else extremo_b
 
 
 func _alto_modulo(modulo: Sprite2D) -> float:
@@ -89,9 +122,7 @@ func _alto_modulo(modulo: Sprite2D) -> float:
 
 func _reconstruir_descarga(inicio: Vector2, fin: Vector2) -> void:
 	_limpiar_descarga()
-	var centro_superior := to_local(_modulo_superior.global_position)
-	var centro_inferior := to_local(_modulo_inferior.global_position)
-	var alineados := absf(centro_superior.x - centro_inferior.x) <= 0.5
+	var alineados := absf(inicio.x - fin.x) <= 0.5
 	var distancia := fin.y - inicio.y
 	if not alineados or distancia < CUADRO:
 		if Engine.is_editor_hint():
@@ -137,6 +168,8 @@ func _actualizar_cuadros() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and body.has_method("die"):
+		if body.has_method("get_form_id") and body.call("get_form_id") == FormCatalog.ELECTRICA:
+			return
 		body.call_deferred("die")
 
 
@@ -150,7 +183,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 		avisos.append("Asigna el modulo electrico inferior en el Inspector.")
 	if superior == null or inferior == null:
 		return avisos
-	if absf(superior.global_position.x - inferior.global_position.x) > 0.5:
+	if absf(_obtener_borde_inferior(superior).x - _obtener_borde_superior(inferior).x) > 0.5:
 		avisos.append("Los modulos deben estar alineados verticalmente.")
 	var distancia := _obtener_borde_superior(inferior).y - _obtener_borde_inferior(superior).y
 	if distancia < CUADRO:

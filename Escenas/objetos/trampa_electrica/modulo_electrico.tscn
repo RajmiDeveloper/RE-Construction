@@ -1,7 +1,14 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://ixetx4dgiaq5"]
 
-[ext_resource type="Texture2D" path="res://Assets/Mapa/Trampas/nodo_electrico_24.png" id="1_texture"]
+[ext_resource type="Texture2D" uid="uid://ddqn2o4xec504" path="res://Assets/Mapa/Trampas/nodo_electrico_24.png" id="1_texture"]
 
-[node name="ModuloElectrico" type="Sprite2D"]
+[node name="ModuloElectrico" type="Sprite2D" unique_id=338964125]
 texture_filter = 1
 texture = ExtResource("1_texture")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1521940540]
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=1493701709]
+position = Vector2(1, -7)
+rotation = 3.1415927
+polygon = PackedVector2Array(18.000002, 5.999998, -17.999998, 6.000002, -7.0000005, -4.999999, 7.9999995, -5.0000005)

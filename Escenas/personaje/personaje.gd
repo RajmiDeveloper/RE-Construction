@@ -130,6 +130,28 @@ func transform_to(form_id: int) -> bool:
 	return true
 
 
+func record_interaction(target: Node, action_name: StringName) -> void:
+	if _dead or not _controls_enabled or not is_instance_valid(target) or _recording.is_empty():
+		return
+
+	var level_root := get_parent()
+	if not is_instance_valid(level_root) or not level_root.is_ancestor_of(target):
+		return
+
+	# Las acciones se guardan como puntos de grabacion normales para mantener
+	# su posicion y el instante en que ocurrieron durante la reproduccion.
+	_recording.append({
+		"position": global_position,
+		"time": _recording_time,
+		"animation": _get_animation_id(),
+		"form": current_form,
+		"actions": [{
+			"type": action_name,
+			"target_path": level_root.get_path_to(target),
+		}],
+	})
+
+
 func get_form_id() -> int:
 	return current_form
 
@@ -204,6 +226,22 @@ func _trim_stationary_tail(recording: Array[Dictionary]) -> void:
 		stationary_start -= 1
 
 	if stationary_start == final_index:
+		return
+
+	# No recortes una interaccion que ocurrio durante la espera al final de la
+	# grabacion. La sombra debe conservarla y ejecutarla en ese mismo lugar.
+	var last_action_index := -1
+	for index in range(stationary_start, final_index + 1):
+		if not recording[index].get("actions", []).is_empty():
+			last_action_index = index
+	if last_action_index >= stationary_start:
+		var action_point: Dictionary = recording[last_action_index]
+		for index in range(last_action_index + 1, final_index + 1):
+			if recording[index].get("form", FormCatalog.NORMAL) != action_point.get("form", FormCatalog.NORMAL):
+				return
+			if recording[index].get("animation", ANIM_IDLE) != action_point.get("animation", ANIM_IDLE):
+				return
+		recording.resize(last_action_index + 1)
 		return
 
 	# Mantiene el punto donde termino el movimiento y lo actualiza al estado
