@@ -3,7 +3,10 @@ extends StaticBody2D
 const ANIM_IDLE: int = 0
 const ANIM_RUN: int = 1
 const ANIM_JUMP: int = 2
-const SOLID_COLLISION_LAYER: int = 5 # Capa del entorno + capa del jugador.
+# Capa exclusiva para interacciones de sombras.
+# El jugador no utiliza esta capa en su collision_mask, por lo que no choca
+# con las sombras cuando se vuelven fisicas.
+const SOLID_COLLISION_LAYER: int = 8
 
 @onready var animacion: AnimatedSprite2D = $Animacion
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
@@ -26,10 +29,19 @@ func start_replay(recording: Array) -> void:
 		if point is Dictionary and point.has("position") and point.has("time"):
 			_recording.append(point)
 
+	restart_replay()
+
+
+func restart_replay() -> void:
 	if _recording.is_empty():
 		_become_solid()
 		return
 
+	# Una sombra que ya era física vuelve a ser intangible al comenzar
+	# el siguiente intento.
+	collision_layer = 0
+	collision_mask = 0
+	collision_shape.set_deferred("disabled", true)
 	_elapsed = 0.0
 	_point_index = 0
 	_replaying = true
@@ -80,6 +92,11 @@ func _apply_visual(animation_id: int) -> void:
 
 func _become_solid() -> void:
 	_replaying = false
+	animacion.play("idle")
+	animacion.stop()
+	animacion.frame = 0
+	animacion.frame_progress = 0.0
+	animacion.flip_h = false
 	collision_layer = SOLID_COLLISION_LAYER
 	collision_mask = 0
 	collision_shape.set_deferred("disabled", false)

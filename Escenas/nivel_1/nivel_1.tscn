@@ -50,6 +50,8 @@ tile_set = SubResource("TileSet_d5i3i")
 position = Vector2(-129, 80)
 scale = Vector2(0.95, 0.95)
 
+[node name="Sombras" type="Node2D" parent="."]
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1946344814]
 position = Vector2(31, 89)
 zoom = Vector2(2.99, 2.99)

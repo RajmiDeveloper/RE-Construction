@@ -26,6 +26,11 @@ func _ready() -> void:
 	_record_point()
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
+		die()
+
+
 func _physics_process(delta: float) -> void:
 	if _dead:
 		return

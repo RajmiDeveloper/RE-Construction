@@ -1,22 +1,31 @@
 Titulo: "RE:Construccion"
 
-Core: El jugador al morir deja una "sombra" de su pasado que va a repetir las acciones que el hizo. Se puede transformar en distintas formas para cumplir. El jugador solo puede cambiar 1 vez por vida, asi que tendra
-que utilizar sombras para llegar a la meta
+Core: El jugador al morir deja una "sombra" de su pasado que repite sus movimientos. La sombra atraviesa el entorno durante la reproduccion y, al llegar al final de su recorrido, se vuelve fisica.
+
+El jugador reaparece automaticamente al morir. Cada nueva vida reinicia el recorrido de todas las sombras existentes desde el punto inicial y agrega la nueva sombra correspondiente a la vida que termino.
 
 Mecanicas:
-- Salto: se debe poder saltar
-- Cambio de forma:
+- Salto: se debe poder saltar.
+- La tecla R llama a die() para probar la muerte y generar una sombra.
+- Las transformaciones quedan fuera de la primera version.
 
-Formas:
-- metal: resistente a balas y pesado para activar botones. 
-- electrica: puede conducir electricidad para activar mecanismos o pasar por trampas electricas
-- pequeña: pasa por espacios pequeños (tal vez pelea con cucarachas???)
-- puente: Sirve para crear conexion entre zonas o crear protecciones de cosas que caen
-- fuego: puede derretir cosas o pasar por zonas calientes
+Formas futuras:
+- metal: resistente a balas y pesado para activar botones.
+- electrica: puede conducir electricidad para activar mecanismos o pasar por trampas electricas.
+- pequeña: pasa por espacios pequeños.
+- puente: sirve para crear conexiones entre zonas o protecciones contra objetos que caen.
+- fuego: puede derretir cosas o pasar por zonas calientes.
 
+Datos guardados por punto:
+- position.x: flotante.
+- position.y: flotante.
+- time: flotante.
+- animation: int.
 
-
-datos a guardar(puede cambiar):
-3 flotantes
-1 int para la forma
-1 valor para la animacion
+Colisiones e interacciones:
+- El jugador esta en la capa 4 y utiliza la mascara de entorno, capa 1.
+- Las sombras son intangibles durante la reproduccion.
+- Al solidificarse, las sombras pasan exclusivamente a la capa de interaccion de sombras, valor tecnico 8.
+- El jugador no utiliza esa capa en su mascara, por lo que nunca choca con una sombra solidificada.
+- Los botones y elementos del entorno que deban reaccionar ante sombras deben usar una collision_mask que incluya la capa de sombras, valor tecnico 8.
+- Las sombras mantienen collision_mask en 0: quedan fijas y pueden ser detectadas por Areas, pero no empujan ni interfieren con el jugador.

@@ -96,6 +96,7 @@ size = Vector2(13, 16)
 
 [node name="personaje" type="CharacterBody2D" unique_id=1412559796 node_paths=PackedStringArray("animacion", "Trigger")]
 collision_layer = 4
+collision_mask = 1
 script = ExtResource("1_g78av")
 animacion = NodePath("Animacion")
 Trigger = NodePath("Trigger")
