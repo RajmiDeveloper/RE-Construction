@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://Escenas/sombra/sombra.gd" id="1_shadow"]
 [ext_resource type="SpriteFrames" path="res://Escenas/personaje/animacion_base.tres" id="2_frames"]
+[ext_resource type="SpriteFrames" path="res://Escenas/personaje/animacion_efecto_fuego.tres" id="3_fire_effect"]
+[ext_resource type="SpriteFrames" path="res://Escenas/personaje/animacion_efecto_electrico.tres" id="4_electric_effect"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_shadow"]
 size = Vector2(13, 16)
@@ -16,6 +18,22 @@ texture_filter = 1
 position = Vector2(0, -2)
 sprite_frames = ExtResource("2_frames")
 animation = &"idle"
+
+[node name="EfectoFuego" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 1
+texture_filter = 1
+position = Vector2(0, -2)
+sprite_frames = ExtResource("3_fire_effect")
+animation = &"default"
+
+[node name="EfectoElectrico" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 1
+texture_filter = 1
+position = Vector2(0, -2)
+sprite_frames = ExtResource("4_electric_effect")
+animation = &"default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 0)

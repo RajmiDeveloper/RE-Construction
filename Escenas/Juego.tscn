@@ -206,9 +206,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -155.0
-offset_top = -125.0
+offset_top = -210.0
 offset_right = 155.0
-offset_bottom = 125.0
+offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 14
@@ -234,3 +234,21 @@ theme_override_colors/font_hover_color = Color(0.86, 0.94, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "▰  METAL"
 tooltip_text = "Transformarse en metal: activa botones"
+
+[node name="FireButton" type="Button" parent="FormMenu/Panel"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.55, 0.18, 1)
+theme_override_colors/font_hover_color = Color(1, 0.78, 0.35, 1)
+theme_override_font_sizes/font_size = 24
+text = "FUEGO"
+tooltip_text = "Transformarse en fuego"
+
+[node name="ElectricButton" type="Button" parent="FormMenu/Panel"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.22, 1)
+theme_override_colors/font_hover_color = Color(1, 0.97, 0.62, 1)
+theme_override_font_sizes/font_size = 24
+text = "ELÉCTRICA"
+tooltip_text = "Transformarse en forma eléctrica"
