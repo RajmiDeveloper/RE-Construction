@@ -9,6 +9,7 @@ extends Node
 @onready var main_menu: CanvasLayer = $MainMenu
 @onready var pause_menu: CanvasLayer = $PauseMenu
 @onready var end_ui: CanvasLayer = $EndUI
+@onready var form_menu = $FormMenu
 
 var _current_level
 var _current_index: int = -1
@@ -22,12 +23,23 @@ func _ready() -> void:
 	$PauseMenu/Panel/RestartButton.pressed.connect(_restart_level)
 	$PauseMenu/Panel/MenuButton.pressed.connect(return_to_menu)
 	$EndUI/Panel/MenuButton.pressed.connect(return_to_menu)
+	form_menu.form_selected.connect(_on_form_selected)
 	_show_main_menu()
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_BACKSPACE and is_instance_valid(_current_level) and not _transitioning:
+		if form_menu.visible:
+			if event.keycode == KEY_TAB or event.keycode == KEY_ESCAPE:
+				_close_form_menu()
+				get_viewport().set_input_as_handled()
+			return
+
+		if event.keycode == KEY_TAB:
+			if _can_open_form_menu():
+				_open_form_menu()
+			get_viewport().set_input_as_handled()
+		elif event.keycode == KEY_BACKSPACE and is_instance_valid(_current_level) and not _transitioning:
 			_current_level.reset_level()
 		elif event.is_action_pressed("ui_cancel") and is_instance_valid(_current_level) and not _transitioning:
 			if pause_menu.visible:
@@ -38,12 +50,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func start_game() -> void:
 	get_tree().paused = false
+	form_menu.close()
 	main_menu.visible = false
 	end_ui.visible = false
 	_load_level(0)
 
 
 func return_to_menu() -> void:
+	form_menu.close()
 	get_tree().paused = false
 	pause_menu.visible = false
 	end_ui.visible = false
@@ -76,6 +90,7 @@ func _on_level_completed() -> void:
 
 
 func _restart_level() -> void:
+	form_menu.close()
 	_resume_game()
 	if is_instance_valid(_current_level):
 		_current_level.reset_level()
@@ -92,6 +107,7 @@ func _resume_game() -> void:
 
 
 func _show_main_menu() -> void:
+	form_menu.close()
 	transition_ui.visible = false
 	pause_menu.visible = false
 	main_menu.visible = true
@@ -103,6 +119,7 @@ func _show_transition(message: String) -> void:
 
 
 func _show_end_screen() -> void:
+	form_menu.close()
 	transition_ui.visible = false
 	end_ui.visible = true
 	_transitioning = false
@@ -117,3 +134,32 @@ func _clear_current_level() -> void:
 
 func _quit_game() -> void:
 	get_tree().quit()
+
+
+func _can_open_form_menu() -> bool:
+	return is_instance_valid(_current_level) \
+		and not _transitioning \
+		and not main_menu.visible \
+		and not pause_menu.visible \
+		and not end_ui.visible \
+		and _current_level.can_transform_player()
+
+
+func _open_form_menu() -> void:
+	if not _can_open_form_menu():
+		return
+	form_menu.open([FormCatalog.METAL])
+	get_tree().paused = true
+
+
+func _close_form_menu() -> void:
+	form_menu.close()
+	get_tree().paused = false
+
+
+func _on_form_selected(form_id: int) -> void:
+	if not form_menu.visible:
+		return
+	if is_instance_valid(_current_level) and not _transitioning:
+		_current_level.transform_player(form_id)
+	_close_form_menu()

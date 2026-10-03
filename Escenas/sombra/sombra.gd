@@ -1,5 +1,7 @@
 extends StaticBody2D
 
+const FORM_SHADER = preload("res://Escenas/personaje/forma_tint.gdshader")
+
 const ANIM_IDLE: int = 0
 const ANIM_RUN: int = 1
 const ANIM_JUMP: int = 2
@@ -17,6 +19,9 @@ var _recording: Array[Dictionary] = []
 var _elapsed: float = 0.0
 var _point_index: int = 0
 var _replaying: bool = false
+var _current_form: int = FormCatalog.NORMAL
+var _form_material: ShaderMaterial
+var _normal_sprite_frames: SpriteFrames
 
 func _ready() -> void:
 	collision_shape.disabled = true
@@ -27,6 +32,8 @@ func _ready() -> void:
 	interaction_area.monitorable = false
 	interaction_area.monitoring = false
 	interaction_area.add_to_group("shadow_interaction")
+	_setup_form_material()
+	_apply_form_visual()
 	modulate = Color(0.45, 0.55, 0.9, 0.62)
 
 
@@ -57,10 +64,13 @@ func restart_replay() -> void:
 	_replaying = true
 	global_position = _recording[0]["position"]
 	_apply_visual(_recording[0]["animation"])
+	_apply_form(_recording[0].get("form", FormCatalog.NORMAL))
 
 
 func _physics_process(delta: float) -> void:
-	if not _replaying:
+	# El recorrido se reproduce con tiempo de fisica activo, nunca con tiempo
+	# transcurrido del menu de formas o del menu de pausa.
+	if get_tree().paused or not _replaying:
 		return
 
 	_elapsed += delta
@@ -68,6 +78,7 @@ func _physics_process(delta: float) -> void:
 	if _elapsed >= final_time:
 		global_position = _recording.back()["position"]
 		_apply_visual(_recording.back()["animation"])
+		_apply_form(_recording.back().get("form", FormCatalog.NORMAL))
 		_become_solid()
 		return
 
@@ -85,6 +96,7 @@ func _physics_process(delta: float) -> void:
 
 	global_position = from_point["position"].lerp(to_point["position"], segment_progress)
 	_apply_visual(from_point["animation"])
+	_apply_form(from_point.get("form", FormCatalog.NORMAL))
 
 	if not is_zero_approx(to_point["position"].x - from_point["position"].x):
 		animacion.flip_h = to_point["position"].x < from_point["position"].x
@@ -102,6 +114,8 @@ func _apply_visual(animation_id: int) -> void:
 
 func _become_solid() -> void:
 	_replaying = false
+	if not _recording.is_empty():
+		_apply_form(_recording.back().get("form", FormCatalog.NORMAL))
 	animacion.play("idle")
 	animacion.stop()
 	animacion.frame = 0
@@ -113,3 +127,38 @@ func _become_solid() -> void:
 	interaction_area.collision_layer = SOLID_COLLISION_LAYER
 	interaction_area.monitorable = true
 	interaction_shape.set_deferred("disabled", false)
+
+
+func set_form(form_id: int) -> void:
+	if not FormCatalog.is_valid(form_id):
+		form_id = FormCatalog.NORMAL
+	if _current_form == form_id:
+		return
+	_current_form = form_id
+	_apply_form_visual()
+
+
+func get_form_id() -> int:
+	return _current_form
+
+
+func _setup_form_material() -> void:
+	_form_material = ShaderMaterial.new()
+	_form_material.shader = FORM_SHADER
+	_normal_sprite_frames = animacion.sprite_frames
+	animacion.material = _form_material
+
+
+func _apply_form(form_id: int) -> void:
+	set_form(form_id)
+
+
+func _apply_form_visual() -> void:
+	if is_instance_valid(_form_material):
+		var form_frames := FormCatalog.get_sprite_frames(_current_form)
+		if form_frames != null:
+			animacion.sprite_frames = form_frames
+		else:
+			animacion.sprite_frames = _normal_sprite_frames
+		_form_material.set_shader_parameter("tint_color", FormCatalog.get_tint(_current_form))
+		_form_material.set_shader_parameter("grayscale_strength", 1.0 if _current_form == FormCatalog.METAL else 0.0)

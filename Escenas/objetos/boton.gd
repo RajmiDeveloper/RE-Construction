@@ -7,6 +7,7 @@ const SHADOW_LAYER: int = 8
 
 @export var texture_released: Texture2D
 @export var texture_pressed: Texture2D
+@export var required_form_id: int = FormCatalog.METAL
 
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -73,11 +74,16 @@ func _is_pressing_body(body: Node2D) -> bool:
 		return false
 
 	var layer: int = collision_body.collision_layer
-	return (layer & PLAYER_LAYER) != 0 or (layer & SHADOW_LAYER) != 0
+	if (layer & PLAYER_LAYER) == 0 and (layer & SHADOW_LAYER) == 0:
+		return false
+	return body.has_method("get_form_id") and body.call("get_form_id") == required_form_id
 
 
 func _is_pressing_area(area: Area2D) -> bool:
-	return is_instance_valid(area) and area.is_in_group("shadow_interaction")
+	if not is_instance_valid(area) or not area.is_in_group("shadow_interaction"):
+		return false
+	var shadow := area.get_parent()
+	return is_instance_valid(shadow) and shadow.has_method("get_form_id") and shadow.call("get_form_id") == required_form_id
 
 
 func _update_state() -> void:

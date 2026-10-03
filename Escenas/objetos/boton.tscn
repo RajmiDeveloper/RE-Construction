@@ -14,6 +14,7 @@ monitoring = true
 script = ExtResource("1_button")
 texture_released = ExtResource("2_released")
 texture_pressed = ExtResource("3_pressed")
+required_form_id = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

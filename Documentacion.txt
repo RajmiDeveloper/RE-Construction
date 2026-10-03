@@ -7,9 +7,25 @@ El jugador reaparece automaticamente al morir. Cada nueva vida reinicia el recor
 Mecanicas:
 - Salto: se debe poder saltar.
 - La tecla R llama a die() para probar la muerte y generar una sombra.
-- Las transformaciones quedan fuera de la primera version.
+- Tab abre el menu de formas y pausa el juego. Escape o Tab cierran el menu sin transformar.
+- Enter, Space o mouse seleccionan la forma enfocada.
+- La transformacion se puede realizar una sola vez por vida.
 
-Formas futuras:
+Formas:
+- Normal: forma inicial de cada vida y no aparece como opcion del menu.
+- Metal: unica transformacion inicial. Usa un shader que convierte el sprite a gris plata claro,
+  conserva temporalmente el sprite y la hitbox actuales, y puede activar botones.
+- El catalogo esta en Escenas/personaje/formas.gd. Cuando exista el sprite de viga,
+  se podra asociar como SpriteFrames sin reescribir la logica de transformacion.
+- El shader se instancia por separado en cada jugador y sombra.
+- Al morir o reiniciar la sala, el jugador vuelve a Normal y recupera su transformacion.
+- La sombra registra y reproduce la forma en cada punto, y se solidifica conservando
+  la forma del ultimo punto de su recorrido.
+- El tiempo de grabacion y reproduccion se acumula solo durante frames de fisica activos.
+  El menu de formas y el menu de pausa pausan el arbol, por lo que sus minutos no
+  agregan tiempo ni movimiento al recorrido de las sombras.
+
+Formas planeadas:
 - metal: resistente a balas y pesado para activar botones.
 - electrica: puede conducir electricidad para activar mecanismos o pasar por trampas electricas.
 - pequeña: pasa por espacios pequeños.
@@ -21,6 +37,7 @@ Datos guardados por punto:
 - position.y: flotante.
 - time: flotante.
 - animation: int.
+- form: int (0 Normal, 1 Metal).
 
 Colisiones e interacciones:
 - El jugador esta en la capa 4 y utiliza la mascara de entorno, capa 1.
@@ -31,7 +48,13 @@ Colisiones e interacciones:
 - Las sombras mantienen collision_mask en 0: quedan fijas y pueden ser detectadas por Areas, pero no empujan ni interfieren con el jugador.
 - El boton reutilizable esta en Escenas/objetos/boton.tscn.
 - El boton detecta la capa del jugador y la capa de sombras, y cambia entre button-export.png y button_pressed-export.png mientras haya un cuerpo valido encima.
+- En la primera version solo acepta cuerpos con get_form_id() == Metal. El jugador Normal y las sombras Normal no lo activan.
 - El boton emite state_changed(bool) para que puertas u otros mecanismos puedan conectarse en el futuro.
+
+Menu de formas:
+- FormMenu vive en Juego.tscn y usa PROCESS_MODE_ALWAYS para recibir input mientras el arbol esta pausado.
+- El GameManager solo lo abre con una sala activa, sin transicion, pausa general ni sala completada.
+- El menu muestra inicialmente una unica opcion temporal: "Metal", representada como una viga.
 
 Estructura de niveles:
 - Juego.tscn es la escena principal y contiene GameManager, NivelActual, transiciones, menu principal y menu de pausa.
