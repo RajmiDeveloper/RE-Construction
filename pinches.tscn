@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://b1hk8l4maaju1"]
+
+[ext_resource type="Script" path="res://Assets/Mapa/pinches/pinches.gd" id="1_4muq3"]
+[ext_resource type="Texture2D" uid="uid://dcye6scnuijes" path="res://Assets/tilesets/sunken_temple_v1/sunken_blocky.png" id="1_g5mkx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0bck"]
+size = Vector2(20, 13.5)
+
+[node name="Pinches" type="Node2D" unique_id=1779459369]
+script = ExtResource("1_4muq3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1099525702]
+texture = ExtResource("1_g5mkx")
+region_enabled = true
+region_rect = Rect2(289.10562, 296, 30.894379, 26.783966)
+
+[node name="killzone" type="Area2D" parent="." unique_id=658067344]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone" unique_id=108890196]
+position = Vector2(0, 6.75)
+shape = SubResource("RectangleShape2D_m0bck")
+
+[node name="retract_timer" type="Timer" parent="." unique_id=1164648163]
+process_callback = 0
+one_shot = true
+
+[node name="spike_timer" type="Timer" parent="." unique_id=1807206155]
+process_callback = 0
+one_shot = true
+
+[connection signal="body_entered" from="killzone" to="." method="_on_killzone_body_entered"]
+[connection signal="timeout" from="retract_timer" to="." method="_on_retract_timer_timeout"]
+[connection signal="timeout" from="spike_timer" to="." method="_on_spike_timer_timeout"]

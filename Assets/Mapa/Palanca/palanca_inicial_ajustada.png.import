@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d218thrfxv66j"
-path="res://.godot/imported/palanca_inicial_ajustada.png-e75effbb2fef4b376c74b44c12e9d28c.ctex"
+path="res://.godot/imported/palanca_inicial_ajustada.png-e1524ddb57eb90e0a0d6c77fa2429e7f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://Assets/Mapa/Palanca/palanca_inicial_ajustada.png"
-dest_files=["res://.godot/imported/palanca_inicial_ajustada.png-e75effbb2fef4b376c74b44c12e9d28c.ctex"]
+dest_files=["res://.godot/imported/palanca_inicial_ajustada.png-e1524ddb57eb90e0a0d6c77fa2429e7f.ctex"]
 
 [params]
 

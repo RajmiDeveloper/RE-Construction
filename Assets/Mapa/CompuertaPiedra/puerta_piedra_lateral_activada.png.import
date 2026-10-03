@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bunt55p1y03no"
-path="res://.godot/imported/puerta_piedra_lateral_activada.png-f087be1b9aa0659c71ad003c884a2153.ctex"
+path="res://.godot/imported/puerta_piedra_lateral_activada.png-b48b5483a707f38f877fb7d30273f42e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://Assets/Mapa/CompuertaPiedra/puerta_piedra_lateral_activada.png"
-dest_files=["res://.godot/imported/puerta_piedra_lateral_activada.png-f087be1b9aa0659c71ad003c884a2153.ctex"]
+dest_files=["res://.godot/imported/puerta_piedra_lateral_activada.png-b48b5483a707f38f877fb7d30273f42e.ctex"]
 
 [params]
 
