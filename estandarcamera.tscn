@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://baglgwa7c6cjh"]
+
+[node name="Node2D" type="Node2D" unique_id=1685877242]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1960997773]
+position = Vector2(830, 419)
+zoom = Vector2(3.5, 3.5)
