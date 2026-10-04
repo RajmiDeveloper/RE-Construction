@@ -6,6 +6,7 @@ const ELECTRIC_AUDIO: AudioStreamMP3 = preload("res://Assets/Sonidos/test/ruidoE
 @export var animacion: AnimatedSprite2D
 @export var Trigger: Area2D
 @export var death_distance: float = 240.0
+@export_range(0.0, 0.5, 0.01, "suffix:s") var coyote_time: float = 0.12
 
 @onready var fire_effect: AnimatedSprite2D = $EfectoFuego
 @onready var electric_effect: AnimatedSprite2D = $EfectoElectrico
@@ -37,6 +38,7 @@ var _recording_time: float = 0.0
 var _dead: bool = false
 var _death_sequence: int = 0
 var _controls_enabled: bool = true
+var _coyote_time_left: float = 0.0
 var current_form: int = FormCatalog.NORMAL
 var can_transform: bool = true
 var _form_material: ShaderMaterial
@@ -85,6 +87,12 @@ func _physics_process(delta: float) -> void:
 	if get_tree().paused or _dead or not _controls_enabled:
 		return
 
+	# Conserva un breve margen de salto al abandonar una plataforma.
+	if is_on_floor():
+		_coyote_time_left = coyote_time
+	else:
+		_coyote_time_left = maxf(_coyote_time_left - delta, 0.0)
+
 	# Gravedad.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -92,8 +100,11 @@ func _physics_process(delta: float) -> void:
 	# Salto con flecha arriba o barra espaciadora.
 	var enter_pressed := Input.is_key_pressed(KEY_ENTER) or Input.is_key_pressed(KEY_KP_ENTER) or Input.is_key_pressed(KEY_E)
 	var is_jumping := Input.is_action_just_pressed("ui_up") or (Input.is_action_just_pressed("ui_accept") and not enter_pressed)
-	if is_jumping and is_on_floor():
+	var can_jump := is_on_floor() or _coyote_time_left > 0.0
+	var jumped := is_jumping and can_jump
+	if jumped:
 		velocity.y = jump_velocity
+		_coyote_time_left = 0.0
 
 	# Movimiento horizontal.
 	var direction := Input.get_axis("ui_left", "ui_right")
@@ -105,7 +116,7 @@ func _physics_process(delta: float) -> void:
 
 	# La animacion depende primero de si el personaje esta en el aire.
 	# Asi, moverse horizontalmente durante un salto no cambia a correr.
-	if not is_on_floor() or is_jumping:
+	if not is_on_floor() or jumped:
 		_set_animation(ANIM_JUMP)
 	elif direction:
 		_set_animation(ANIM_RUN)
@@ -129,6 +140,7 @@ func die() -> void:
 		return
 
 	_dead = true
+	_coyote_time_left = 0.0
 	death_started.emit()
 	_death_sequence += 1
 	var death_sequence := _death_sequence
@@ -241,6 +253,7 @@ func set_spawn_position(value: Vector2) -> void:
 	_death_y = value.y + death_distance
 	global_position = value
 	velocity = Vector2.ZERO
+	_coyote_time_left = 0.0
 
 
 func set_controls_enabled(value: bool) -> void:
@@ -248,6 +261,7 @@ func set_controls_enabled(value: bool) -> void:
 	if not _controls_enabled:
 		form_menu.close()
 		velocity = Vector2.ZERO
+		_coyote_time_left = 0.0
 
 
 func _reset_life() -> void:
@@ -255,6 +269,7 @@ func _reset_life() -> void:
 	hitbox.set_deferred("disabled", false)
 	global_position = _spawn_position
 	velocity = Vector2.ZERO
+	_coyote_time_left = 0.0
 	_recording.clear()
 	_recording_time = 0.0
 	_dead = false

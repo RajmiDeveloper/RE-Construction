@@ -107,40 +107,25 @@ func _resolver_modulo(path: NodePath) -> Sprite2D:
 	return get_node_or_null(path) as Sprite2D
 
 
-func _obtener_borde_inferior(modulo: Sprite2D) -> Vector2:
-	var alto := _alto_modulo(modulo)
-	var extremo_a := to_local(modulo.to_global(Vector2(0.0, -alto * 0.5)))
-	var extremo_b := to_local(modulo.to_global(Vector2(0.0, alto * 0.5)))
-	return extremo_a if extremo_a.y > extremo_b.y else extremo_b
+func _obtener_punta(modulo: Sprite2D) -> Vector2:
+	var centro_textura := Vector2.ZERO
+	if modulo.centered:
+		centro_textura.y = _alto_modulo(modulo) * 0.5
+	else:
+		centro_textura.y = _alto_modulo(modulo)
+	return to_local(modulo.to_global(modulo.offset + centro_textura))
 
 
-func _obtener_borde_superior(modulo: Sprite2D) -> Vector2:
-	var alto := _alto_modulo(modulo)
-	var extremo_a := to_local(modulo.to_global(Vector2(0.0, -alto * 0.5)))
-	var extremo_b := to_local(modulo.to_global(Vector2(0.0, alto * 0.5)))
-	return extremo_a if extremo_a.y < extremo_b.y else extremo_b
-
-
-func _obtener_borde_izquierdo(modulo: Sprite2D) -> Vector2:
-	var ancho := _ancho_modulo(modulo)
-	var extremo_a := to_local(modulo.to_global(Vector2(-ancho * 0.5, 0.0)))
-	var extremo_b := to_local(modulo.to_global(Vector2(ancho * 0.5, 0.0)))
-	return extremo_a if extremo_a.x < extremo_b.x else extremo_b
-
-
-func _obtener_borde_derecho(modulo: Sprite2D) -> Vector2:
-	var ancho := _ancho_modulo(modulo)
-	var extremo_a := to_local(modulo.to_global(Vector2(-ancho * 0.5, 0.0)))
-	var extremo_b := to_local(modulo.to_global(Vector2(ancho * 0.5, 0.0)))
-	return extremo_a if extremo_a.x > extremo_b.x else extremo_b
+func _obtener_centro(modulo: Sprite2D) -> Vector2:
+	return to_local(modulo.global_position)
 
 
 func _obtener_inicio(modulo: Sprite2D) -> Vector2:
-	return _obtener_borde_derecho(modulo) if horizontal else _obtener_borde_inferior(modulo)
+	return _obtener_punta(modulo)
 
 
 func _obtener_fin(modulo: Sprite2D) -> Vector2:
-	return _obtener_borde_izquierdo(modulo) if horizontal else _obtener_borde_superior(modulo)
+	return _obtener_punta(modulo)
 
 
 func _alto_modulo(modulo: Sprite2D) -> float:
@@ -149,15 +134,13 @@ func _alto_modulo(modulo: Sprite2D) -> float:
 	return float(modulo.texture.get_height())
 
 
-func _ancho_modulo(modulo: Sprite2D) -> float:
-	if modulo.texture == null:
-		return CUADRO
-	return float(modulo.texture.get_width())
-
-
 func _reconstruir_descarga(inicio: Vector2, fin: Vector2) -> void:
 	_limpiar_descarga()
-	var alineados := absf(inicio.y - fin.y) <= 0.5 if horizontal else absf(inicio.x - fin.x) <= 0.5
+	var alineados := false
+	if is_instance_valid(_modulo_superior) and is_instance_valid(_modulo_inferior):
+		var centro_a := _obtener_centro(_modulo_superior)
+		var centro_b := _obtener_centro(_modulo_inferior)
+		alineados = absf(centro_a.y - centro_b.y) <= 0.5 if horizontal else absf(centro_a.x - centro_b.x) <= 0.5
 	var distancia := fin.x - inicio.x if horizontal else fin.y - inicio.y
 	if not alineados or distancia < CUADRO:
 		if Engine.is_editor_hint():
@@ -239,10 +222,15 @@ func _get_configuration_warnings() -> PackedStringArray:
 		return avisos
 	var inicio := _obtener_inicio(superior)
 	var fin := _obtener_fin(inferior)
-	var desalineacion := absf(inicio.y - fin.y) if horizontal else absf(inicio.x - fin.x)
+	var centro_a := to_local(superior.global_position)
+	var centro_b := to_local(inferior.global_position)
+	var desalineacion := absf(centro_a.y - centro_b.y) if horizontal else absf(centro_a.x - centro_b.x)
 	if desalineacion > 0.5:
-		avisos.append("Con la trampa horizontal, los modulos deben alinearse de izquierda a derecha." if horizontal else "Los modulos deben estar alineados verticalmente.")
+		avisos.append("En una trampa horizontal, los centros de ambos modulos deben quedar a la misma altura." if horizontal else "En una trampa vertical, los centros de ambos modulos deben quedar en la misma linea vertical.")
 	var distancia := fin.x - inicio.x if horizontal else fin.y - inicio.y
+	if distancia <= 0.0:
+		avisos.append("Orienta los modulos para que sus puntas se enfrenten.")
+		return avisos
 	if distancia < CUADRO:
 		avisos.append("Separa los modulos para dejar al menos 24 píxeles para el rayo.")
 	return avisos

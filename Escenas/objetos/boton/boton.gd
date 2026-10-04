@@ -29,9 +29,8 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if _rewinding:
 		return
-	# Tambien se consulta el area en cada frame para detectar cuerpos cuya
-	# colision se habilito mientras ya estaban superpuestos, como una sombra
-	# que acaba de solidificarse encima del boton.
+	# Consulta cada frame para detectar cambios de forma mientras una sombra
+	# permanece superpuesta durante la reproduccion.
 	_pressing_bodies.clear()
 	for body in get_overlapping_bodies():
 		if _is_pressing_body(body):

@@ -28,8 +28,6 @@ position = Vector2(-214, 102)
 [node name="BotonA" parent="Mecanismos" unique_id=1236718089 instance=ExtResource("5_button")]
 z_index = 7
 position = Vector2(-54, 108)
-texture_released = null
-texture_pressed = null
 
 [node name="PuertaPiedraLateral" parent="Mecanismos" unique_id=651133313 instance=ExtResource("5_x104n")]
 position = Vector2(48, -16)

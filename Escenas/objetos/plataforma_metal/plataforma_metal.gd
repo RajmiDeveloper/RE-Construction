@@ -99,7 +99,9 @@ func _detectar_peso_metal(sombras_encima: Array[Node2D]) -> bool:
 		var cuerpo_detectado := body as CollisionObject2D
 		if cuerpo_detectado == null or (cuerpo_detectado.collision_layer & CAPA_SOMBRA) == 0:
 			continue
-		if not sombras_encima.has(body):
+		# Solo transporta sombras detenidas; las demas siguen su grabacion.
+		var reproduciendo: bool = body.has_method("is_replaying") and body.call("is_replaying")
+		if not reproduciendo and not sombras_encima.has(body):
 			sombras_encima.append(body)
 		if _es_metal(body):
 			hay_metal = true

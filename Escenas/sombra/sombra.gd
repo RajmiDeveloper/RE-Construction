@@ -7,8 +7,8 @@ const ANIM_RUN: int = 1
 const ANIM_JUMP: int = 2
 # Capa exclusiva para interacciones de sombras.
 # El jugador no utiliza esta capa en su collision_mask, por lo que no choca
-# con las sombras cuando se vuelven fisicas.
-const SOLID_COLLISION_LAYER: int = 8
+# con las sombras, tanto durante la reproduccion como al terminarla.
+const SHADOW_COLLISION_LAYER: int = 8
 const PLATFORM_WEIGHT_GROUP: StringName = &"shadow_platform_weight"
 
 @onready var animacion: AnimatedSprite2D = $Animacion
@@ -60,17 +60,6 @@ func restart_replay() -> void:
 		_become_solid()
 		return
 
-	# Una sombra que ya era física vuelve a ser intangible al comenzar
-	# el siguiente intento.
-	collision_layer = 0
-	collision_mask = 0
-	collision_shape.set_deferred("disabled", true)
-	# La sombra sigue siendo intangible para el resto del nivel, pero la
-	# plataforma puede detectarla como peso a traves de este area dedicada.
-	interaction_area.collision_layer = SOLID_COLLISION_LAYER
-	interaction_area.monitorable = true
-	interaction_shape.set_deferred("disabled", false)
-	interaction_area.remove_from_group("shadow_interaction")
 	_elapsed = 0.0
 	_point_index = 0
 	_processed_action_index = -1
@@ -79,6 +68,7 @@ func restart_replay() -> void:
 	_apply_visual(_recording[0]["animation"])
 	_apply_form(_recording[0].get("form", FormCatalog.NORMAL))
 	_update_form_effects(true)
+	_enable_world_interactions()
 
 
 func _physics_process(delta: float) -> void:
@@ -155,11 +145,17 @@ func _become_solid() -> void:
 	animacion.frame = 0
 	animacion.frame_progress = 0.0
 	animacion.flip_h = false
-	collision_layer = SOLID_COLLISION_LAYER
+	_enable_world_interactions()
+
+
+func _enable_world_interactions() -> void:
+	# Los mecanismos y proyectiles pueden detectarla desde el inicio. Su
+	# movimiento sigue la grabacion y el jugador no colisiona con esta capa.
+	collision_layer = SHADOW_COLLISION_LAYER
 	collision_mask = 0
 	collision_shape.set_deferred("disabled", false)
 	interaction_area.add_to_group("shadow_interaction")
-	interaction_area.collision_layer = SOLID_COLLISION_LAYER
+	interaction_area.collision_layer = SHADOW_COLLISION_LAYER
 	interaction_area.monitorable = true
 	interaction_shape.set_deferred("disabled", false)
 
