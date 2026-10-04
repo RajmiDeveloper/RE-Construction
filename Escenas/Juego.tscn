@@ -1,186 +1,98 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3]
 
-[ext_resource type="Script" path="res://Escenas/Juego.gd" id="1_game"]
-[ext_resource type="PackedScene" path="res://Escenas/niveles/Sala01/sala_01.tscn" id="2_level_01"]
-[ext_resource type="PackedScene" path="res://Escenas/niveles/Sala02/sala_02.tscn" id="3_level_02"]
-[ext_resource type="PackedScene" path="res://Escenas/niveles/Sala03/sala_03.tscn" id="4_level_03"]
-[ext_resource type="PackedScene" path="res://Escenas/niveles/Sala04/sala_04.tscn" id="5_level_04"]
-[ext_resource type="PackedScene" path="res://Escenas/niveles/Sala05/sala_05.tscn" id="6_level_05"]
+[ext_resource type="Script" path="res://Escenas/Juego.gd" id="game"]
+[ext_resource type="PackedScene" path="res://Escenas/UI/main_menu.tscn" id="main"]
+[ext_resource type="PackedScene" path="res://Escenas/UI/level_selector.tscn" id="selector"]
+[ext_resource type="PackedScene" path="res://Escenas/UI/pause_menu.tscn" id="pause"]
+[ext_resource type="Script" path="res://Escenas/UI/stone_button.gd" id="button"]
+[ext_resource type="FontVariation" path="res://Assets/UI/Menu/fonts/menu_font.tres" id="font"]
+[ext_resource type="Texture2D" path="res://Assets/UI/Menu/pausa.svg" id="pause_icon"]
 
 [node name="Juego" type="Node"]
-script = ExtResource("1_game")
-level_scenes = [ExtResource("2_level_01"), ExtResource("3_level_02"), ExtResource("4_level_03"), ExtResource("5_level_04"), ExtResource("6_level_05")]
+process_mode = 3
+script = ExtResource("game")
 
 [node name="NivelActual" type="Node2D" parent="."]
+process_mode = 1
 
-[node name="TransitionUI" type="CanvasLayer" parent="."]
-process_mode = 3
-layer = 10
-visible = false
-
-[node name="Panel" type="ColorRect" parent="TransitionUI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0352941, 0.0470588, 0.0862745, 0.94)
-
-[node name="Label" type="Label" parent="TransitionUI/Panel"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 30
-text = "Sala completada"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MainMenu" type="CanvasLayer" parent="."]
-process_mode = 3
-layer = 20
-
-[node name="Backdrop" type="ColorRect" parent="MainMenu"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0352941, 0.0470588, 0.0862745, 1)
-
-[node name="Panel" type="VBoxContainer" parent="MainMenu"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -112.0
-offset_right = 150.0
-offset_bottom = 112.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 14
-
-[node name="Title" type="Label" parent="MainMenu/Panel"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.75, 1, 1)
-theme_override_font_sizes/font_size = 36
-text = "RE:Construccion"
-horizontal_alignment = 1
-
-[node name="Subtitle" type="Label" parent="MainMenu/Panel"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.85, 0.95, 1)
-theme_override_font_sizes/font_size = 16
-text = "Construye el futuro con tus intentos pasados"
-autowrap_mode = 2
-horizontal_alignment = 1
-
-[node name="Spacer" type="Control" parent="MainMenu/Panel"]
-custom_minimum_size = Vector2(0, 28)
-layout_mode = 2
-
-[node name="StartButton" type="Button" parent="MainMenu/Panel"]
-custom_minimum_size = Vector2(0, 42)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Jugar"
-
-[node name="QuitButton" type="Button" parent="MainMenu/Panel"]
-custom_minimum_size = Vector2(0, 34)
-layout_mode = 2
-text = "Salir"
-
-[node name="PauseMenu" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 30
+
+[node name="MainMenu" parent="UI" instance=ExtResource("main")]
+
+[node name="LevelSelector" parent="UI" instance=ExtResource("selector")]
 visible = false
 
-[node name="Backdrop" type="ColorRect" parent="PauseMenu"]
+[node name="PauseMenu" parent="UI" instance=ExtResource("pause")]
+visible = false
+
+[node name="HUD" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.02, 0.027, 0.05, 0.82)
+mouse_filter = 2
 
-[node name="Panel" type="VBoxContainer" parent="PauseMenu"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -135.0
-offset_top = -105.0
-offset_right = 135.0
-offset_bottom = 105.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 12
+[node name="PauseButton" type="Button" parent="UI/HUD"]
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -106.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 92.0
+grow_horizontal = 0
+script = ExtResource("button")
+icon = ExtResource("pause_icon")
+icon_alignment = 1
+expand_icon = true
+theme_override_constants/icon_max_width = 34
+tooltip_text = "Pausa (Esc)"
 
-[node name="Title" type="Label" parent="PauseMenu/Panel"]
-layout_mode = 2
+[node name="LevelName" type="Label" parent="UI/HUD"]
+layout_mode = 1
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 120.0
+offset_bottom = 74.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("font")
 theme_override_font_sizes/font_size = 28
-text = "Pausa"
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.68, 0.80, 0.70, 0.75)
+theme_override_colors/font_shadow_color = Color(0.02, 0.07, 0.1, 1)
+theme_override_constants/shadow_offset_y = -2
 
-[node name="ContinueButton" type="Button" parent="PauseMenu/Panel"]
-custom_minimum_size = Vector2(0, 38)
-layout_mode = 2
-text = "Continuar"
-
-[node name="RestartButton" type="Button" parent="PauseMenu/Panel"]
-custom_minimum_size = Vector2(0, 38)
-layout_mode = 2
-text = "Reiniciar sala"
-
-[node name="MenuButton" type="Button" parent="PauseMenu/Panel"]
-custom_minimum_size = Vector2(0, 38)
-layout_mode = 2
-text = "Volver al menu"
-
-[node name="EndUI" type="CanvasLayer" parent="."]
-process_mode = 3
-layer = 20
+[node name="TransitionUI" type="Control" parent="UI"]
 visible = false
-
-[node name="Backdrop" type="ColorRect" parent="EndUI"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0352941, 0.0470588, 0.0862745, 1)
 
-[node name="Panel" type="VBoxContainer" parent="EndUI"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -104.0
-offset_right = 150.0
-offset_bottom = 104.0
+[node name="Shade" type="ColorRect" parent="UI/TransitionUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
+color = Color(0.015, 0.05, 0.07, 0.90)
 
-[node name="Title" type="Label" parent="EndUI/Panel"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "Construccion completada"
+[node name="Label" type="Label" parent="UI/TransitionUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 44
+theme_override_colors/font_color = Color(0.7, 0.88, 0.78, 1)
 horizontal_alignment = 1
-
-[node name="Message" type="Label" parent="EndUI/Panel"]
-layout_mode = 2
-text = "Llegaste al final de las salas actuales."
-horizontal_alignment = 1
-
-[node name="MenuButton" type="Button" parent="EndUI/Panel"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-text = "Volver al menu"
+vertical_alignment = 1

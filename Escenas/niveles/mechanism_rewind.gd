@@ -42,7 +42,7 @@ func start_rewind() -> void:
 		if is_instance_valid(mechanism) and mechanism.has_method("freeze_for_rewind"):
 			mechanism.call("freeze_for_rewind")
 	for state in _frozen.values():
-		var node: Node = state["node"]
+		var node = state.get("node")
 		if not is_instance_valid(node):
 			continue
 		_saved_process_modes[node.get_instance_id()] = {"node": node, "mode": node.process_mode}
@@ -52,7 +52,7 @@ func start_rewind() -> void:
 			animated.stop()
 			animated.frame = state["frame"]
 	_phase = Phase.FROZEN
-	await get_tree().create_timer(FREEZE_DURATION, true, false, true).timeout
+	await get_tree().create_timer(FREEZE_DURATION, false, false, true).timeout
 	if generation != _generation:
 		return
 	_begin_reverse(generation)
@@ -76,7 +76,7 @@ func _process(_delta: float) -> void:
 	if _phase != Phase.FROZEN:
 		return
 	for state in _frozen.values():
-		var node: Node = state["node"]
+		var node = state.get("node")
 		if not is_instance_valid(node):
 			continue
 		if node is Node2D:
@@ -161,11 +161,12 @@ func _begin_reverse(generation: int) -> void:
 		_restore_process_mode_tree(mechanism)
 		mechanism.call("rewind_to_initial")
 	_tween = create_tween().set_parallel(true)
+	_tween.set_pause_mode(Tween.TWEEN_PAUSE_STOP)
 	_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	for path in _frozen:
 		var state: Dictionary = _frozen[path]
-		var node: Node = state["node"]
+		var node = state.get("node")
 		if not is_instance_valid(node):
 			continue
 		if _has_native_rewind_ancestor(node):
@@ -178,9 +179,15 @@ func _begin_reverse(generation: int) -> void:
 		if _frozen.has(path):
 			continue
 		var state: Dictionary = _initial[path]
-		if is_instance_valid(state["node"]) and _has_native_rewind_ancestor(state["node"]):
-			continue
-		if state["node"] is Sprite2D:
+		var initial_node = state.get("node")
+		if is_instance_valid(initial_node):
+			if _has_native_rewind_ancestor(initial_node):
+				continue
+		# El original puede haberse liberado desde la captura inicial, por
+		# ejemplo cuando la palanca desactiva y reconstruye los rayos.
+		# La presencia de "texture" identifica el snapshot de Sprite2D sin
+		# consultar el tipo de una instancia ya liberada.
+		if state.has("texture"):
 			var parent := _level.get_node_or_null(NodePath(String(path).get_base_dir())) as Node2D
 			if parent != null:
 				var copy := _make_sprite_copy(state, parent)
@@ -333,7 +340,7 @@ func _clear_temporary_visuals() -> void:
 
 func _restore_process_modes() -> void:
 	for state in _saved_process_modes.values():
-		var node: Node = state["node"]
+		var node = state.get("node")
 		if is_instance_valid(node):
 			node.process_mode = state["mode"]
 	_saved_process_modes.clear()

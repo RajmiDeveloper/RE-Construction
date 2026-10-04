@@ -117,7 +117,7 @@ func die() -> void:
 	_update_effect(fire_effect, false, false)
 	_update_effect(electric_effect, false, false)
 	animacion.play("caer")
-	await get_tree().create_timer(DEATH_RESTART_DELAY, true, false, true).timeout
+	await get_tree().create_timer(DEATH_RESTART_DELAY, false, false, true).timeout
 	if death_sequence != _death_sequence or not _dead:
 		return
 

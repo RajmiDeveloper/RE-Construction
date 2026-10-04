@@ -1,0 +1,86 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Escenas/niveles/nivel_base.gd" id="base"]
+[ext_resource type="PackedScene" path="res://Escenas/personaje/personaje.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="shadow"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="exit"]
+[ext_resource type="PackedScene" path="res://Escenas/background/backgroundChico.tscn" id="bg"]
+[ext_resource type="TileSet" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="tiles"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_fuego.tscn" id="fire_icon"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_metal.tscn" id="metal_icon"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_electrica.tscn" id="electric_icon"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/bloque_hielo/bloque_hielo.tscn" id="ice"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="gate"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/boton/boton.tscn" id="button"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="module"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/trampa_electrica.tscn" id="ray"]
+
+[node name="Tutorial02" type="Node2D"]
+script = ExtResource("base")
+level_title = "Tutorial 2"
+shadow_scene = ExtResource("shadow")
+
+[node name="Fondo" type="Node2D" parent="." instance=ExtResource("bg")]
+z_index = -10
+
+[node name="Camera2D" parent="Fondo" index="1"]
+enabled = false
+
+[node name="Terreno" type="TileMapLayer" parent="."]
+tile_set = ExtResource("tiles")
+tile_map_data = PackedByteArray("AADy/wYAAgAFABAAAADz/wYAAgAGABAAAAD0/wYAAgADABAAAAD1/wYAAgAEABAAAAD2/wYAAgAFABAAAAD3/wYAAgAGABAAAAD4/wYAAgADABAAAAD5/wYAAgAEABAAAAD6/wYAAgAFABAAAAD7/wYAAgAGABAAAAD8/wYAAgADABAAAAD9/wYAAgAEABAAAAD+/wYAAgAFABAAAAD//wYAAgAGABAAAAAAAAYAAgADABAAAAABAAYAAgAEABAAAAACAAYAAgAFABAAAAADAAYAAgAGABAAAAAEAAYAAgADABAAAAAFAAYAAgAEABAAAAAGAAYAAgAFABAAAAAHAAYAAgAGABAAAAAIAAYAAgADABAAAAAJAAYAAgAEABAAAAAKAAYAAgAFABAAAAALAAYAAgAGABAAAAAMAAYAAgADABAAAAANAAYAAgAEABAAAAAOAAYAAgAFABAAAADy/wcAAgAFABEAAADz/wcAAgAGABEAAAD0/wcAAgADABEAAAD1/wcAAgAEABEAAAD2/wcAAgAFABEAAAD3/wcAAgAGABEAAAD4/wcAAgADABEAAAD5/wcAAgAEABEAAAD6/wcAAgAFABEAAAD7/wcAAgAGABEAAAD8/wcAAgADABEAAAD9/wcAAgAEABEAAAD+/wcAAgAFABEAAAD//wcAAgAGABEAAAAAAAcAAgADABEAAAABAAcAAgAEABEAAAACAAcAAgAFABEAAAADAAcAAgAGABEAAAAEAAcAAgADABEAAAAFAAcAAgAEABEAAAAGAAcAAgAFABEAAAAHAAcAAgAGABEAAAAIAAcAAgADABEAAAAJAAcAAgAEABEAAAAKAAcAAgAFABEAAAALAAcAAgAGABEAAAAMAAcAAgADABEAAAANAAcAAgAEABEAAAAOAAcAAgAFABEAAADy/wgAAgAFABEAAADz/wgAAgAGABEAAAD0/wgAAgADABEAAAD1/wgAAgAEABEAAAD2/wgAAgAFABEAAAD3/wgAAgAGABEAAAD4/wgAAgADABEAAAD5/wgAAgAEABEAAAD6/wgAAgAFABEAAAD7/wgAAgAGABEAAAD8/wgAAgADABEAAAD9/wgAAgAEABEAAAD+/wgAAgAFABEAAAD//wgAAgAGABEAAAAAAAgAAgADABEAAAABAAgAAgAEABEAAAACAAgAAgAFABEAAAADAAgAAgAGABEAAAAEAAgAAgADABEAAAAFAAgAAgAEABEAAAAGAAgAAgAFABEAAAAHAAgAAgAGABEAAAAIAAgAAgADABEAAAAJAAgAAgAEABEAAAAKAAgAAgAFABEAAAALAAgAAgAGABEAAAAMAAgAAgADABEAAAANAAgAAgAEABEAAAAOAAgAAgAFABEAAADy/wkAAgAFABEAAADz/wkAAgAGABEAAAD0/wkAAgADABEAAAD1/wkAAgAEABEAAAD2/wkAAgAFABEAAAD3/wkAAgAGABEAAAD4/wkAAgADABEAAAD5/wkAAgAEABEAAAD6/wkAAgAFABEAAAD7/wkAAgAGABEAAAD8/wkAAgADABEAAAD9/wkAAgAEABEAAAD+/wkAAgAFABEAAAD//wkAAgAGABEAAAAAAAkAAgADABEAAAABAAkAAgAEABEAAAACAAkAAgAFABEAAAADAAkAAgAGABEAAAAEAAkAAgADABEAAAAFAAkAAgAEABEAAAAGAAkAAgAFABEAAAAHAAkAAgAGABEAAAAIAAkAAgADABEAAAAJAAkAAgAEABEAAAAKAAkAAgAFABEAAAALAAkAAgAGABEAAAAMAAkAAgADABEAAAANAAkAAgAEABEAAAAOAAkAAgAFABEAAAA=")
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(-196, 80)
+
+[node name="Jugador" parent="." instance=ExtResource("player")]
+position = Vector2(-196, 80)
+death_distance = 220.0
+
+[node name="Mecanismos" type="Node2D" parent="."]
+
+
+[node name="Sombras" type="Node2D" parent="."]
+
+
+[node name="Salida" parent="." instance=ExtResource("exit")]
+position = Vector2(196, 80)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 12)
+zoom = Vector2(3.5, 3.5)
+position_smoothing_enabled = false
+
+[node name="Boton" parent="Mecanismos" instance=ExtResource("button")]
+position = Vector2(-116, 89)
+
+[node name="Compuerta" parent="Mecanismos" instance=ExtResource("gate")]
+position = Vector2(-12, 54)
+opening_height = 104.0
+move_duration = 0.7
+button_path = NodePath("../Boton")
+
+[node name="ModuloSuperior" parent="Mecanismos" instance=ExtResource("module")]
+position = Vector2(116, 0)
+
+[node name="ModuloInferior" parent="Mecanismos" instance=ExtResource("module")]
+position = Vector2(116, 100)
+rotation = 3.1415927
+
+[node name="Rayo" parent="Mecanismos" instance=ExtResource("ray")]
+modulo_superior_path = NodePath("../ModuloSuperior")
+modulo_inferior_path = NodePath("../ModuloInferior")
+
+[node name="Metal" parent="Mecanismos" instance=ExtResource("metal_icon")]
+offset_left = -128.0
+offset_top = 52.0
+offset_right = -104.0
+offset_bottom = 76.0
+
+[node name="Electrica" parent="Mecanismos" instance=ExtResource("electric_icon")]
+offset_left = 72.0
+offset_top = 50.0
+offset_right = 96.0
+offset_bottom = 74.0
+
+[editable path="Fondo"]

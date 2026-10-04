@@ -14,6 +14,7 @@ const PLATFORM_WEIGHT_GROUP: StringName = &"shadow_platform_weight"
 @onready var animacion: AnimatedSprite2D = $Animacion
 @onready var fire_effect: AnimatedSprite2D = $EfectoFuego
 @onready var electric_effect: AnimatedSprite2D = $EfectoElectrico
+@onready var metal_effect: AnimatedSprite2D = $EfectoMetal
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var interaction_area: Area2D = $InteractionArea
 @onready var interaction_shape: CollisionShape2D = $InteractionArea/CollisionShape2D
@@ -269,6 +270,7 @@ func _apply_form_visual() -> void:
 func _update_form_effects(restart: bool = false) -> void:
 	_update_effect(fire_effect, _current_form == FormCatalog.FUEGO, restart)
 	_update_effect(electric_effect, _current_form == FormCatalog.ELECTRICA, restart)
+	_update_effect(metal_effect, _current_form == FormCatalog.METAL, restart)
 
 
 func _update_effect(effect: AnimatedSprite2D, should_play: bool, restart: bool) -> void:

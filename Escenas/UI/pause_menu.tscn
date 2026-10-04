@@ -1,0 +1,115 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Escenas/UI/pause_menu.gd" id="screen"]
+[ext_resource type="Script" path="res://Escenas/UI/stone_button.gd" id="button"]
+[ext_resource type="FontVariation" path="res://Assets/UI/Menu/fonts/menu_font.tres" id="font"]
+
+[ext_resource type="Texture2D" path="res://Assets/UI/Menu/sonido.svg" id="sound"]
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+process_mode = 3
+texture_filter = 1
+script = ExtResource("screen")
+
+[node name="Shade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.006, 0.023, 0.031, 0.83)
+
+[node name="Design" type="Control" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Design"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 126.0
+offset_right = 1080.0
+offset_bottom = 216.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 60
+theme_override_colors/font_color = Color(0.72, 0.85, 0.75, 1)
+theme_override_colors/font_shadow_color = Color(0.005, 0.06, 0.08, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = -3
+text = "PAUSA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelCaption" type="Label" parent="Design"]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 218.0
+offset_right = 1000.0
+offset_bottom = 260.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.39, 0.65, 0.61, 1)
+theme_override_colors/font_shadow_color = Color(0.005, 0.06, 0.08, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = -3
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Options" type="VBoxContainer" parent="Design"]
+layout_mode = 0
+offset_left = 406.0
+offset_top = 280.0
+offset_right = 874.0
+offset_bottom = 532.0
+theme_override_constants/separation = 14
+
+[node name="ContinueButton" type="Button" parent="Design/Options"]
+layout_mode = 2
+custom_minimum_size = Vector2(468, 74)
+script = ExtResource("button")
+lettering_size = 26
+text = "Continuar"
+
+[node name="SelectorButton" type="Button" parent="Design/Options"]
+layout_mode = 2
+custom_minimum_size = Vector2(468, 74)
+script = ExtResource("button")
+lettering_size = 26
+text = "Selector de niveles"
+
+[node name="RestartButton" type="Button" parent="Design/Options"]
+layout_mode = 2
+custom_minimum_size = Vector2(468, 74)
+script = ExtResource("button")
+lettering_size = 26
+text = "Reiniciar"
+
+[node name="SoundButton" type="Button" parent="Design"]
+layout_mode = 0
+offset_left = 592.0
+offset_top = 572.0
+offset_right = 688.0
+offset_bottom = 644.0
+icon = ExtResource("sound")
+icon_alignment = 1
+expand_icon = true
+toggle_mode = true
+theme_override_constants/icon_max_width = 40
+script = ExtResource("button")
+lettering_size = 24
+text = ""
+

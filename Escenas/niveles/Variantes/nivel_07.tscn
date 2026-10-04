@@ -1,0 +1,35 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Escenas/niveles/Sala02/sala_02.tscn" id="original"]
+[ext_resource type="PackedScene" path="res://Escenas/background/backgroundChico.tscn" id="bg"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="gate"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/pinches/pinches.tscn" id="spikes"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_metal.tscn" id="metal_icon"]
+
+[node name="Nivel07" instance=ExtResource("original")]
+level_title = "Nivel 7"
+
+[node name="Fondo" type="Node2D" parent="." instance=ExtResource("bg")]
+z_index = -10
+
+[node name="Camera2D" parent="Fondo" index="1"]
+enabled = false
+
+[node name="Compuerta" parent="Mecanismos" instance=ExtResource("gate")]
+position = Vector2(30, 54)
+opening_height = 100.0
+move_duration = 0.65
+button_path = NodePath("../BotonA")
+
+[node name="Pinches" parent="Mecanismos" instance=ExtResource("spikes")]
+position = Vector2(112, 96)
+retracted_duration = 2.0
+extended_duration = 1.0
+
+[node name="Metal" parent="Mecanismos" instance=ExtResource("metal_icon")]
+offset_left = -54.0
+offset_top = 52.0
+offset_right = -30.0
+offset_bottom = 76.0
+
+[editable path="Fondo"]

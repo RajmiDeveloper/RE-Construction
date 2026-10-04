@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" uid="uid://vbvkn1x2awjo" path="res://Assets/Personaje/Final/Metal/EfectoMetal_2x2.png" id="1_metal_effect"]
+
+[sub_resource type="AtlasTexture" id="MetalEffect0"]
+atlas = ExtResource("1_metal_effect")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="MetalEffect1"]
+atlas = ExtResource("1_metal_effect")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="MetalEffect2"]
+atlas = ExtResource("1_metal_effect")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="MetalEffect3"]
+atlas = ExtResource("1_metal_effect")
+region = Rect2(24, 24, 24, 24)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("MetalEffect0")
+}, {
+"duration": 1.0,
+"texture": SubResource("MetalEffect1")
+}, {
+"duration": 1.0,
+"texture": SubResource("MetalEffect2")
+}, {
+"duration": 1.0,
+"texture": SubResource("MetalEffect3")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://Escenas/sombra/sombra.gd" id="1_shadow"]
 [ext_resource type="SpriteFrames" path="res://Escenas/personaje/animacion_base.tres" id="2_frames"]
 [ext_resource type="SpriteFrames" path="res://Escenas/personaje/animacion_efecto_fuego.tres" id="3_fire_effect"]
 [ext_resource type="SpriteFrames" path="res://Escenas/personaje/animacion_efecto_electrico.tres" id="4_electric_effect"]
+[ext_resource type="SpriteFrames" path="res://Escenas/personaje/animacion_efecto_metal.tres" id="5_metal_effect"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_shadow"]
 size = Vector2(13, 16)
@@ -33,6 +34,15 @@ z_index = 1
 texture_filter = 1
 position = Vector2(0, -2)
 sprite_frames = ExtResource("4_electric_effect")
+animation = &"default"
+
+[node name="EfectoMetal" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 1
+texture_filter = 1
+position = Vector2(0, -2)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("5_metal_effect")
 animation = &"default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

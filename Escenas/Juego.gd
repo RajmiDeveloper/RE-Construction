@@ -1,124 +1,191 @@
 extends Node
 
-@export var level_scenes: Array[PackedScene] = []
+const CATALOG = preload("res://Escenas/UI/level_catalog.gd")
+const AUDIO = preload("res://Escenas/UI/audio_preferences.gd")
+
+enum Screen { MAIN, SELECTOR, GAME, PAUSE, TRANSITION }
+
 @export var transition_duration: float = 0.8
 
 @onready var level_container: Node2D = $NivelActual
-@onready var transition_ui: CanvasLayer = $TransitionUI
-@onready var transition_label: Label = $TransitionUI/Panel/Label
-@onready var main_menu: CanvasLayer = $MainMenu
-@onready var pause_menu: CanvasLayer = $PauseMenu
-@onready var end_ui: CanvasLayer = $EndUI
+@onready var main_menu = $UI/MainMenu
+@onready var selector = $UI/LevelSelector
+@onready var pause_menu = $UI/PauseMenu
+@onready var transition_ui: Control = $UI/TransitionUI
+@onready var transition_label: Label = $UI/TransitionUI/Label
+@onready var hud: Control = $UI/HUD
 
-var _current_level
+var _current_level: Node2D
 var _current_index: int = -1
-var _transitioning: bool = false
+var _screen: Screen = Screen.MAIN
+var _selector_origin: Screen = Screen.MAIN
+var _navigation_generation: int = 0
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	$MainMenu/Panel/StartButton.pressed.connect(start_game)
-	$MainMenu/Panel/QuitButton.pressed.connect(_quit_game)
-	$PauseMenu/Panel/ContinueButton.pressed.connect(_resume_game)
-	$PauseMenu/Panel/RestartButton.pressed.connect(_restart_level)
-	$PauseMenu/Panel/MenuButton.pressed.connect(return_to_menu)
-	$EndUI/Panel/MenuButton.pressed.connect(return_to_menu)
-	_show_main_menu()
+	add_to_group("game_shell")
+	AUDIO.restore()
+	main_menu.start_requested.connect(start_game)
+	main_menu.levels_requested.connect(open_level_selector)
+	main_menu.quit_requested.connect(_quit_game)
+	selector.level_selected.connect(_select_level)
+	selector.back_requested.connect(_selector_back)
+	pause_menu.continue_requested.connect(_resume_game)
+	pause_menu.selector_requested.connect(open_level_selector)
+	pause_menu.restart_requested.connect(_restart_level)
+	$UI/HUD/PauseButton.pressed.connect(_pause_game)
+	_show_screen(Screen.MAIN)
+	if get_tree().has_meta("open_level_selector"):
+		get_tree().remove_meta("open_level_selector")
+		open_level_selector()
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_BACKSPACE and is_instance_valid(_current_level) and not _transitioning and not get_tree().paused:
-			_current_level.reset_level()
-		elif event.is_action_pressed("ui_cancel") and is_instance_valid(_current_level) and not _transitioning:
-			if pause_menu.visible:
-				_resume_game()
-			elif not get_tree().paused:
+	if not event is InputEventKey or not event.pressed or event.echo:
+		return
+	if event.is_action_pressed("ui_cancel"):
+		match _screen:
+			Screen.GAME:
+				# TAB abre un menu propio que tambien pausa el juego.
+				if get_tree().paused:
+					return
 				_pause_game()
+			Screen.PAUSE:
+				_resume_game()
+			Screen.SELECTOR:
+				_selector_back()
+			_:
+				return
+		get_viewport().set_input_as_handled()
+	elif event.keycode == KEY_BACKSPACE and _screen == Screen.GAME and not get_tree().paused:
+		_restart_level()
+		get_viewport().set_input_as_handled()
 
 
 func start_game() -> void:
-	get_tree().paused = false
-	main_menu.visible = false
-	end_ui.visible = false
 	_load_level(0)
 
 
+func open_level_selector() -> void:
+	_selector_origin = Screen.PAUSE if _screen == Screen.PAUSE else Screen.MAIN
+	_show_screen(Screen.SELECTOR)
+	get_tree().paused = is_instance_valid(_current_level)
+
+
 func return_to_menu() -> void:
+	_navigation_generation += 1
 	get_tree().paused = false
-	pause_menu.visible = false
-	end_ui.visible = false
 	_clear_current_level()
-	_show_main_menu()
+	_show_screen(Screen.MAIN)
+
+
+func _select_level(entry_id: String) -> void:
+	var index: int = CATALOG.index_of(entry_id)
+	if index >= 0:
+		_load_level(index)
+
+
+func _selector_back() -> void:
+	if _selector_origin == Screen.PAUSE and is_instance_valid(_current_level):
+		_show_screen(Screen.PAUSE)
+		get_tree().paused = true
+	else:
+		return_to_menu()
 
 
 func _load_level(index: int) -> void:
-	if index < 0 or index >= level_scenes.size():
-		_show_end_screen()
+	if index < 0 or index >= CATALOG.ENTRIES.size():
+		get_tree().paused = false
+		_clear_current_level()
+		_selector_origin = Screen.MAIN
+		_show_screen(Screen.SELECTOR)
 		return
-
+	_navigation_generation += 1
+	get_tree().paused = false
 	_clear_current_level()
 	_current_index = index
-	_current_level = level_scenes[index].instantiate()
-	if not _current_level.has_signal("level_completed") or not _current_level.has_method("set_active"):
-		push_error("La escena del nivel %d no implementa la interfaz requerida (level_completed y set_active)." % (index + 1))
-		_current_level.queue_free()
-		_current_level = null
+	var entry: Dictionary = CATALOG.ENTRIES[index]
+	var packed := load(entry["scene"]) as PackedScene
+	if packed == null:
+		push_error("No se pudo cargar %s" % entry["scene"])
+		return_to_menu()
 		return
+	_current_level = packed.instantiate() as Node2D
 	level_container.add_child(_current_level)
 	_current_level.level_completed.connect(_on_level_completed)
 	_current_level.set_active(true)
-	transition_ui.visible = false
-	_transitioning = false
+	pause_menu.set_level_caption(entry["title"])
+	$UI/HUD/LevelName.text = entry["id"]
+	_show_screen(Screen.GAME)
 
 
 func _on_level_completed() -> void:
-	if _transitioning:
+	if _screen != Screen.GAME:
 		return
-	_transitioning = true
-	_show_transition("Sala %d completada" % (_current_index + 1))
+	_show_screen(Screen.TRANSITION)
+	transition_label.text = "%s completado" % CATALOG.ENTRIES[_current_index]["title"]
+	var generation := _navigation_generation
 	await get_tree().create_timer(transition_duration, true).timeout
-	_load_level(_current_index + 1)
+	if generation == _navigation_generation:
+		_load_level(_current_index + 1)
 
 
 func _restart_level() -> void:
+	if not is_instance_valid(_current_level):
+		return
 	_resume_game()
-	if is_instance_valid(_current_level):
-		_current_level.reset_level()
+	_current_level.reset_level()
 
 
 func _pause_game() -> void:
-	pause_menu.visible = true
+	if _screen != Screen.GAME or not is_instance_valid(_current_level):
+		return
+	_close_form_menu()
+	_show_screen(Screen.PAUSE)
 	get_tree().paused = true
 
 
 func _resume_game() -> void:
-	pause_menu.visible = false
+	if not is_instance_valid(_current_level):
+		return
+	_show_screen(Screen.GAME)
 	get_tree().paused = false
 
 
-func _show_main_menu() -> void:
-	transition_ui.visible = false
-	pause_menu.visible = false
-	main_menu.visible = true
+func _show_screen(screen: Screen) -> void:
+	_screen = screen
+	main_menu.visible = screen == Screen.MAIN
+	selector.visible = screen == Screen.SELECTOR
+	pause_menu.visible = screen == Screen.PAUSE
+	transition_ui.visible = screen == Screen.TRANSITION
+	hud.visible = screen == Screen.GAME
+	if screen == Screen.SELECTOR:
+		selector.get_node("Design/Entries/T1").grab_focus.call_deferred()
+	elif screen == Screen.MAIN:
+		main_menu.get_node("Design/Options/StartButton").grab_focus.call_deferred()
+	elif screen == Screen.PAUSE:
+		pause_menu.get_node("Design/Options/ContinueButton").grab_focus.call_deferred()
 
 
-func _show_transition(message: String) -> void:
-	transition_label.text = message
-	transition_ui.visible = true
-
-
-func _show_end_screen() -> void:
-	transition_ui.visible = false
-	end_ui.visible = true
-	_transitioning = false
+func _close_form_menu() -> void:
+	if not is_instance_valid(_current_level):
+		return
+	var form_menu := _current_level.get_node_or_null("Jugador/FormMenu")
+	if is_instance_valid(form_menu) and form_menu.visible:
+		form_menu.close()
 
 
 func _clear_current_level() -> void:
+	_close_form_menu()
 	if is_instance_valid(_current_level):
+		_current_level.set_active(false)
 		level_container.remove_child(_current_level)
 		_current_level.queue_free()
 	_current_level = null
+	_current_index = -1
 
 
 func _quit_game() -> void:
+	get_tree().paused = false
 	get_tree().quit()

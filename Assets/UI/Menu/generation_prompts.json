@@ -1,0 +1,21 @@
+{
+  "tool": "image_gen.imagegen (herramienta integrada)",
+  "reference": "Assets/tilesets/sunken_temple_v1/sunken_seamless.png",
+  "assets": [
+    {
+      "path": "Assets/UI/Menu/fondo_principal.png",
+      "transparent_background": false,
+      "prompt": "Use case: stylized-concept. Asset type: full-screen 16:9 background image for the main menu of a 2D pixel-art game RE:Construction. The attached image is a STYLE REFERENCE ONLY: match its hard pixel edges, dark turquoise stone, cyan mineral highlights, moss green accents, deep almost-black shadows, ancient submerged temple columns. Create a NEW illustrated temple entrance chamber with a large mysterious black arch centered toward the right, crumbled layered stone ledges, moss, two quiet cyan flames, a small still reflecting pool at the bottom, heavy framing pillars. Broad composition suitable for 1920x1080, low logical pixel-art resolution, crisp square pixels and carefully limited colors, no soft painting. Leave a large quiet dark central area for menu text and buttons. Atmospheric, elegant, detailed edges and calm center. No text, no letters, no user interface, no characters, no watermark. Fill the entire image, no border."
+    },
+    {
+      "path": "Assets/UI/Menu/fondo_selector.png",
+      "transparent_background": false,
+      "prompt": "Use case: stylized-concept. Asset type: full-screen 16:9 background image for a level-selection screen in the SAME dark turquoise ancient temple pixel-art game. Attached atlas is STYLE REFERENCE ONLY. Generate a NEW different room: a wide underground archive hall with twin rows of old stone niches on side walls, tall carved pillars toward both edges, hanging moss and a cyan glowing central circular shrine in the far background; a broad quiet dark teal stone wall occupies most of the middle so a grid of square level buttons can sit over it. Palette exactly dark black-green, turquoise rock, cyan mineral edges, moss greens from reference. Hard chunky pixel edges, small limited palette, traditional 2D game pixel-art environment at low logical resolution. Wide 16:9 composition for full screen. No text, no numerals, no interface, no characters, no watermark, no decorative border."
+    },
+    {
+      "path": "Assets/UI/Menu/piedra.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Asset type: reusable square stone UI button texture for a pixel-art ancient turquoise temple game. Attached atlas is STYLE REFERENCE ONLY. Create ONE perfectly square front-facing thick dark turquoise-gray stone slab, full slab visible and centered, simple clipped corners, a narrow chiseled beveled cyan-gray edge, darker underside, a few tiny cracks near edges and sparse moss only at two outer corners. A large calm flat central stone area for engraved text to be drawn later. Crisp chunky pixel art with logical 64x64 style, nearest-neighbor square pixel blocks, controlled highlights, darker than cyan temple flames. No text, no icon, no symbol, no shadow beyond the slab. Transparent background outside the slab. Exactly one button, no sheet, no mockup."
+    }
+  ]
+}

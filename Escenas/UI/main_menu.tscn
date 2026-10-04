@@ -1,0 +1,103 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Escenas/UI/main_menu.gd" id="screen"]
+[ext_resource type="Script" path="res://Escenas/UI/stone_button.gd" id="button"]
+[ext_resource type="FontVariation" path="res://Assets/UI/Menu/fonts/menu_font.tres" id="font"]
+[ext_resource type="Texture2D" path="res://Assets/UI/Menu/fondo_principal.png" id="background"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+process_mode = 3
+texture_filter = 1
+script = ExtResource("screen")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("background")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.006, 0.023, 0.031, 0.08)
+
+[node name="Design" type="Control" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Design"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 130.0
+offset_right = 1200.0
+offset_bottom = 228.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 62
+theme_override_colors/font_color = Color(0.72, 0.85, 0.75, 1)
+theme_override_colors/font_shadow_color = Color(0.005, 0.06, 0.08, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = -3
+text = "RE:CONSTRUCTION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Divider" type="ColorRect" parent="Design"]
+layout_mode = 0
+offset_left = 504.0
+offset_top = 240.0
+offset_right = 776.0
+offset_bottom = 242.0
+mouse_filter = 2
+color = Color(0.28, 0.59, 0.58, 0.85)
+
+[node name="Options" type="VBoxContainer" parent="Design"]
+layout_mode = 0
+offset_left = 406.0
+offset_top = 318.0
+offset_right = 874.0
+offset_bottom = 592.0
+theme_override_constants/separation = 16
+
+[node name="StartButton" type="Button" parent="Design/Options"]
+layout_mode = 2
+custom_minimum_size = Vector2(468, 80)
+script = ExtResource("button")
+lettering_size = 26
+text = "Iniciar partida"
+
+[node name="LevelsButton" type="Button" parent="Design/Options"]
+layout_mode = 2
+custom_minimum_size = Vector2(468, 80)
+script = ExtResource("button")
+lettering_size = 26
+text = "Selección de niveles"
+
+[node name="QuitButton" type="Button" parent="Design/Options"]
+layout_mode = 2
+custom_minimum_size = Vector2(468, 80)
+script = ExtResource("button")
+lettering_size = 26
+text = "Salir"
+

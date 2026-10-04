@@ -3,6 +3,7 @@ extends Node2D
 signal level_completed
 
 const MECHANISM_REWINDER = preload("res://Escenas/niveles/mechanism_rewind.gd")
+const STANDALONE_PAUSE = preload("res://Escenas/UI/standalone_pause.tscn")
 
 @export var level_title: String = "Sala"
 @export var shadow_scene: PackedScene
@@ -20,6 +21,10 @@ var _mechanism_rewinder: Node
 
 
 func _ready() -> void:
+	if get_tree().get_first_node_in_group("game_shell") == null:
+		var local_pause := STANDALONE_PAUSE.instantiate()
+		add_child(local_pause)
+		local_pause.configure(self)
 	_mechanism_rewinder = MECHANISM_REWINDER.new()
 	add_child(_mechanism_rewinder)
 	_mechanism_rewinder.configure(self)

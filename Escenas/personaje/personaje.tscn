@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b1ynuh4gs1op1" path="res://Assets/UI/Formas/forma_metal.svg" id="6_form_metal"]
 [ext_resource type="Texture2D" uid="uid://ccwfdp1k523d6" path="res://Assets/UI/Formas/forma_fuego.svg" id="7_form_fire"]
 [ext_resource type="Texture2D" uid="uid://bvfrf0cjj8r2o" path="res://Assets/UI/Formas/forma_electrica.svg" id="8_form_electric"]
+[ext_resource type="SpriteFrames" path="res://Escenas/personaje/animacion_efecto_metal.tres" id="9_metal_effect"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(13, 16)
@@ -23,9 +24,7 @@ unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(0, -2)
 sprite_frames = ExtResource("2_frames")
-animation = &"caer"
-frame = 2
-frame_progress = 1.0
+animation = &"idle"
 
 [node name="EfectoFuego" type="AnimatedSprite2D" parent="." unique_id=1433734138]
 visible = false
@@ -43,6 +42,14 @@ texture_filter = 1
 position = Vector2(0, 0.99999976)
 scale = Vector2(0.7999367, 0.98199624)
 sprite_frames = ExtResource("4_electric_effect")
+
+[node name="EfectoMetal" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 1
+texture_filter = 1
+position = Vector2(0, -2)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("9_metal_effect")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=2103552631]
 position = Vector2(0, 2)

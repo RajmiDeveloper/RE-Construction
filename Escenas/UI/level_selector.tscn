@@ -1,0 +1,246 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Escenas/UI/level_selector.gd" id="screen"]
+[ext_resource type="Script" path="res://Escenas/UI/stone_button.gd" id="button"]
+[ext_resource type="FontVariation" path="res://Assets/UI/Menu/fonts/menu_font.tres" id="font"]
+[ext_resource type="Texture2D" path="res://Assets/UI/Menu/fondo_selector.png" id="background"]
+
+[node name="LevelSelector" type="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+process_mode = 3
+texture_filter = 1
+script = ExtResource("screen")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("background")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.006, 0.023, 0.031, 0.3)
+
+[node name="Design" type="Control" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Design"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 68.0
+offset_right = 1184.0
+offset_bottom = 144.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 42
+theme_override_colors/font_color = Color(0.72, 0.85, 0.75, 1)
+theme_override_colors/font_shadow_color = Color(0.005, 0.06, 0.08, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = -3
+text = "SELECCIÓN DE NIVELES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TutorialHeading" type="Label" parent="Design"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 190.0
+offset_right = 258.0
+offset_bottom = 228.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.72, 0.85, 0.75, 1)
+theme_override_colors/font_shadow_color = Color(0.005, 0.06, 0.08, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = -3
+text = "TUTORIALES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelHeading" type="Label" parent="Design"]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 190.0
+offset_right = 1100.0
+offset_bottom = 228.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.72, 0.85, 0.75, 1)
+theme_override_colors/font_shadow_color = Color(0.005, 0.06, 0.08, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = -3
+text = "NIVELES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Divider" type="ColorRect" parent="Design"]
+layout_mode = 0
+offset_left = 286.0
+offset_top = 245.0
+offset_right = 288.0
+offset_bottom = 579.0
+mouse_filter = 2
+color = Color(0.25, 0.56, 0.55, 0.8)
+
+[node name="Entries" type="Control" parent="Design"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="T1" type="Button" parent="Design/Entries"]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 254.0
+offset_right = 242.0
+offset_bottom = 390.0
+script = ExtResource("button")
+lettering_size = 42
+text = "T1"
+
+[node name="Level1" type="Button" parent="Design/Entries"]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 254.0
+offset_right = 474.0
+offset_bottom = 390.0
+script = ExtResource("button")
+lettering_size = 48
+text = "1"
+
+[node name="Level2" type="Button" parent="Design/Entries"]
+layout_mode = 0
+offset_left = 498.0
+offset_top = 254.0
+offset_right = 634.0
+offset_bottom = 390.0
+script = ExtResource("button")
+lettering_size = 48
+text = "2"
+
+[node name="Level3" type="Button" parent="Design/Entries"]
+layout_mode = 0
+offset_left = 658.0
+offset_top = 254.0
+offset_right = 794.0
+offset_bottom = 390.0
+script = ExtResource("button")
+lettering_size = 48
+text = "3"
+
+[node name="Level4" type="Button" parent="Design/Entries"]
+layout_mode = 0
+offset_left = 818.0
+offset_top = 254.0
+offset_right = 954.0
+offset_bottom = 390.0
+script = ExtResource("button")
+lettering_size = 48
+text = "4"
+
+[node name="Level5" type="Button" parent="Design/Entries"]
+layout_mode = 0
+offset_left = 978.0
+offset_top = 254.0
+offset_right = 1114.0
+offset_bottom = 390.0
+script = ExtResource("button")
+lettering_size = 48
+text = "5"
+
+[node name="T2" type="Button" parent="Design/Entries"]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 440.0
+offset_right = 242.0
+offset_bottom = 576.0
+script = ExtResource("button")
+lettering_size = 42
+text = "T2"
+
+[node name="Level6" type="Button" parent="Design/Entries"]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 440.0
+offset_right = 474.0
+offset_bottom = 576.0
+script = ExtResource("button")
+lettering_size = 48
+text = "6"
+
+[node name="Level7" type="Button" parent="Design/Entries"]
+layout_mode = 0
+offset_left = 498.0
+offset_top = 440.0
+offset_right = 634.0
+offset_bottom = 576.0
+script = ExtResource("button")
+lettering_size = 48
+text = "7"
+
+[node name="Level8" type="Button" parent="Design/Entries"]
+layout_mode = 0
+offset_left = 658.0
+offset_top = 440.0
+offset_right = 794.0
+offset_bottom = 576.0
+script = ExtResource("button")
+lettering_size = 48
+text = "8"
+
+[node name="Level9" type="Button" parent="Design/Entries"]
+layout_mode = 0
+offset_left = 818.0
+offset_top = 440.0
+offset_right = 954.0
+offset_bottom = 576.0
+script = ExtResource("button")
+lettering_size = 48
+text = "9"
+
+[node name="Level10" type="Button" parent="Design/Entries"]
+layout_mode = 0
+offset_left = 978.0
+offset_top = 440.0
+offset_right = 1114.0
+offset_bottom = 576.0
+script = ExtResource("button")
+lettering_size = 48
+text = "10"
+
+[node name="BackButton" type="Button" parent="Design"]
+layout_mode = 0
+offset_left = 488.0
+offset_top = 624.0
+offset_right = 792.0
+offset_bottom = 686.0
+script = ExtResource("button")
+lettering_size = 24
+text = "Volver"
+

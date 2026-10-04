@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://ixetx4dgiaq5" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="11_module"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/plataforma_metal/plataforma_metal.tscn" id="12_metal_platform"]
 
+[ext_resource type="PackedScene" path="res://Escenas/UI/standalone_pause.tscn" id="13_pause"]
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oacnx"]
 texture = ExtResource("2_4f3do")
 0:0/0 = 0
@@ -54,7 +56,7 @@ tile_map_data = PackedByteArray("AAD7/wkAAQAAAAAAAAD8/wkAAQAAAAAAAAD8/wgAAQAAAAA
 tile_set = SubResource("TileSet_d5i3i")
 
 [node name="personaje" parent="." unique_id=1412559796 instance=ExtResource("3_jfjvu")]
-position = Vector2(216, 151)
+position = Vector2(-129, 144)
 scale = Vector2(0.95, 0.95)
 
 [node name="Boton" parent="." unique_id=353612186 instance=ExtResource("6_button")]
@@ -78,48 +80,7 @@ position = Vector2(130, 151)
 position = Vector2(31, 89)
 zoom = Vector2(2.99, 2.99)
 
-[node name="PauseMenu" type="CanvasLayer" parent="." unique_id=1098213530]
-process_mode = 3
-layer = 30
-visible = false
-
-[node name="Backdrop" type="ColorRect" parent="PauseMenu" unique_id=2057913795]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.02, 0.027, 0.05, 0.82)
-
-[node name="Panel" type="VBoxContainer" parent="PauseMenu" unique_id=1462794357]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -135.0
-offset_top = -85.0
-offset_right = 135.0
-offset_bottom = 85.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 12
-
-[node name="Title" type="Label" parent="PauseMenu/Panel" unique_id=1955436867]
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Pausa — Campo de pruebas"
-horizontal_alignment = 1
-
-[node name="ContinueButton" type="Button" parent="PauseMenu/Panel" unique_id=51330607]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-text = "Continuar"
-
-[node name="RestartButton" type="Button" parent="PauseMenu/Panel" unique_id=735868407]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-text = "Reiniciar campo"
+[node name="PauseMenu" parent="." instance=ExtResource("13_pause")]
 
 [node name="ModuloElectrico" parent="." unique_id=1422984175 instance=ExtResource("11_module")]
 position = Vector2(0, 27)
