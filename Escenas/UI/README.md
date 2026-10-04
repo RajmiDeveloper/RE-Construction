@@ -21,7 +21,7 @@ El sonido silencia el bus Master y guarda la preferencia en `user://interface.cf
 
 - T1: camino corto con hielo e indicación de Fuego.
 - T2: placa Metal, compuerta y rayo; permite aprender a dejar una sombra Metal y cruzar como Eléctrica.
-- La puerta de T1 lleva a T2 tanto en la campaña como al ejecutar T1 directamente con F6.
+- La puerta de T1 lleva a T2 y la de T2 al nivel 1, en la campaña y al ejecutar los tutoriales directamente con F6.
 - 1–5: las salas existentes.
 - 6: variante de Sala01 con pinchos y rayo al final.
 - 7: variante de Sala02 con compuerta vinculada a la placa y pinchos.
