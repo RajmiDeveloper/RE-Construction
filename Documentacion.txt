@@ -2,7 +2,11 @@ Titulo: "RE:Construccion"
 
 Core: El jugador al morir deja una "sombra" de su pasado que repite sus movimientos. La sombra atraviesa el entorno durante la reproduccion y, al llegar al final de su recorrido, se vuelve fisica.
 
-El jugador reaparece automaticamente al morir. Cada nueva vida reinicia el recorrido de todas las sombras existentes desde el punto inicial y agrega la nueva sombra correspondiente a la vida que termino.
+Al morir, el jugador reproduce la animacion de caida de su forma actual. Un segundo
+despues, las sombras existentes se disuelven en particulas con el color de su forma y
+la transparencia azul propia de las sombras. El jugador reaparece a los tres segundos,
+y entonces vuelven a aparecer, desde el inicio, las sombras de todas las vidas acumuladas
+incluida la que acaba de terminar.
 
 Mecanicas:
 - Salto: se debe poder saltar.

@@ -23,6 +23,7 @@ var _elapsed: float = 0.0
 var _point_index: int = 0
 var _processed_action_index: int = -1
 var _replaying: bool = false
+var _dissolving: bool = false
 var _current_form: int = FormCatalog.NORMAL
 var _form_material: ShaderMaterial
 var _normal_sprite_frames: SpriteFrames
@@ -52,6 +53,8 @@ func start_replay(recording: Array) -> void:
 
 
 func restart_replay() -> void:
+	if _dissolving:
+		return
 	if _recording.is_empty():
 		_become_solid()
 		return
@@ -162,6 +165,67 @@ func _become_solid() -> void:
 
 func is_replaying() -> bool:
 	return _replaying
+
+
+func disappear() -> void:
+	if _dissolving:
+		return
+	_dissolving = true
+	_replaying = false
+	collision_layer = 0
+	collision_mask = 0
+	collision_shape.set_deferred("disabled", true)
+	interaction_area.monitoring = false
+	interaction_area.monitorable = false
+	interaction_area.collision_layer = 0
+	interaction_area.collision_mask = 0
+	interaction_shape.set_deferred("disabled", true)
+
+	var burst := GPUParticles2D.new()
+	burst.amount = 24
+	burst.lifetime = 0.65
+	burst.one_shot = true
+	burst.explosiveness = 1.0
+	burst.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	burst.modulate = modulate
+	var particle_image := Image.create(2, 2, false, Image.FORMAT_RGBA8)
+	particle_image.fill(Color.WHITE)
+	burst.texture = ImageTexture.create_from_image(particle_image)
+
+	var particle_material := ParticleProcessMaterial.new()
+	particle_material.direction = Vector3(0.0, -1.0, 0.0)
+	particle_material.spread = 180.0
+	particle_material.initial_velocity_min = 24.0
+	particle_material.initial_velocity_max = 58.0
+	particle_material.gravity = Vector3(0.0, 36.0, 0.0)
+	particle_material.scale_min = 0.7
+	particle_material.scale_max = 1.35
+	particle_material.color = _get_dissolve_color()
+	var fade := Gradient.new()
+	fade.set_color(0, Color.WHITE)
+	fade.set_color(1, Color(1.0, 1.0, 1.0, 0.0))
+	var fade_texture := GradientTexture1D.new()
+	fade_texture.gradient = fade
+	particle_material.color_ramp = fade_texture
+	burst.process_material = particle_material
+	burst.finished.connect(burst.queue_free)
+	get_parent().add_child(burst)
+	burst.global_position = global_position
+	burst.emitting = true
+	visible = false
+	queue_free()
+
+
+func _get_dissolve_color() -> Color:
+	match _current_form:
+		FormCatalog.METAL:
+			return FormCatalog.METAL_TINT
+		FormCatalog.FUEGO:
+			return Color("ff7838")
+		FormCatalog.ELECTRICA:
+			return Color("66e5ff")
+		_:
+			return Color.WHITE
 
 
 func set_form(form_id: int) -> void:

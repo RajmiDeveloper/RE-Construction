@@ -5,9 +5,9 @@
 [ext_resource type="SpriteFrames" uid="uid://bmja33aiaugci" path="res://Escenas/personaje/animacion_efecto_fuego.tres" id="3_fire_effect"]
 [ext_resource type="SpriteFrames" uid="uid://bv44bopltbmcm" path="res://Escenas/personaje/animacion_efecto_electrico.tres" id="4_electric_effect"]
 [ext_resource type="Script" uid="uid://boqytgtjxmybu" path="res://Escenas/form_menu.gd" id="5_form_menu"]
-[ext_resource type="Texture2D" path="res://Assets/UI/Formas/forma_metal.svg" id="6_form_metal"]
-[ext_resource type="Texture2D" path="res://Assets/UI/Formas/forma_fuego.svg" id="7_form_fire"]
-[ext_resource type="Texture2D" path="res://Assets/UI/Formas/forma_electrica.svg" id="8_form_electric"]
+[ext_resource type="Texture2D" uid="uid://b1ynuh4gs1op1" path="res://Assets/UI/Formas/forma_metal.svg" id="6_form_metal"]
+[ext_resource type="Texture2D" uid="uid://ccwfdp1k523d6" path="res://Assets/UI/Formas/forma_fuego.svg" id="7_form_fire"]
+[ext_resource type="Texture2D" uid="uid://bvfrf0cjj8r2o" path="res://Assets/UI/Formas/forma_electrica.svg" id="8_form_electric"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(13, 16)
@@ -23,8 +23,9 @@ unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(0, -2)
 sprite_frames = ExtResource("2_frames")
-animation = &"saltar"
-frame_progress = 0.0225887
+animation = &"caer"
+frame = 2
+frame_progress = 1.0
 
 [node name="EfectoFuego" type="AnimatedSprite2D" parent="." unique_id=1433734138]
 visible = false
@@ -36,6 +37,7 @@ sprite_frames = ExtResource("3_fire_effect")
 frame_progress = 0.24016541
 
 [node name="EfectoElectrico" type="AnimatedSprite2D" parent="." unique_id=755201699]
+visible = false
 z_index = 1
 texture_filter = 1
 position = Vector2(0, 0.99999976)
@@ -54,13 +56,13 @@ position = Vector2(0, 2)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger" unique_id=2066502406]
 shape = SubResource("RectangleShape2D_player")
 
-[node name="FormMenu" type="CanvasLayer" parent="."]
+[node name="FormMenu" type="CanvasLayer" parent="." unique_id=871472027]
 process_mode = 3
 layer = 40
 visible = false
 script = ExtResource("5_form_menu")
 
-[node name="Backdrop" type="ColorRect" parent="FormMenu"]
+[node name="Backdrop" type="ColorRect" parent="FormMenu" unique_id=1084298068]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -68,7 +70,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.02, 0.027, 0.05, 0.86)
 
-[node name="Panel" type="VBoxContainer" parent="FormMenu"]
+[node name="Panel" type="VBoxContainer" parent="FormMenu" unique_id=388709650]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -82,51 +84,48 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 14
 
-[node name="Title" type="Label" parent="FormMenu/Panel"]
+[node name="Title" type="Label" parent="FormMenu/Panel" unique_id=1161738103]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.9, 1, 1)
 theme_override_font_sizes/font_size = 28
 text = "Elegir forma"
 horizontal_alignment = 1
 
-[node name="Hint" type="Label" parent="FormMenu/Panel"]
+[node name="Hint" type="Label" parent="FormMenu/Panel" unique_id=394508489]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.76, 0.86, 1)
 text = "Tab o Escape para cancelar"
 horizontal_alignment = 1
 
-[node name="MetalButton" type="Button" parent="FormMenu/Panel"]
+[node name="MetalButton" type="Button" parent="FormMenu/Panel" unique_id=1411723477]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
-icon = ExtResource("6_form_metal")
-icon_max_width = 32
-expand_icon = true
+tooltip_text = "Transformarse en metal: activa botones"
 theme_override_colors/font_color = Color(0.72, 0.84, 0.92, 1)
 theme_override_colors/font_hover_color = Color(0.86, 0.94, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "METAL"
-tooltip_text = "Transformarse en metal: activa botones"
+icon = ExtResource("6_form_metal")
+expand_icon = true
 
-[node name="FireButton" type="Button" parent="FormMenu/Panel"]
+[node name="FireButton" type="Button" parent="FormMenu/Panel" unique_id=651111206]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
-icon = ExtResource("7_form_fire")
-icon_max_width = 32
-expand_icon = true
+tooltip_text = "Transformarse en fuego"
 theme_override_colors/font_color = Color(1, 0.55, 0.18, 1)
 theme_override_colors/font_hover_color = Color(1, 0.78, 0.35, 1)
 theme_override_font_sizes/font_size = 24
 text = "FUEGO"
-tooltip_text = "Transformarse en fuego"
+icon = ExtResource("7_form_fire")
+expand_icon = true
 
-[node name="ElectricButton" type="Button" parent="FormMenu/Panel"]
+[node name="ElectricButton" type="Button" parent="FormMenu/Panel" unique_id=1680036525]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
-icon = ExtResource("8_form_electric")
-icon_max_width = 32
-expand_icon = true
+tooltip_text = "Transformarse en forma eléctrica"
 theme_override_colors/font_color = Color(1, 0.88, 0.22, 1)
 theme_override_colors/font_hover_color = Color(1, 0.97, 0.62, 1)
 theme_override_font_sizes/font_size = 24
 text = "ELÉCTRICA"
-tooltip_text = "Transformarse en forma eléctrica"
+icon = ExtResource("8_form_electric")
+expand_icon = true

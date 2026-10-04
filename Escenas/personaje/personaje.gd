@@ -12,6 +12,7 @@ const FORM_SHADER = preload("res://Escenas/personaje/forma_tint.gdshader")
 @onready var hitbox: CollisionShape2D = $Hitbox
 
 signal life_finished(recording: Array)
+signal death_started
 signal form_changed(form_id: int)
 signal restart_requested
 
@@ -103,6 +104,7 @@ func die() -> void:
 		return
 
 	_dead = true
+	death_started.emit()
 	_death_sequence += 1
 	var death_sequence := _death_sequence
 	var finished_recording: Array[Dictionary] = _recording.duplicate(true)
@@ -114,8 +116,8 @@ func die() -> void:
 	velocity = Vector2.ZERO
 	form_menu.close()
 	hitbox.set_deferred("disabled", true)
-	_update_effect(fire_effect, false)
-	_update_effect(electric_effect, false)
+	_update_effect(fire_effect, false, false)
+	_update_effect(electric_effect, false, false)
 	animacion.play("caer")
 	await get_tree().create_timer(DEATH_RESTART_DELAY).timeout
 	if death_sequence != _death_sequence or not _dead:

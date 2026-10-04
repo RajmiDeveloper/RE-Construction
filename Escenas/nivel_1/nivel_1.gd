@@ -2,6 +2,8 @@ extends Node2D
 
 @export var shadow_scene: PackedScene
 
+const SHADOW_DISAPPEAR_DELAY: float = 1.0
+
 @onready var player = $personaje
 @onready var shadows_container: Node2D = $Sombras
 @onready var pause_menu: CanvasLayer = $PauseMenu
@@ -9,6 +11,7 @@ extends Node2D
 var _spawn_position: Vector2
 var _shadows: Array[Node] = []
 var _recordings: Array[Array] = []
+var _shadow_disappearance_sequence: int = 0
 
 func _ready() -> void:
 	# Esta escena tambien se ejecuta sola desde el editor con F6, por eso
@@ -16,6 +19,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_spawn_position = player.global_position
 	player.restart_requested.connect(_on_player_restart_requested)
+	player.death_started.connect(_on_player_death_started)
 	player.life_finished.connect(_on_player_life_finished)
 	pause_menu.get_node("Panel/ContinueButton").pressed.connect(_resume_game)
 	pause_menu.get_node("Panel/RestartButton").pressed.connect(_restart_test)
@@ -38,32 +42,46 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_player_life_finished(recording: Array) -> void:
-	if shadow_scene == null:
-		push_warning("No se asignó shadow_scene en nivel_1.tscn")
-		return
-
-	# Cada nueva vida vuelve a poner todas las sombras en el inicio
-	# para que repitan sus recorridos al mismo tiempo.
-	for existing_shadow in _shadows:
-		if is_instance_valid(existing_shadow):
-			existing_shadow.restart_replay()
-
 	# Se guarda una copia independiente de cada vida para que ninguna
 	# grabación posterior pueda reemplazar o modificar las anteriores.
 	var saved_recording: Array = recording.duplicate(true)
 	_recordings.append(saved_recording)
 
-	var shadow = shadow_scene.instantiate()
-	shadows_container.add_child(shadow)
-	shadow.start_replay(saved_recording)
-	_shadows.append(shadow)
+	for shadow in _shadows:
+		if is_instance_valid(shadow):
+			shadow.queue_free()
+	_shadows.clear()
+
+	if shadow_scene == null:
+		push_warning("No se asignó shadow_scene en nivel_1.tscn")
+		return
+
+	# Vuelve a crear todas las sombras al inicio usando las vidas acumuladas.
+	for past_recording in _recordings:
+		var shadow = shadow_scene.instantiate()
+		shadows_container.add_child(shadow)
+		shadow.start_replay(past_recording.duplicate(true))
+		_shadows.append(shadow)
 
 
 func _on_player_restart_requested() -> void:
 	_reset_mechanisms()
 
 
+func _on_player_death_started() -> void:
+	_shadow_disappearance_sequence += 1
+	var sequence := _shadow_disappearance_sequence
+	await get_tree().create_timer(SHADOW_DISAPPEAR_DELAY).timeout
+	if sequence != _shadow_disappearance_sequence:
+		return
+	for shadow in _shadows:
+		if is_instance_valid(shadow) and shadow.has_method("disappear"):
+			shadow.disappear()
+	_shadows.clear()
+
+
 func reset_run() -> void:
+	_shadow_disappearance_sequence += 1
 	for shadow in _shadows:
 		if is_instance_valid(shadow):
 			shadow.queue_free()
