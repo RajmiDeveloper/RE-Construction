@@ -143,6 +143,10 @@ func _on_player_reached_exit() -> void:
 	var next_index := current_index + 1
 	if current_index < 0:
 		return
+	if LEVEL_CATALOG.is_final_level(current_index):
+		get_tree().set_meta("game_completed", true)
+		get_tree().call_deferred("change_scene_to_file", "res://Escenas/Juego.tscn")
+		return
 	if LEVEL_CATALOG.is_available(next_index):
 		get_tree().call_deferred("change_scene_to_file", LEVEL_CATALOG.ENTRIES[next_index]["scene"])
 	else:

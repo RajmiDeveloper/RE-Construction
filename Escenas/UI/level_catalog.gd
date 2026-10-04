@@ -1,5 +1,7 @@
 extends RefCounted
 
+const FINAL_LEVEL_ID: String = "5"
+
 const ENTRIES: Array[Dictionary] = [
 	{"id": "T1", "title": "Tutorial 1", "scene": "res://Escenas/niveles/Tutoriales/tutorial_01.tscn"},
 	{"id": "T2", "title": "Tutorial 2", "scene": "res://Escenas/niveles/Tutoriales/tutorial_02.tscn"},
@@ -25,3 +27,7 @@ static func index_of(entry_id: String) -> int:
 
 static func is_available(index: int) -> bool:
 	return index >= 0 and index < ENTRIES.size() and bool(ENTRIES[index].get("available", true))
+
+
+static func is_final_level(index: int) -> bool:
+	return is_available(index) and ENTRIES[index]["id"] == FINAL_LEVEL_ID

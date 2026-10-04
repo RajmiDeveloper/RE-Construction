@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" path="res://Escenas/UI/main_menu.tscn" id="main"]
 [ext_resource type="PackedScene" path="res://Escenas/UI/level_selector.tscn" id="selector"]
 [ext_resource type="PackedScene" path="res://Escenas/UI/pause_menu.tscn" id="pause"]
+[ext_resource type="PackedScene" path="res://Escenas/UI/end_screen.tscn" id="end"]
 [ext_resource type="Script" path="res://Escenas/UI/stone_button.gd" id="button"]
 [ext_resource type="FontVariation" path="res://Assets/UI/Menu/fonts/menu_font.tres" id="font"]
 [ext_resource type="Texture2D" path="res://Assets/UI/Menu/pausa.svg" id="pause_icon"]
@@ -25,6 +26,9 @@ layer = 30
 visible = false
 
 [node name="PauseMenu" parent="UI" instance=ExtResource("pause")]
+visible = false
+
+[node name="EndScreen" parent="UI" instance=ExtResource("end")]
 visible = false
 
 [node name="HUD" type="Control" parent="UI"]

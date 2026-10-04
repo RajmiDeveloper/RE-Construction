@@ -1,0 +1,225 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Escenas/UI/end_screen.gd" id="screen"]
+[ext_resource type="Script" path="res://Escenas/UI/stone_button.gd" id="button"]
+[ext_resource type="Texture2D" path="res://Assets/UI/Menu/fondo_principal.png" id="background"]
+[ext_resource type="Texture2D" path="res://Assets/UI/Menu/titulo_piedra.png" id="logo"]
+[ext_resource type="FontVariation" path="res://Assets/UI/Menu/fonts/menu_font.tres" id="font"]
+[ext_resource type="Texture2D" path="res://Assets/UI/Formas/forma_metal.svg" id="metal"]
+[ext_resource type="Texture2D" path="res://Assets/UI/Formas/forma_fuego.svg" id="fire"]
+[ext_resource type="Texture2D" path="res://Assets/UI/Formas/forma_electrica.svg" id="electric"]
+
+[sub_resource type="AtlasTexture" id="LogoArtwork"]
+atlas = ExtResource("logo")
+region = Rect2(24, 200, 2124, 325)
+
+[sub_resource type="Theme" id="EndTheme"]
+default_font = ExtResource("font")
+default_font_size = 22
+Label/colors/font_color = Color(0.65, 0.83, 0.76, 1)
+Label/colors/font_shadow_color = Color(0.004, 0.035, 0.055, 1)
+Label/constants/shadow_offset_y = 2
+
+[sub_resource type="Gradient" id="MoteFade"]
+offsets = PackedFloat32Array(0, 0.2, 0.75, 1)
+colors = PackedColorArray(0.42, 0.87, 0.86, 0, 0.42, 0.87, 0.86, 0.32, 0.42, 0.87, 0.86, 0.32, 0.42, 0.87, 0.86, 0)
+
+[node name="EndScreen" type="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+process_mode = 3
+texture_filter = 1
+theme = SubResource("EndTheme")
+script = ExtResource("screen")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("background")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.006, 0.025, 0.035, 0.42)
+
+[node name="Design" type="Control" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="AmbientMotes" type="CPUParticles2D" parent="Design"]
+position = Vector2(640, 350)
+emitting = false
+amount = 32
+lifetime = 7.0
+preprocess = 5.0
+emission_shape = 2
+emission_rect_extents = Vector2(540, 270)
+direction = Vector2(0, -1)
+spread = 12.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 14.0
+scale_amount_min = 0.7
+scale_amount_max = 1.3
+color_ramp = SubResource("MoteFade")
+
+[node name="Content" type="Control" parent="Design"]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="Logo" type="TextureRect" parent="Design/Content"]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 60.0
+offset_right = 920.0
+offset_bottom = 146.0
+mouse_filter = 2
+texture = SubResource("LogoArtwork")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LeftLine" type="ColorRect" parent="Design/Content"]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 209.0
+offset_right = 502.0
+offset_bottom = 211.0
+mouse_filter = 2
+color = Color(0.2, 0.56, 0.58, 0.65)
+
+[node name="RightLine" type="ColorRect" parent="Design/Content"]
+layout_mode = 0
+offset_left = 778.0
+offset_top = 209.0
+offset_right = 888.0
+offset_bottom = 211.0
+mouse_filter = 2
+color = Color(0.2, 0.56, 0.58, 0.65)
+
+[node name="Metal" type="TextureRect" parent="Design/Content"]
+layout_mode = 0
+offset_left = 528.0
+offset_top = 186.0
+offset_right = 576.0
+offset_bottom = 234.0
+mouse_filter = 2
+texture = ExtResource("metal")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Fire" type="TextureRect" parent="Design/Content"]
+layout_mode = 0
+offset_left = 616.0
+offset_top = 186.0
+offset_right = 664.0
+offset_bottom = 234.0
+mouse_filter = 2
+texture = ExtResource("fire")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Electric" type="TextureRect" parent="Design/Content"]
+layout_mode = 0
+offset_left = 704.0
+offset_top = 186.0
+offset_right = 752.0
+offset_bottom = 234.0
+mouse_filter = 2
+texture = ExtResource("electric")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StoneTitle" type="Panel" parent="Design/Content"]
+layout_mode = 0
+offset_left = 242.0
+offset_top = 265.0
+offset_right = 1038.0
+offset_bottom = 397.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Design/Content/StoneTitle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 58
+theme_override_colors/font_color = Color(0.82, 0.93, 0.82, 1)
+theme_override_colors/font_shadow_color = Color(0.01, 0.075, 0.1, 1)
+theme_override_constants/shadow_offset_y = -3
+text = "FIN DEL JUEGO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ThankYou" type="Label" parent="Design/Content"]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 432.0
+offset_right = 1040.0
+offset_bottom = 477.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.79, 0.89, 0.81, 1)
+text = "Gracias por jugar."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Message" type="Label" parent="Design/Content"]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 482.0
+offset_right = 1040.0
+offset_bottom = 516.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 20
+text = "Cada intento dejó una huella."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Actions" type="HBoxContainer" parent="Design/Content"]
+layout_mode = 0
+offset_left = 282.0
+offset_top = 560.0
+offset_right = 998.0
+offset_bottom = 638.0
+theme_override_constants/separation = 24
+
+[node name="MenuButton" type="Button" parent="Design/Content/Actions"]
+layout_mode = 2
+custom_minimum_size = Vector2(346, 78)
+size_flags_horizontal = 3
+script = ExtResource("button")
+lettering_size = 24
+elongated = true
+text = "Volver al menú"
+
+[node name="ReplayButton" type="Button" parent="Design/Content/Actions"]
+layout_mode = 2
+custom_minimum_size = Vector2(346, 78)
+size_flags_horizontal = 3
+script = ExtResource("button")
+lettering_size = 24
+elongated = true
+text = "Jugar de nuevo"

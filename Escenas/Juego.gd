@@ -4,7 +4,7 @@ const CATALOG = preload("res://Escenas/UI/level_catalog.gd")
 const AUDIO = preload("res://Escenas/UI/audio_preferences.gd")
 const MENU_MUSIC = preload("res://Assets/Sonidos/test/musicaMenu.mp3")
 
-enum Screen { MAIN, SELECTOR, GAME, PAUSE, TRANSITION }
+enum Screen { MAIN, SELECTOR, GAME, PAUSE, TRANSITION, END }
 
 @export var transition_duration: float = 0.8
 
@@ -12,6 +12,7 @@ enum Screen { MAIN, SELECTOR, GAME, PAUSE, TRANSITION }
 @onready var main_menu = $UI/MainMenu
 @onready var selector = $UI/LevelSelector
 @onready var pause_menu = $UI/PauseMenu
+@onready var end_screen = $UI/EndScreen
 @onready var transition_ui: Control = $UI/TransitionUI
 @onready var transition_label: Label = $UI/TransitionUI/Label
 @onready var hud: Control = $UI/HUD
@@ -44,9 +45,14 @@ func _ready() -> void:
 	pause_menu.continue_requested.connect(_resume_game)
 	pause_menu.selector_requested.connect(open_level_selector)
 	pause_menu.restart_requested.connect(_restart_level)
+	end_screen.menu_requested.connect(return_to_menu)
+	end_screen.replay_requested.connect(start_game)
 	$UI/HUD/PauseButton.pressed.connect(_pause_game)
 	_show_screen(Screen.MAIN)
-	if get_tree().has_meta("open_level_selector"):
+	if get_tree().has_meta("game_completed"):
+		get_tree().remove_meta("game_completed")
+		_finish_game()
+	elif get_tree().has_meta("open_level_selector"):
 		get_tree().remove_meta("open_level_selector")
 		open_level_selector()
 
@@ -65,6 +71,8 @@ func _input(event: InputEvent) -> void:
 				_resume_game()
 			Screen.SELECTOR:
 				_selector_back()
+			Screen.END:
+				return_to_menu()
 			_:
 				return
 		get_viewport().set_input_as_handled()
@@ -133,12 +141,23 @@ func _load_level(index: int) -> void:
 func _on_level_completed() -> void:
 	if _screen != Screen.GAME:
 		return
+	var finished_game: bool = CATALOG.is_final_level(_current_index)
 	_show_screen(Screen.TRANSITION)
 	transition_label.text = "%s completado" % CATALOG.ENTRIES[_current_index]["title"]
 	var generation := _navigation_generation
 	await get_tree().create_timer(transition_duration, true).timeout
 	if generation == _navigation_generation:
-		_load_level(_current_index + 1)
+		if finished_game:
+			_finish_game()
+		else:
+			_load_level(_current_index + 1)
+
+
+func _finish_game() -> void:
+	_navigation_generation += 1
+	get_tree().paused = false
+	_clear_current_level()
+	_show_screen(Screen.END)
 
 
 func _restart_level() -> void:
@@ -169,7 +188,7 @@ func _show_screen(screen: Screen) -> void:
 		if is_instance_valid(focus_owner):
 			focus_owner.release_focus()
 	_screen = screen
-	if screen == Screen.MAIN or screen == Screen.SELECTOR:
+	if screen == Screen.MAIN or screen == Screen.SELECTOR or screen == Screen.END:
 		if not _menu_music.playing:
 			_menu_music.play()
 	else:
@@ -177,6 +196,7 @@ func _show_screen(screen: Screen) -> void:
 	main_menu.visible = screen == Screen.MAIN
 	selector.visible = screen == Screen.SELECTOR
 	pause_menu.visible = screen == Screen.PAUSE
+	end_screen.visible = screen == Screen.END
 	transition_ui.visible = screen == Screen.TRANSITION
 	hud.visible = screen == Screen.GAME
 	if screen == Screen.SELECTOR:
@@ -185,6 +205,8 @@ func _show_screen(screen: Screen) -> void:
 		main_menu.get_node("Design/Options/StartButton").grab_focus.call_deferred()
 	elif screen == Screen.PAUSE:
 		pause_menu.get_node("Design/Options/ContinueButton").grab_focus.call_deferred()
+	elif screen == Screen.END:
+		end_screen.present()
 
 
 func _close_form_menu() -> void:
