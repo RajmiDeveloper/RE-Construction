@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const FORM_SHADER = preload("res://Escenas/personaje/forma_tint.gdshader")
+const ELECTRIC_AUDIO: AudioStreamMP3 = preload("res://Assets/Sonidos/test/ruidoElectrico.mp3")
 
 @export var animacion: AnimatedSprite2D
 @export var Trigger: Area2D
@@ -9,6 +10,7 @@ const FORM_SHADER = preload("res://Escenas/personaje/forma_tint.gdshader")
 @onready var fire_effect: AnimatedSprite2D = $EfectoFuego
 @onready var electric_effect: AnimatedSprite2D = $EfectoElectrico
 @onready var metal_effect: AnimatedSprite2D = $EfectoMetal
+@onready var electric_audio: AudioStreamPlayer = $AudioElectrico
 @onready var form_menu = $FormMenu
 @onready var hitbox: CollisionShape2D = $Hitbox
 
@@ -24,6 +26,9 @@ const ANIM_RUN: int = 1
 const ANIM_JUMP: int = 2
 const DEATH_RESTART_DELAY: float = 1.5
 const STATIONARY_POSITION_TOLERANCE_SQUARED: float = 0.01
+const ELECTRIC_TRANSFORM_VOLUME_DB: float = -2.0
+const ELECTRIC_AMBIENT_VOLUME_DB: float = -10.0
+const ELECTRIC_VOLUME_FADE_DURATION: float = 0.8
 
 var _spawn_position: Vector2
 var _death_y: float
@@ -36,12 +41,14 @@ var current_form: int = FormCatalog.NORMAL
 var can_transform: bool = true
 var _form_material: ShaderMaterial
 var _normal_sprite_frames: SpriteFrames
+var _electric_audio_tween: Tween
 
 func _ready() -> void:
 	_spawn_position = global_position
 	_death_y = global_position.y + death_distance
 	add_to_group("player")
 	form_menu.form_selected.connect(_on_form_selected)
+	_setup_electric_audio()
 	_setup_form_material()
 	reset_form()
 	_set_animation(ANIM_IDLE)
@@ -118,6 +125,7 @@ func die() -> void:
 	_update_effect(fire_effect, false, false)
 	_update_effect(electric_effect, false, false)
 	_update_effect(metal_effect, false, false)
+	_update_electric_audio()
 	animacion.play("caer")
 	await get_tree().create_timer(DEATH_RESTART_DELAY, false, false, true).timeout
 	if death_sequence != _death_sequence or not _dead:
@@ -284,6 +292,7 @@ func _setup_form_material() -> void:
 
 func _apply_form_visual() -> void:
 	_update_form_effects()
+	_update_electric_audio()
 	if not is_instance_valid(_form_material):
 		return
 	var form_frames := FormCatalog.get_sprite_frames(current_form)
@@ -301,6 +310,35 @@ func _update_form_effects(restart: bool = false) -> void:
 	_update_effect(fire_effect, current_form == FormCatalog.FUEGO, restart)
 	_update_effect(electric_effect, current_form == FormCatalog.ELECTRICA, restart)
 	_update_effect(metal_effect, current_form == FormCatalog.METAL, restart)
+
+
+func _setup_electric_audio() -> void:
+	# Usa una copia para habilitar el loop sin cambiar el recurso importado compartido.
+	var loop_stream := ELECTRIC_AUDIO.duplicate() as AudioStreamMP3
+	loop_stream.loop = true
+	electric_audio.stream = loop_stream
+
+
+func _update_electric_audio() -> void:
+	if not is_instance_valid(electric_audio):
+		return
+	if current_form == FormCatalog.ELECTRICA and not _dead:
+		if not electric_audio.playing:
+			_kill_electric_audio_tween()
+			electric_audio.volume_db = ELECTRIC_TRANSFORM_VOLUME_DB
+			electric_audio.play()
+			_electric_audio_tween = create_tween()
+			_electric_audio_tween.tween_property(electric_audio, "volume_db", ELECTRIC_AMBIENT_VOLUME_DB, ELECTRIC_VOLUME_FADE_DURATION)
+	else:
+		_kill_electric_audio_tween()
+		electric_audio.stop()
+		electric_audio.volume_db = ELECTRIC_TRANSFORM_VOLUME_DB
+
+
+func _kill_electric_audio_tween() -> void:
+	if is_instance_valid(_electric_audio_tween):
+		_electric_audio_tween.kill()
+		_electric_audio_tween = null
 
 
 func _update_effect(effect: AnimatedSprite2D, should_play: bool, restart: bool) -> void:
