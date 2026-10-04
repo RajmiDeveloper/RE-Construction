@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://bglyn7lok38er"]
+[gd_scene format=4 uid="uid://by5doqrhlbecl"]
 
 [ext_resource type="Script" uid="uid://bttkh2ocbt2jk" path="res://Escenas/niveles/Sala05/sala_05_controller.gd" id="1_level"]
 [ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="2_player"]
@@ -9,13 +9,13 @@
 [ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="5_tiles"]
 [ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="6_button"]
 [ext_resource type="PackedScene" uid="uid://cbst5h3sfyuli" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="7_gate"]
-[ext_resource type="PackedScene" uid="uid://k835lpiyrl6o" path="res://Escenas/objetos/bloque_hielo/bloque_hielo.tscn" id="8_ice"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/bloque_hielo/bloque_hielo.tscn" id="8_ice"]
 [ext_resource type="Script" uid="uid://dpkskyj3rdn2y" path="res://Escenas/objetos/puerta_salida/controlador_puerta.gd" id="9_0bejk"]
-[ext_resource type="PackedScene" uid="uid://ixetx4dgiaq5" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="9_module"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="9_module"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/trampa_electrica.tscn" id="10_electric"]
 [ext_resource type="PackedScene" uid="uid://dr1o8mnrmg5r4" path="res://Escenas/objetos/pinches/pinches.tscn" id="11_spikes"]
 [ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="12_exit"]
-[ext_resource type="PackedScene" uid="uid://booh45x7qreql" path="res://Escenas/objetos/palanca/palanca.tscn" id="15_cw4by"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/palanca/palanca.tscn" id="15_cw4by"]
 
 [node name="Sala05" type="Node2D" unique_id=2119282324]
 script = ExtResource("1_level")
