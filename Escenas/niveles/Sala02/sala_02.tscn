@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://da11wpjccdjky"]
+[gd_scene format=4 uid="uid://da11wpjccdjky"]
 
 [ext_resource type="Script" uid="uid://dfq68sj7h2epr" path="res://Escenas/niveles/nivel_base.gd" id="1_level"]
 [ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://buucika8pnbrp" path="res://Escenas/background/backgroundChico.tscn" id="3_mkcnq"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="3_shadow"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/plataforma/plataforma.tscn" id="4_platform"]
+[ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="4_mkcnq"]
 [ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="5_button"]
 [ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="6_exit"]
 
@@ -15,15 +15,11 @@ shadow_scene = ExtResource("3_shadow")
 
 [node name="Fondo" parent="." unique_id=823027555 instance=ExtResource("3_mkcnq")]
 
+[node name="TileMapLayer" type="TileMapLayer" parent="Fondo" unique_id=961885389]
+tile_map_data = PackedByteArray("AADx/wcAAgADABAAAADx/wgAAgADABEAAADy/wcAAgAEABAAAADy/wgAAgAEABEAAADz/wcAAgAFABAAAADz/wgAAgAFABEAAAD0/wcAAgAGABAAAAD0/wgAAgAGABEAAAD1/wcAAgADABAAAAD1/wgAAgADABEAAAD2/wcAAgAEABAAAAD2/wgAAgAEABEAAAD3/wcAAgAFABAAAAD3/wgAAgAFABEAAAD4/wcAAgAGABAAAAD4/wgAAgAGABEAAAD5/wcAAgADABAAAAD5/wgAAgADABEAAAD6/wcAAgAEABAAAAD6/wgAAgAEABEAAAD7/wcAAgAFABAAAAD7/wgAAgAFABEAAAD8/wcAAgAGABAAAAD8/wgAAgAGABEAAAD9/wcAAgADABAAAAD9/wgAAgADABEAAAD+/wcAAgAEABAAAAD+/wgAAgAEABEAAAD//wcAAgAFABAAAAD//wgAAgAFABEAAAAAAAcAAgAGABAAAAAAAAgAAgAGABEAAAABAAcAAgADABAAAAABAAgAAgADABEAAAACAAcAAgAEABAAAAACAAgAAgAEABEAAAADAAcAAgAFABAAAAADAAgAAgAFABEAAAAEAAcAAgAGABAAAAAEAAgAAgAGABEAAAAFAAcAAgADABAAAAAFAAgAAgADABEAAAAGAAcAAgAEABAAAAAGAAgAAgAEABEAAAAHAAcAAgAFABAAAAAHAAgAAgAFABEAAAAIAAcAAgAGABAAAAAIAAgAAgAGABEAAAAJAAcAAgADABAAAAAJAAgAAgADABEAAAAKAAcAAgAEABAAAAAKAAgAAgAEABEAAAALAAcAAgAFABAAAAALAAgAAgAFABEAAAAMAAcAAgAGABAAAAAMAAgAAgAGABEAAAANAAcAAgADABAAAAANAAgAAgADABEAAAAOAAcAAgAEABAAAAAOAAgAAgAEABEAAAA=")
+tile_set = ExtResource("4_mkcnq")
+
 [node name="Mundo" type="Node2D" parent="." unique_id=1348614121]
-
-[node name="SueloIzquierdo" parent="Mundo" unique_id=1661716423 instance=ExtResource("4_platform")]
-position = Vector2(-105, 104)
-platform_size = Vector2(190, 16)
-
-[node name="SueloDerecho" parent="Mundo" unique_id=129953478 instance=ExtResource("4_platform")]
-position = Vector2(105, 104)
-platform_size = Vector2(190, 16)
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=1111103830]
 position = Vector2(-170, 88)
@@ -40,5 +36,3 @@ position = Vector2(-42, 89)
 
 [node name="Salida" parent="." unique_id=1136325335 instance=ExtResource("6_exit")]
 position = Vector2(160, 86)
-
-[node name="Node2D" type="Node2D" parent="." unique_id=1516167871]
