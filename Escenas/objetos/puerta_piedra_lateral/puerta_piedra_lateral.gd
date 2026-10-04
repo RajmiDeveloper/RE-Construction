@@ -14,6 +14,7 @@ var _move_tween: Tween
 var _closed_texture: Texture2D
 var _button: Node
 var _rewinding: bool = false
+var _original_move_duration: float = 0.0
 
 
 func _ready() -> void:
@@ -36,7 +37,11 @@ func _ready() -> void:
 func set_open(value: bool) -> void:
 	if _rewinding:
 		return
-	if is_open == value and (_move_tween == null or not _move_tween.is_running()):
+	var target_position := _closed_position
+	if value:
+		target_position.y -= opening_height
+	if is_open == value and position.is_equal_approx(target_position) \
+			and (_move_tween == null or not _move_tween.is_running()):
 		return
 	is_open = value
 	_move_to_state(is_open, true)
@@ -65,13 +70,26 @@ func _sync_button_state() -> void:
 
 func freeze_for_rewind() -> void:
 	_rewinding = true
+	_original_move_duration = move_duration
 	if _move_tween != null and _move_tween.is_running():
 		_move_tween.kill()
 
 
+func rewind_to_initial() -> void:
+	# Usa el mismo movimiento que la compuerta emplea durante el juego.
+	# La duracion reducida deja que termine antes del reinicio de la vida.
+	move_duration = 0.9
+	is_open = _initial_open_state
+	_move_to_state(is_open, true)
+
+
 func finish_rewind() -> void:
+	if not _rewinding:
+		return
+	move_duration = _original_move_duration
+	is_open = _initial_open_state
+	_move_to_state(is_open, false)
 	_rewinding = false
-	call_deferred("_sync_button_state")
 
 
 func _exit_tree() -> void:

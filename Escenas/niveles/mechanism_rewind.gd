@@ -13,6 +13,7 @@ var _initial: Dictionary = {}
 var _frozen: Dictionary = {}
 var _saved_process_modes: Dictionary = {}
 var _temporary_visuals: Array[Node] = []
+var _native_rewind_mechanisms: Array[Node] = []
 var _phase: Phase = Phase.IDLE
 var _generation: int = 0
 var _tween: Tween
@@ -47,7 +48,9 @@ func start_rewind() -> void:
 		_saved_process_modes[node.get_instance_id()] = {"node": node, "mode": node.process_mode}
 		node.process_mode = Node.PROCESS_MODE_DISABLED
 		if node is AnimatedSprite2D:
-			(node as AnimatedSprite2D).stop()
+			var animated := node as AnimatedSprite2D
+			animated.stop()
+			animated.frame = state["frame"]
 	_phase = Phase.FROZEN
 	await get_tree().create_timer(FREEZE_DURATION, true, false, true).timeout
 	if generation != _generation:
@@ -65,6 +68,7 @@ func cancel() -> void:
 		if is_instance_valid(mechanism) and mechanism.has_method("finish_rewind"):
 			mechanism.call("finish_rewind")
 	_frozen.clear()
+	_native_rewind_mechanisms.clear()
 	_phase = Phase.IDLE
 
 
@@ -149,6 +153,13 @@ func _snapshot(node: Node) -> Dictionary:
 
 func _begin_reverse(generation: int) -> void:
 	_phase = Phase.REWINDING
+	_native_rewind_mechanisms.clear()
+	for mechanism in _mechanisms:
+		if not is_instance_valid(mechanism) or not mechanism.has_method("rewind_to_initial"):
+			continue
+		_native_rewind_mechanisms.append(mechanism)
+		_restore_process_mode_tree(mechanism)
+		mechanism.call("rewind_to_initial")
 	_tween = create_tween().set_parallel(true)
 	_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
@@ -156,6 +167,8 @@ func _begin_reverse(generation: int) -> void:
 		var state: Dictionary = _frozen[path]
 		var node: Node = state["node"]
 		if not is_instance_valid(node):
+			continue
+		if _has_native_rewind_ancestor(node):
 			continue
 		if _initial.has(path):
 			_animate_to_initial(node, state, _initial[path])
@@ -165,6 +178,8 @@ func _begin_reverse(generation: int) -> void:
 		if _frozen.has(path):
 			continue
 		var state: Dictionary = _initial[path]
+		if is_instance_valid(state["node"]) and _has_native_rewind_ancestor(state["node"]):
+			continue
 		if state["node"] is Sprite2D:
 			var parent := _level.get_node_or_null(NodePath(String(path).get_base_dir())) as Node2D
 			if parent != null:
@@ -266,7 +281,23 @@ func _finish_reverse() -> void:
 		if is_instance_valid(mechanism) and mechanism.has_method("finish_rewind"):
 			mechanism.call("finish_rewind")
 	_frozen.clear()
+	_native_rewind_mechanisms.clear()
 	rewind_finished.emit()
+
+
+func _has_native_rewind_ancestor(node: Node) -> bool:
+	for mechanism in _native_rewind_mechanisms:
+		if mechanism == node or mechanism.is_ancestor_of(node):
+			return true
+	return false
+
+
+func _restore_process_mode_tree(node: Node) -> void:
+	var saved_state: Dictionary = _saved_process_modes.get(node.get_instance_id(), {})
+	if not saved_state.is_empty():
+		node.process_mode = saved_state["mode"]
+	for child in node.get_children():
+		_restore_process_mode_tree(child)
 
 
 func _restore_initial_node(node: Node, state: Dictionary) -> void:

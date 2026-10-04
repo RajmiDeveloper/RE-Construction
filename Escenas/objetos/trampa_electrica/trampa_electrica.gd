@@ -94,7 +94,11 @@ func set_active(value: bool) -> void:
 
 
 func reset_state() -> void:
+	_tiempo = 0.0
+	_cuadro_actual = 0
 	set_active(_initial_active)
+	if _active:
+		_actualizar_cuadros()
 
 
 func _resolver_modulo(path: NodePath) -> Sprite2D:
