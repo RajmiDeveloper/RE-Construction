@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bpcplkpk25eqe"]
+
+[ext_resource type="Script" path="res://Assets/Mapa/torreta/brote_cristal.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://doloosb3c5u3i" path="res://Assets/Mapa/torreta/brote_cristal_sheet.png" id="2"]
+
+[node name="BroteCristal" type="Node2D" unique_id=1311130384]
+texture_filter = 1
+script = ExtResource("1")
+
+[node name="Visual" type="Node2D" parent="." unique_id=2013645883]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual" unique_id=1174274185]
+position = Vector2(0, -8)
+texture = ExtResource("2")
+hframes = 2
+
+[node name="Boca" type="Marker2D" parent="Visual" unique_id=942428746]
+position = Vector2(0, -15)
+
+[node name="Proyectiles" type="Node2D" parent="." unique_id=208448497]

@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bfr3iktuiemab"]
+
+[ext_resource type="Script" uid="uid://dbh7vgjpk1mm8" path="res://Escenas/objetos/torreta/brote_cristal.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://doloosb3c5u3i" path="res://Assets/Mapa/torreta/brote_cristal_sheet.png" id="2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zona_mortal"]
+size = Vector2(7, 13.75)
+
+[node name="BroteCristal" type="Node2D" unique_id=1192445518]
+texture_filter = 1
+script = ExtResource("1")
+
+[node name="Visual" type="Node2D" parent="." unique_id=1071239820]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual" unique_id=2140590177]
+position = Vector2(0, -8)
+texture = ExtResource("2")
+hframes = 2
+
+[node name="Boca" type="Marker2D" parent="Visual" unique_id=1495105455]
+position = Vector2(0, -15)
+
+[node name="ZonaMortal" type="Area2D" parent="Visual" unique_id=969331162]
+position = Vector2(0, -25)
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visual/ZonaMortal" unique_id=549808149]
+position = Vector2(1.5, 17.125)
+shape = SubResource("RectangleShape2D_zona_mortal")
+
+[node name="Proyectiles" type="Node2D" parent="." unique_id=1459590404]
+
+[node name="TemporizadorZonaMortal" type="Timer" parent="." unique_id=1760386942]
+one_shot = true
+
+[connection signal="body_entered" from="Visual/ZonaMortal" to="." method="_on_zona_mortal_body_entered"]
+[connection signal="timeout" from="TemporizadorZonaMortal" to="." method="_desactivar_zona_mortal"]

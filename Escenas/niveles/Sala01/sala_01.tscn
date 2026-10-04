@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="4_player"]
 [ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="5_l2pov"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/torreta/brote_cristal.tscn" id="5_vd2ea"]
 [ext_resource type="Script" uid="uid://bttkh2ocbt2jk" path="res://Escenas/niveles/Sala01/sala_01_controller.gd" id="6_controller"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="7_shadow"]
 [ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="8_button"]
@@ -25,6 +26,9 @@ tile_set = ExtResource("5_l2pov")
 
 [node name="decoracion" type="TileMapLayer" parent="BackgroundChico/piso" unique_id=21974396]
 tile_set = ExtResource("5_l2pov")
+
+[node name="BroteCristal" parent="BackgroundChico" unique_id=1936295608 instance=ExtResource("5_vd2ea")]
+position = Vector2(1015, 782)
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=411096757]
 position = Vector2(706, 774)
@@ -50,6 +54,10 @@ button_paths = Array[NodePath]([NodePath("../Mecanismos/Boton")])
 
 [node name="Pinches" parent="." unique_id=1779459369 instance=ExtResource("9_nbcrp")]
 position = Vector2(874, 786)
-animation_frame_duration = 0.09999999999999999
+animation_frame_duration = 0.1
 retracted_duration = 1.0
 extended_duration = 1.0
+
+[node name="BroteCristal" parent="." unique_id=361877013 instance=ExtResource("5_vd2ea")]
+position = Vector2(655, 773)
+rotation = 1.5707964
