@@ -1,7 +1,8 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://h1wmk40oflme"]
 
-[ext_resource type="Texture2D" path="res://Assets/Mapa/Indicaciones/tecla_generica.png" id="1_key_sign"]
+[ext_resource type="Texture2D" uid="uid://bijhjap0u7001" path="res://Assets/Mapa/Indicaciones/tecla_generica.png" id="1_key_sign"]
 
-[node name="IndicacionTeclaGenerica" type="Sprite2D"]
+[node name="IndicacionTeclaGenerica" type="Sprite2D" unique_id=891452871]
 texture_filter = 1
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_key_sign")

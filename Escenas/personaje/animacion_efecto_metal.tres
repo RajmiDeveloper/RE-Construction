@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://bd6b0y86ynob4"]
 
 [ext_resource type="Texture2D" uid="uid://vbvkn1x2awjo" path="res://Assets/Personaje/Final/Metal/EfectoMetal_2x2.png" id="1_metal_effect"]
 

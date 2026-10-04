@@ -1,64 +1,71 @@
-[gd_scene format=3]
+[gd_scene format=4 uid="uid://b6kxoh4ui1ea4"]
 
-[ext_resource type="Script" path="res://Escenas/niveles/nivel_base.gd" id="base"]
-[ext_resource type="PackedScene" path="res://Escenas/personaje/personaje.tscn" id="player"]
-[ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="shadow"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="exit"]
-[ext_resource type="PackedScene" path="res://Escenas/background/backgroundChico.tscn" id="bg"]
-[ext_resource type="TileSet" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="tiles"]
+[ext_resource type="Texture2D" uid="uid://ccwfdp1k523d6" path="res://Assets/UI/Formas/forma_fuego.svg" id="8_t4umu"]
+[ext_resource type="PackedScene" uid="uid://h1wmk40oflme" path="res://Escenas/objetos/indicaciones/indicacion_tecla_generica.tscn" id="10_w2hxy"]
+[ext_resource type="Script" uid="uid://dfq68sj7h2epr" path="res://Escenas/niveles/nivel_base.gd" id="base"]
+[ext_resource type="PackedScene" uid="uid://buucika8pnbrp" path="res://Escenas/background/backgroundChico.tscn" id="bg"]
+[ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="exit"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_fuego.tscn" id="fire_icon"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_metal.tscn" id="metal_icon"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_electrica.tscn" id="electric_icon"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/bloque_hielo/bloque_hielo.tscn" id="ice"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="gate"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/boton/boton.tscn" id="button"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="module"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/trampa_electrica.tscn" id="ray"]
+[ext_resource type="PackedScene" uid="uid://k835lpiyrl6o" path="res://Escenas/objetos/bloque_hielo/bloque_hielo.tscn" id="ice"]
+[ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="shadow"]
+[ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="tiles"]
 
-[node name="Tutorial01" type="Node2D"]
+[node name="Tutorial01" type="Node2D" unique_id=940653708]
 script = ExtResource("base")
 level_title = "Tutorial 1"
 shadow_scene = ExtResource("shadow")
 
-[node name="Fondo" type="Node2D" parent="." instance=ExtResource("bg")]
+[node name="Fondo" parent="." unique_id=312723503 instance=ExtResource("bg")]
 z_index = -10
 
-[node name="Camera2D" parent="Fondo" index="1"]
+[node name="Camera2D" parent="Fondo" index="1" unique_id=1342747251]
 enabled = false
 
-[node name="Terreno" type="TileMapLayer" parent="."]
+[node name="Terreno" type="TileMapLayer" parent="." unique_id=392867463]
+position = Vector2(-16, -32)
+tile_map_data = PackedByteArray("AADy/wYAAgADABAAAADz/wYAAgAEABAAAAD0/wYAAgAFABAAAAD1/wYAAgAGABAAAAD2/wYAAgADABAAAAD3/wYAAgAEABAAAAD4/wYAAgAFABAAAAD5/wYAAgAGABAAAAD6/wYAAgADABAAAAD7/wYAAgAEABAAAAD8/wYAAgAFABAAAAD9/wYAAgAGABAAAAD+/wYAAgADABAAAAD//wYAAgAEABAAAAAAAAYAAgAFABAAAAABAAYAAgAGABAAAAACAAYAAgAFABAAAAADAAYAAgAGABAAAAAEAAYAAgADABAAAAAFAAYAAgAEABAAAAAGAAYAAgAFABAAAAAHAAYAAgAGABAAAAAIAAYAAgADABAAAAAJAAYAAgAEABAAAAAKAAYAAgAFABAAAAALAAYAAgAGABAAAAAMAAYAAgADABAAAAANAAYAAgAEABAAAAAOAAYAAgAFABAAAADy/wcAAgAYAB8AAADz/wcAAgAZAB8AAAD0/wcAAgAYAB8AAAD1/wcAAgAZAB8AAAD2/wcAAgAYAB8AAAD3/wcAAgAZAB8AAAD4/wcAAgAYAB8AAAD5/wcAAgAZAB8AAAD6/wcAAgAYAB8AAAD7/wcAAgAZAB8AAAD8/wcAAgAYAB8AAAD9/wcAAgAZAB8AAAD+/wcAAgAYAB8AAAD//wcAAgAZAB8AAAAAAAcAAgAYAB8AAAABAAcAAgAZAB8AAAACAAcAAgAYAB8AAAADAAcAAgAZAB8AAAAEAAcAAgAYAB8AAAAFAAcAAgAZAB8AAAAGAAcAAgAYAB8AAAAHAAcAAgAZAB8AAAAIAAcAAgAYAB8AAAAJAAcAAgAZAB8AAAAKAAcAAgAYAB8AAAALAAcAAgAYAB8AAAAMAAcAAgAZAB8AAAANAAcAAgAYAB8AAAAOAAcAAgAZAB8AAADy/wgAAgAYACAAAADz/wgAAgAZACAAAAD0/wgAAgAYACAAAAD1/wgAAgAZACAAAAD2/wgAAgAYACAAAAD3/wgAAgAZACAAAAD4/wgAAgAYACAAAAD5/wgAAgAZACAAAAD6/wgAAgAYACAAAAD7/wgAAgAZACAAAAD8/wgAAgAYACAAAAD9/wgAAgAZACAAAAD+/wgAAgAYACAAAAD//wgAAgAZACAAAAAAAAgAAgAYACAAAAABAAgAAgAZACAAAAACAAgAAgAYACAAAAADAAgAAgAZACAAAAAEAAgAAgAYACAAAAAFAAgAAgAZACAAAAAGAAgAAgAYACAAAAAHAAgAAgAZACAAAAAIAAgAAgAYACAAAAAJAAgAAgAZACAAAAAKAAgAAgAYACAAAAALAAgAAgAYACAAAAAMAAgAAgAZACAAAAANAAgAAgAYACAAAAAOAAgAAgAZACAAAADy/wkAAgAYAB8AAADz/wkAAgAZAB8AAAD0/wkAAgAYAB8AAAD1/wkAAgAZAB8AAAD2/wkAAgAYAB8AAAD3/wkAAgAZAB8AAAD4/wkAAgAYAB8AAAD5/wkAAgAZAB8AAAD6/wkAAgAYAB8AAAD7/wkAAgAZAB8AAAD8/wkAAgAYAB8AAAD9/wkAAgAZAB8AAAD+/wkAAgAYAB8AAAD//wkAAgAZAB8AAAAAAAkAAgAYAB8AAAABAAkAAgAZAB8AAAACAAkAAgAYAB8AAAADAAkAAgAZAB8AAAAEAAkAAgAYAB8AAAAFAAkAAgAZAB8AAAAGAAkAAgAYAB8AAAAHAAkAAgAZAB8AAAAIAAkAAgAYAB8AAAAJAAkAAgAZAB8AAAAKAAkAAgAYAB8AAAALAAkAAgAZAB8AAAAMAAkAAgAYAB8AAAANAAkAAgAZAB8AAAAOAAkAAgAYAB8AAAAPAAYAAgAEABgAAAAPAAcAAgAEABEAAAAPAAgAAgAEABIAAAAPAAkAAgAZAB8AAADy/woAAgAYACAAAADz/woAAgAZACAAAAD0/woAAgAYACAAAAD1/woAAgAZACAAAAD2/woAAgAYACAAAAD3/woAAgAZACAAAAD4/woAAgAYACAAAAD5/woAAgAZACAAAAD6/woAAgAYACAAAAD7/woAAgAZACAAAAD8/woAAgAYACAAAAD9/woAAgAZACAAAAD+/woAAgAYACAAAAD//woAAgAZACAAAAAAAAoAAgAYACAAAAABAAoAAgAZACAAAAACAAoAAgAYACAAAAADAAoAAgAZACAAAAAEAAoAAgAYACAAAAAFAAoAAgAZACAAAAAGAAoAAgAYACAAAAAHAAoAAgAZACAAAAAIAAoAAgAYACAAAAAJAAoAAgAZACAAAAAKAAoAAgAYACAAAAALAAoAAgAZACAAAAAMAAoAAgAYACAAAAANAAoAAgAZACAAAAAOAAoAAgAYACAAAAAPAAoAAgAZACAAAAA=")
 tile_set = ExtResource("tiles")
-tile_map_data = PackedByteArray("AADy/wYAAgAFABAAAADz/wYAAgAGABAAAAD0/wYAAgADABAAAAD1/wYAAgAEABAAAAD2/wYAAgAFABAAAAD3/wYAAgAGABAAAAD4/wYAAgADABAAAAD5/wYAAgAEABAAAAD6/wYAAgAFABAAAAD7/wYAAgAGABAAAAD8/wYAAgADABAAAAD9/wYAAgAEABAAAAD+/wYAAgAFABAAAAD//wYAAgAGABAAAAAAAAYAAgADABAAAAABAAYAAgAEABAAAAACAAYAAgAFABAAAAADAAYAAgAGABAAAAAEAAYAAgADABAAAAAFAAYAAgAEABAAAAAGAAYAAgAFABAAAAAHAAYAAgAGABAAAAAIAAYAAgADABAAAAAJAAYAAgAEABAAAAAKAAYAAgAFABAAAAALAAYAAgAGABAAAAAMAAYAAgADABAAAAANAAYAAgAEABAAAAAOAAYAAgAFABAAAADy/wcAAgAFABEAAADz/wcAAgAGABEAAAD0/wcAAgADABEAAAD1/wcAAgAEABEAAAD2/wcAAgAFABEAAAD3/wcAAgAGABEAAAD4/wcAAgADABEAAAD5/wcAAgAEABEAAAD6/wcAAgAFABEAAAD7/wcAAgAGABEAAAD8/wcAAgADABEAAAD9/wcAAgAEABEAAAD+/wcAAgAFABEAAAD//wcAAgAGABEAAAAAAAcAAgADABEAAAABAAcAAgAEABEAAAACAAcAAgAFABEAAAADAAcAAgAGABEAAAAEAAcAAgADABEAAAAFAAcAAgAEABEAAAAGAAcAAgAFABEAAAAHAAcAAgAGABEAAAAIAAcAAgADABEAAAAJAAcAAgAEABEAAAAKAAcAAgAFABEAAAALAAcAAgAGABEAAAAMAAcAAgADABEAAAANAAcAAgAEABEAAAAOAAcAAgAFABEAAADy/wgAAgAFABEAAADz/wgAAgAGABEAAAD0/wgAAgADABEAAAD1/wgAAgAEABEAAAD2/wgAAgAFABEAAAD3/wgAAgAGABEAAAD4/wgAAgADABEAAAD5/wgAAgAEABEAAAD6/wgAAgAFABEAAAD7/wgAAgAGABEAAAD8/wgAAgADABEAAAD9/wgAAgAEABEAAAD+/wgAAgAFABEAAAD//wgAAgAGABEAAAAAAAgAAgADABEAAAABAAgAAgAEABEAAAACAAgAAgAFABEAAAADAAgAAgAGABEAAAAEAAgAAgADABEAAAAFAAgAAgAEABEAAAAGAAgAAgAFABEAAAAHAAgAAgAGABEAAAAIAAgAAgADABEAAAAJAAgAAgAEABEAAAAKAAgAAgAFABEAAAALAAgAAgAGABEAAAAMAAgAAgADABEAAAANAAgAAgAEABEAAAAOAAgAAgAFABEAAADy/wkAAgAFABEAAADz/wkAAgAGABEAAAD0/wkAAgADABEAAAD1/wkAAgAEABEAAAD2/wkAAgAFABEAAAD3/wkAAgAGABEAAAD4/wkAAgADABEAAAD5/wkAAgAEABEAAAD6/wkAAgAFABEAAAD7/wkAAgAGABEAAAD8/wkAAgADABEAAAD9/wkAAgAEABEAAAD+/wkAAgAFABEAAAD//wkAAgAGABEAAAAAAAkAAgADABEAAAABAAkAAgAEABEAAAACAAkAAgAFABEAAAADAAkAAgAGABEAAAAEAAkAAgADABEAAAAFAAkAAgAEABEAAAAGAAkAAgAFABEAAAAHAAkAAgAGABEAAAAIAAkAAgADABEAAAAJAAkAAgAEABEAAAAKAAkAAgAFABEAAAALAAkAAgAGABEAAAAMAAkAAgADABEAAAANAAkAAgAEABEAAAAOAAkAAgAFABEAAAA=")
 
-[node name="SpawnPoint" type="Marker2D" parent="."]
-position = Vector2(-196, 80)
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=936252273]
+position = Vector2(-206, 48)
 
-[node name="Jugador" parent="." instance=ExtResource("player")]
-position = Vector2(-196, 80)
+[node name="Jugador" parent="." unique_id=205762172 instance=ExtResource("player")]
+position = Vector2(-206, 48)
 death_distance = 220.0
 
-[node name="Mecanismos" type="Node2D" parent="."]
+[node name="Mecanismos" type="Node2D" parent="." unique_id=621321518]
+position = Vector2(-7, -44)
 
-
-[node name="Sombras" type="Node2D" parent="."]
-
-
-[node name="Salida" parent="." instance=ExtResource("exit")]
-position = Vector2(196, 80)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, 12)
-zoom = Vector2(3.5, 3.5)
-position_smoothing_enabled = false
-
-[node name="Hielo" parent="Mecanismos" instance=ExtResource("ice")]
+[node name="Hielo" parent="Mecanismos" unique_id=499561308 instance=ExtResource("ice")]
 position = Vector2(0, 96)
 scale = Vector2(1.1, 1.3)
 
-[node name="Fuego" parent="Mecanismos" instance=ExtResource("fire_icon")]
+[node name="Fuego" parent="Mecanismos" unique_id=1700393950 instance=ExtResource("fire_icon")]
+texture_filter = 1
 offset_left = -56.0
 offset_top = 50.0
 offset_right = -32.0
 offset_bottom = 74.0
+texture = ExtResource("8_t4umu")
+
+[node name="Sombras" type="Node2D" parent="." unique_id=1109163834]
+position = Vector2(-10, -32)
+
+[node name="Salida" parent="." unique_id=1500979928 instance=ExtResource("exit")]
+position = Vector2(186, 53)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1089134737]
+position = Vector2(0, 12)
+zoom = Vector2(3.5, 3.5)
+
+[node name="IndicacionTeclaGenerica" parent="." unique_id=1993914899 instance=ExtResource("10_w2hxy")]
+position = Vector2(-220, 13)
+
+[node name="IndicacionTeclaGenerica2" parent="." unique_id=891452871 instance=ExtResource("10_w2hxy")]
+position = Vector2(-199, -8)
+
+[node name="IndicacionTeclaGenerica3" parent="." unique_id=297690831 instance=ExtResource("10_w2hxy")]
+position = Vector2(-174, 13)
 
 [editable path="Fondo"]
