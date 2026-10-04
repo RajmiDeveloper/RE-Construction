@@ -4,8 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="2_player"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="3_shadow"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/plataforma/plataforma.tscn" id="4_platform"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/boton/boton.tscn" id="5_button"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="6_exit"]
+[ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="5_button"]
+[ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="6_exit"]
+[ext_resource type="PackedScene" uid="uid://buucika8pnbrp" path="res://Escenas/background/backgroundChico.tscn" id="7_05a4w"]
 
 [node name="Sala03" type="Node2D" unique_id=351629084]
 script = ExtResource("1_level")
@@ -38,6 +39,4 @@ position = Vector2(22, 42)
 [node name="Salida" parent="." unique_id=2009446554 instance=ExtResource("6_exit")]
 position = Vector2(160, 86)
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=913672559]
-position = Vector2(0, 72)
-zoom = Vector2(2.5, 2.5)
+[node name="FondoChico" parent="." unique_id=823027555 instance=ExtResource("7_05a4w")]

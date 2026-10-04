@@ -1,65 +1,65 @@
-[gd_scene format=4 uid="uid://by5doqrhlbecl"]
+[gd_scene format=4 uid="uid://bachobssuhcmo"]
 
-[ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="4_player"]
-[ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="5_l2pov"]
-[ext_resource type="PackedScene" uid="uid://bfr3iktuiemab" path="res://Escenas/objetos/torreta/brote_cristal.tscn" id="5_vd2ea"]
-[ext_resource type="Script" uid="uid://bttkh2ocbt2jk" path="res://Escenas/niveles/Sala01/sala_01_controller.gd" id="6_controller"]
-[ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="7_shadow"]
-[ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="8_button"]
-[ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="9_exit"]
-[ext_resource type="PackedScene" uid="uid://dr1o8mnrmg5r4" path="res://Escenas/objetos/pinches/pinches.tscn" id="9_nbcrp"]
-[ext_resource type="PackedScene" uid="uid://n4v6wbkxnyrb" path="res://Escenas/background/background_medio.tscn" id="9_vd2ea"]
-[ext_resource type="Script" uid="uid://dpkskyj3rdn2y" path="res://Escenas/objetos/puerta_salida/controlador_puerta.gd" id="10_door_controller"]
+[ext_resource type="Script" uid="uid://bttkh2ocbt2jk" path="res://Escenas/niveles/Sala01/sala_01_controller.gd" id="1_msfa4"]
+[ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="2_2se2p"]
+[ext_resource type="PackedScene" uid="uid://n4v6wbkxnyrb" path="res://Escenas/background/background_medio.tscn" id="3_57v50"]
+[ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="4_juaeh"]
+[ext_resource type="PackedScene" uid="uid://bfr3iktuiemab" path="res://Escenas/objetos/torreta/brote_cristal.tscn" id="5_gc7x4"]
+[ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="6_f7q8d"]
+[ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="7_xukn3"]
+[ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="8_fi1qj"]
+[ext_resource type="Script" uid="uid://dpkskyj3rdn2y" path="res://Escenas/objetos/puerta_salida/controlador_puerta.gd" id="9_ydv28"]
+[ext_resource type="PackedScene" uid="uid://dr1o8mnrmg5r4" path="res://Escenas/objetos/pinches/pinches.tscn" id="10_dog0b"]
 
-[node name="Sala01" type="Node2D" unique_id=2119282324]
-script = ExtResource("6_controller")
-level_title = "Sala 1: Templo de ecos"
-shadow_scene = ExtResource("7_shadow")
+[node name="Sala06" type="Node2D" unique_id=2119282324]
+script = ExtResource("1_msfa4")
+level_title = "Nivel 6"
+shadow_scene = ExtResource("2_2se2p")
 
-[node name="BackgroundMedio" parent="." unique_id=801314604 instance=ExtResource("9_vd2ea")]
+[node name="FondoMedio" parent="." unique_id=801314604 instance=ExtResource("3_57v50")]
 z_index = -1
 position = Vector2(0, 1)
 
-[node name="piso" type="TileMapLayer" parent="BackgroundMedio" unique_id=138049636]
+[node name="piso" type="TileMapLayer" parent="FondoMedio" unique_id=138049636]
 position = Vector2(0, -32)
 tile_map_data = PackedByteArray("AAAqADEAAgAEABAAAAArADEAAgAFABAAAAAsADEAAgAGABAAAAAtADEAAgADABAAAAAuADEAAgAEABAAAAAvADEAAgAFABAAAAAwADEAAgAGABAAAAAxADEAAgADABAAAAAyADEAAgAEABAAAAAzADEAAgAFABAAAAA0ADEAAgAGABAAAAA1ADEAAgADABAAAAA2ADEAAgAEABAAAAA3ADEAAgAFABAAAAA4ADEAAgAGABAAAAA5ADEAAgADABAAAAA6ADEAAgAEABAAAAA7ADEAAgAFABAAAAA8ADEAAgAGABAAAAA9ADEAAgADABAAAAA+ADEAAgAEABAAAAA/ADEAAgAFABAAAABAADEAAgAGABAAAABBADEAAgADABAAAABCADEAAgAEABAAAABDADEAAgAFABAAAABEADEAAgAGABAAAABFADEAAgADABAAAABGADEAAgAEABAAAABHADEAAgAFABAAAABIADEAAgAGABAAAABJADEAAgADABAAAABKADEAAgAEABAAAABLADEAAgAFABAAAABMADEAAgAGABAAAABNADEAAgADABAAAABOADEAAgAEABAAAABPADEAAgAFABAAAABQADEAAgAGABAAAABRADEAAgADABAAAABSADEAAgAEABAAAAA+ACUAAgAIABAAAAA+ACYAAgAIABEAAAA/ACUAAgAJABAAAAA/ACYAAgAJABEAAABAACUAAgAKABAAAABAACYAAgAKABEAAABBACUAAgALABAAAABBACYAAgALABEAAABCACUAAgAMABAAAABCACYAAgAMABEAAABDACUAAgAIABAAAABEACYAAgAIABEAAABFACcAAgAIABEAAABHACcAAgANABAAAABGACcAAgAIABAAAABFACYAAgARABEAAABEACUAAgAQABAAAAAqADIAAgAYAB8AAAArADIAAgAZAB8AAAAsADIAAgAYAB8AAAAtADIAAgAZAB8AAAAuADIAAgAYAB8AAAAvADIAAgAZAB8AAAAwADIAAgAYAB8AAAAxADIAAgAZAB8AAAAyADIAAgAYAB8AAAAzADIAAgAZAB8AAAA0ADIAAgAYAB8AAAA1ADIAAgAZAB8AAAA6ADIAAgAYAB8AAAA7ADIAAgAZAB8AAAA8ADIAAgAYAB8AAAA9ADIAAgAZAB8AAAA+ADIAAgAYAB8AAAA/ADIAAgAZAB8AAABAADIAAgAYAB8AAABBADIAAgAZAB8AAABCADIAAgAYAB8AAABDADIAAgAZAB8AAABEADIAAgAYAB8AAABFADIAAgAZAB8AAABGADIAAgAYAB8AAABHADIAAgAZAB8AAABIADIAAgAYAB8AAABJADIAAgAZAB8AAABKADIAAgAYAB8AAABLADIAAgAZAB8AAABMADIAAgAYAB8AAABNADIAAgAZAB8AAABOADIAAgAYAB8AAABPADIAAgAZAB8AAABQADIAAgAYAB8AAABRADIAAgAZAB8AAABSADIAAgAYAB8AAAAqADMAAgAYACAAAAArADMAAgAZACAAAAAsADMAAgAYACAAAAAtADMAAgAZACAAAAAuADMAAgAYACAAAAAvADMAAgAZACAAAAAwADMAAgAYACAAAAAxADMAAgAZACAAAAAyADMAAgAYACAAAAAzADMAAgAZACAAAAA0ADMAAgAYACAAAAA1ADMAAgAZACAAAAA2ADIAAgAYAB8AAAA2ADMAAgAYACAAAAA3ADIAAgAZAB8AAAA3ADMAAgAZACAAAAA4ADIAAgAYAB8AAAA4ADMAAgAYACAAAAA5ADIAAgAZAB8AAAA5ADMAAgAZACAAAAA6ADMAAgAYACAAAAA7ADMAAgAZACAAAAA8ADMAAgAYACAAAAA9ADMAAgAZACAAAAA+ADMAAgAYACAAAAA/ADMAAgAZACAAAABAADMAAgAYACAAAABBADMAAgAZACAAAABCADMAAgAYACAAAABDADMAAgAZACAAAABEADMAAgAYACAAAABFADMAAgAZACAAAABGADMAAgAYACAAAABHADMAAgAZACAAAABIADMAAgAYACAAAABJADMAAgAZACAAAABKADMAAgAYACAAAABLADMAAgAZACAAAABMADMAAgAYACAAAABNADMAAgAZACAAAABOADMAAgAYACAAAABPADMAAgAZACAAAABQADMAAgAYACAAAABRADMAAgAZACAAAABSADMAAgAYACAAAABTADIAAgAZAB8AAABTADMAAgAZACAAAAA=")
-tile_set = ExtResource("5_l2pov")
+tile_set = ExtResource("4_juaeh")
 
-[node name="decoracion" type="TileMapLayer" parent="BackgroundMedio/piso" unique_id=21974396]
+[node name="decoracion" type="TileMapLayer" parent="FondoMedio/piso" unique_id=21974396]
 tile_map_data = PackedByteArray("AABHAC8AAgAQADAAAABHADAAAgAQADEAAABIAC8AAgARADAAAABIADAAAgARADEAAAA=")
-tile_set = ExtResource("5_l2pov")
+tile_set = ExtResource("4_juaeh")
 
-[node name="BroteCristal" parent="BackgroundMedio" unique_id=1936295608 instance=ExtResource("5_vd2ea")]
+[node name="BroteCristal" parent="FondoMedio" unique_id=1936295608 instance=ExtResource("5_gc7x4")]
 position = Vector2(1016, 751)
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=411096757]
 position = Vector2(728, 744)
 
-[node name="Jugador" parent="." unique_id=1471378275 instance=ExtResource("4_player")]
+[node name="Jugador" parent="." unique_id=1471378275 instance=ExtResource("6_f7q8d")]
 position = Vector2(752, 728)
 
 [node name="Mecanismos" type="Node2D" parent="." unique_id=825321372]
 position = Vector2(27, 264)
 
-[node name="Boton" parent="Mecanismos" unique_id=1663129348 instance=ExtResource("8_button")]
+[node name="Boton" parent="Mecanismos" unique_id=1663129348 instance=ExtResource("7_xukn3")]
 position = Vector2(767, 485)
 
-[node name="Salida" parent="." unique_id=1624026952 instance=ExtResource("9_exit")]
+[node name="Salida" parent="." unique_id=1624026952 instance=ExtResource("8_fi1qj")]
 position = Vector2(1279, 742)
 
 [node name="ControladorPuerta" type="Node" parent="." unique_id=1951384001]
-script = ExtResource("10_door_controller")
+script = ExtResource("9_ydv28")
 door_path = NodePath("../Salida")
 button_paths = Array[NodePath]([NodePath("../Mecanismos/Boton")])
 
 [node name="Sombras" type="Node2D" parent="." unique_id=1019067976]
 
-[node name="Pinches" parent="." unique_id=1779459369 instance=ExtResource("9_nbcrp")]
+[node name="Pinches" parent="." unique_id=1779459369 instance=ExtResource("10_dog0b")]
 position = Vector2(880, 752)
 animation_frame_duration = 0.1
 retracted_duration = 1.0
 extended_duration = 1.0
 
-[node name="BroteCristal" parent="." unique_id=361877013 instance=ExtResource("5_vd2ea")]
+[node name="BroteCristal" parent="." unique_id=361877013 instance=ExtResource("5_gc7x4")]
 position = Vector2(672, 712)
 rotation = 1.5707964

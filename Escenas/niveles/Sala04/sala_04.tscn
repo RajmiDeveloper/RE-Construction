@@ -1,51 +1,49 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3 uid="uid://beyqegop07qnx"]
 
-[ext_resource type="Script" path="res://Escenas/niveles/nivel_base.gd" id="1_level"]
-[ext_resource type="PackedScene" path="res://Escenas/personaje/personaje.tscn" id="2_player"]
+[ext_resource type="Script" uid="uid://dfq68sj7h2epr" path="res://Escenas/niveles/nivel_base.gd" id="1_level"]
+[ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://buucika8pnbrp" path="res://Escenas/background/backgroundChico.tscn" id="3_b5jl8"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="3_shadow"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/plataforma/plataforma.tscn" id="4_platform"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/boton/boton.tscn" id="5_button"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="6_exit"]
+[ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="5_button"]
+[ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="6_exit"]
 
-[node name="Sala04" type="Node2D"]
+[node name="Sala04" type="Node2D" unique_id=329187380]
 script = ExtResource("1_level")
 level_title = "Sala 4: Construccion colectiva"
 shadow_scene = ExtResource("3_shadow")
 
-[node name="Mundo" type="Node2D" parent="."]
+[node name="FondoChico" parent="." unique_id=823027555 instance=ExtResource("3_b5jl8")]
 
-[node name="SueloIzquierdo" parent="Mundo" instance=ExtResource("4_platform")]
+[node name="Mundo" type="Node2D" parent="." unique_id=1146796492]
+
+[node name="SueloIzquierdo" parent="Mundo" unique_id=150898675 instance=ExtResource("4_platform")]
 position = Vector2(-120, 104)
 platform_size = Vector2(150, 16)
 
-[node name="SueloCentro" parent="Mundo" instance=ExtResource("4_platform")]
+[node name="SueloCentro" parent="Mundo" unique_id=703938007 instance=ExtResource("4_platform")]
 position = Vector2(0, 104)
 platform_size = Vector2(58, 16)
 
-[node name="SueloDerecho" parent="Mundo" instance=ExtResource("4_platform")]
+[node name="SueloDerecho" parent="Mundo" unique_id=1638723708 instance=ExtResource("4_platform")]
 position = Vector2(120, 104)
 platform_size = Vector2(150, 16)
 
-[node name="SpawnPoint" type="Marker2D" parent="."]
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=206171617]
 position = Vector2(-175, 88)
 
-[node name="Jugador" parent="." instance=ExtResource("2_player")]
+[node name="Jugador" parent="." unique_id=619624165 instance=ExtResource("2_player")]
 position = Vector2(-175, 88)
 
-[node name="Mecanismos" type="Node2D" parent="."]
+[node name="Mecanismos" type="Node2D" parent="." unique_id=1148414149]
 
-[node name="BotonA" parent="Mecanismos" instance=ExtResource("5_button")]
+[node name="BotonA" parent="Mecanismos" unique_id=253432780 instance=ExtResource("5_button")]
 position = Vector2(-45, 89)
 
-[node name="BotonB" parent="Mecanismos" instance=ExtResource("5_button")]
+[node name="BotonB" parent="Mecanismos" unique_id=1627756560 instance=ExtResource("5_button")]
 position = Vector2(45, 89)
 
-[node name="Sombras" type="Node2D" parent="."]
+[node name="Sombras" type="Node2D" parent="." unique_id=723894979]
 
-[node name="Salida" parent="." instance=ExtResource("6_exit")]
+[node name="Salida" parent="." unique_id=1314581305 instance=ExtResource("6_exit")]
 position = Vector2(160, 86)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, 72)
-zoom = Vector2(2.5, 2.5)
-enabled = true

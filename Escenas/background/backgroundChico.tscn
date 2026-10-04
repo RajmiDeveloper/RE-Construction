@@ -2,7 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="1_31ity"]
 
-[node name="Node2D" type="Node2D" unique_id=823027555]
+[node name="BackgroundChico" type="Node2D" unique_id=823027555]
 
 [node name="Background" type="TileMapLayer" parent="." unique_id=248526853]
 z_index = -10
