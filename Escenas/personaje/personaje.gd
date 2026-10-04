@@ -22,7 +22,7 @@ const jump_velocity: float = -250.0
 const ANIM_IDLE: int = 0
 const ANIM_RUN: int = 1
 const ANIM_JUMP: int = 2
-const DEATH_RESTART_DELAY: float = 3.0
+const DEATH_RESTART_DELAY: float = 1.5
 const STATIONARY_POSITION_TOLERANCE_SQUARED: float = 0.01
 
 var _spawn_position: Vector2
@@ -119,7 +119,7 @@ func die() -> void:
 	_update_effect(fire_effect, false, false)
 	_update_effect(electric_effect, false, false)
 	animacion.play("caer")
-	await get_tree().create_timer(DEATH_RESTART_DELAY).timeout
+	await get_tree().create_timer(DEATH_RESTART_DELAY, true, false, true).timeout
 	if death_sequence != _death_sequence or not _dead:
 		return
 

@@ -60,7 +60,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"caer",
-"speed": 4.0
+"speed": 14.0
 }, {
 "frames": [{
 "duration": 1.0,

@@ -5,8 +5,6 @@ signal level_completed
 @export var level_title: String = "Sala"
 @export var shadow_scene: PackedScene
 
-const SHADOW_DISAPPEAR_DELAY: float = 1.0
-
 @onready var spawn_point: Marker2D = $SpawnPoint
 @onready var player = $Jugador
 @onready var shadows_container: Node2D = $Sombras
@@ -16,7 +14,6 @@ var _shadows: Array[Node] = []
 var _recordings: Array[Array] = []
 var _active: bool = false
 var _completed: bool = false
-var _shadow_disappearance_sequence: int = 0
 
 
 func _ready() -> void:
@@ -36,7 +33,6 @@ func set_active(value: bool) -> void:
 
 
 func reset_level() -> void:
-	_shadow_disappearance_sequence += 1
 	_completed = false
 	for shadow in _shadows:
 		if is_instance_valid(shadow):
@@ -54,7 +50,6 @@ func reset_level() -> void:
 func restart_current_life() -> void:
 	if _completed:
 		return
-	_shadow_disappearance_sequence += 1
 	for shadow in _shadows:
 		if is_instance_valid(shadow) and shadow.has_method("restart_replay"):
 			shadow.restart_replay()
@@ -68,11 +63,6 @@ func _on_player_restart_requested() -> void:
 
 
 func _on_player_death_started() -> void:
-	_shadow_disappearance_sequence += 1
-	var sequence := _shadow_disappearance_sequence
-	await get_tree().create_timer(SHADOW_DISAPPEAR_DELAY).timeout
-	if sequence != _shadow_disappearance_sequence:
-		return
 	for shadow in _shadows:
 		if is_instance_valid(shadow) and shadow.has_method("disappear"):
 			shadow.disappear()
