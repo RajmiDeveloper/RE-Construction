@@ -34,6 +34,18 @@ region = Rect2(0, 120, 24, 24)
 atlas = ExtResource("1_metal_sheet")
 region = Rect2(24, 120, 24, 24)
 
+[sub_resource type="AtlasTexture" id="Fall0"]
+atlas = ExtResource("1_metal_sheet")
+region = Rect2(120, 96, 24, 24)
+
+[sub_resource type="AtlasTexture" id="Fall1"]
+atlas = ExtResource("1_metal_sheet")
+region = Rect2(144, 96, 24, 24)
+
+[sub_resource type="AtlasTexture" id="Fall2"]
+atlas = ExtResource("1_metal_sheet")
+region = Rect2(168, 96, 24, 24)
+
 [resource]
 animations = [{
 "frames": [{
@@ -74,4 +86,18 @@ animations = [{
 "loop": 1,
 "name": &"saltar",
 "speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Fall0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Fall1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Fall2")
+}],
+"loop": 0,
+"name": &"caer",
+"speed": 8.0
 }]
