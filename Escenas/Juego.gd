@@ -92,7 +92,7 @@ func return_to_menu() -> void:
 
 func _select_level(entry_id: String) -> void:
 	var index: int = CATALOG.index_of(entry_id)
-	if index >= 0:
+	if CATALOG.is_available(index):
 		_load_level(index)
 
 
@@ -105,7 +105,7 @@ func _selector_back() -> void:
 
 
 func _load_level(index: int) -> void:
-	if index < 0 or index >= CATALOG.ENTRIES.size():
+	if not CATALOG.is_available(index):
 		get_tree().paused = false
 		_clear_current_level()
 		_selector_origin = Screen.MAIN

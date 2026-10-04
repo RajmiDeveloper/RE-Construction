@@ -189,7 +189,9 @@ func _begin_reverse(generation: int) -> void:
 		# consultar el tipo de una instancia ya liberada.
 		if state.has("texture"):
 			var parent := _level.get_node_or_null(NodePath(String(path).get_base_dir())) as Node2D
-			if parent != null:
+			# Los mecanismos con rewind propio reconstruyen sus piezas, incluso
+			# cuando los nodos originales ya se liberaron desde la captura inicial.
+			if parent != null and not _has_native_rewind_ancestor(parent):
 				var copy := _make_sprite_copy(state, parent)
 				copy.modulate.a = 0.0
 				_tween.tween_property(copy, "modulate", state["modulate"], REWIND_DURATION)

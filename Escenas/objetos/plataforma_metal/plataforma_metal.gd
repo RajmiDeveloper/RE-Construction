@@ -6,6 +6,7 @@ const ALTO_PLATAFORMA: float = 16.0
 const ESCALA_COLUMNA: float = 0.5
 const ALTO_TRAMO: float = 8.0
 const CAPA_SOMBRA: int = 8
+const DURACION_REWIND: float = 0.9
 
 @export_range(1.0, 240.0, 1.0) var velocidad_bajada: float = 60.0
 @export_range(1.0, 240.0, 1.0) var velocidad_subida: float = 80.0
@@ -17,9 +18,13 @@ const CAPA_SOMBRA: int = 8
 @onready var columnas: Node2D = $Columnas
 @onready var cuerpo: AnimatableBody2D = $Cuerpo
 @onready var zona_peso: Area2D = $Cuerpo/ZonaPeso
+@onready var _sincronizar_cuerpo: bool = cuerpo.sync_to_physics
 
 var _tramos: Array[Sprite2D] = []
 var _hundida: bool = false
+var _rewinding: bool = false
+var _rewind_tween: Tween
+var _reinicio_pendiente: bool = false
 var _puntos_editor_listos: bool = false
 var _ultimo_superior: Vector2
 var _ultimo_inferior: Vector2
@@ -54,7 +59,12 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if punto_inferior.position.y <= punto_superior.position.y:
+	if _reinicio_pendiente:
+		# Reactiva la sincronizacion en fisica, una vez aplicado el reinicio.
+		cuerpo.position = punto_superior.position
+		cuerpo.sync_to_physics = _sincronizar_cuerpo
+		_reinicio_pendiente = false
+	if _rewinding or punto_inferior.position.y <= punto_superior.position.y:
 		return
 
 	var sombras_encima: Array[Node2D] = []
@@ -81,9 +91,46 @@ func _physics_process(delta: float) -> void:
 
 
 func reset_state() -> void:
+	_detener_tween_rewind()
 	_hundida = false
+	# El reinicio tambien puede llegar fuera del frame de fisica (menu o
+	# cancelacion). Evita que la sincronizacion restaure la posicion anterior.
+	cuerpo.sync_to_physics = false
 	cuerpo.position = punto_superior.position
+	_reinicio_pendiente = true
 	_actualizar_columna()
+
+
+func freeze_for_rewind() -> void:
+	_rewinding = true
+	_detener_tween_rewind()
+
+
+func rewind_to_initial() -> void:
+	_detener_tween_rewind()
+	# La columna se reconstruye con el movimiento del cuerpo, sin animar
+	# por separado tramos que pueden haberse eliminado durante la bajada.
+	_rewind_tween = create_tween()
+	_rewind_tween.set_pause_mode(Tween.TWEEN_PAUSE_STOP)
+	_rewind_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	_rewind_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_rewind_tween.tween_method(_mover_durante_rewind, cuerpo.position, punto_superior.position, DURACION_REWIND)
+
+
+func finish_rewind() -> void:
+	reset_state()
+	_rewinding = false
+
+
+func _mover_durante_rewind(posicion: Vector2) -> void:
+	cuerpo.position = posicion
+	_actualizar_columna()
+
+
+func _detener_tween_rewind() -> void:
+	if is_instance_valid(_rewind_tween):
+		_rewind_tween.kill()
+		_rewind_tween = null
 
 
 func _detectar_peso_metal(sombras_encima: Array[Node2D]) -> bool:

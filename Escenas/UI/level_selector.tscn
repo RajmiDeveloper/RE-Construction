@@ -185,6 +185,8 @@ lettering_size = 42
 text = "T2"
 
 [node name="Level6" type="Button" parent="Design/Entries"]
+disabled = true
+focus_mode = 0
 layout_mode = 0
 offset_left = 338.0
 offset_top = 440.0
@@ -195,6 +197,8 @@ lettering_size = 48
 text = "6"
 
 [node name="Level7" type="Button" parent="Design/Entries"]
+disabled = true
+focus_mode = 0
 layout_mode = 0
 offset_left = 498.0
 offset_top = 440.0
@@ -205,6 +209,8 @@ lettering_size = 48
 text = "7"
 
 [node name="Level8" type="Button" parent="Design/Entries"]
+disabled = true
+focus_mode = 0
 layout_mode = 0
 offset_left = 658.0
 offset_top = 440.0
@@ -215,6 +221,8 @@ lettering_size = 48
 text = "8"
 
 [node name="Level9" type="Button" parent="Design/Entries"]
+disabled = true
+focus_mode = 0
 layout_mode = 0
 offset_left = 818.0
 offset_top = 440.0
@@ -225,6 +233,8 @@ lettering_size = 48
 text = "9"
 
 [node name="Level10" type="Button" parent="Design/Entries"]
+disabled = true
+focus_mode = 0
 layout_mode = 0
 offset_left = 978.0
 offset_top = 440.0
@@ -244,4 +254,3 @@ script = ExtResource("button")
 lettering_size = 24
 elongated = true
 text = "Volver"
-

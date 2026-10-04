@@ -8,6 +8,7 @@ var _consumida: bool = false
 const PARTICULAS_CANTIDAD: int = 24
 const PARTICULAS_DURACION: float = 0.65
 const COLOR_CRISTAL := Color(0.68, 0.22, 0.9, 1.0)
+const SONIDO_ROTURA: AudioStreamWAV = preload("res://Assets/Sonidos/torreta/cristal_roto.wav")
 
 
 func _ready() -> void:
@@ -89,8 +90,30 @@ func _romper(posicion: Vector2) -> void:
 	if _consumida:
 		return
 	_consumida = true
+	_emitir_sonido_rotura()
 	_emitir_particulas_rotura(posicion)
 	queue_free()
+
+
+func _emitir_sonido_rotura() -> void:
+	var sonido := AudioStreamPlayer.new()
+	sonido.name = "CristalRoto"
+	sonido.stream = SONIDO_ROTURA
+	sonido.volume_db = -8.0
+	sonido.pitch_scale = randf_range(0.94, 1.06)
+	sonido.process_mode = Node.PROCESS_MODE_PAUSABLE
+	sonido.finished.connect(sonido.queue_free)
+	# El nivel conserva el sonido cuando desaparece la esquirla y se congela
+	# la torreta al morir el jugador. El mute del bus Master tambien lo afecta.
+	var contenedor: Node = get_parent()
+	while contenedor != null and not contenedor.has_method("reset_level"):
+		contenedor = contenedor.get_parent()
+	if contenedor == null:
+		contenedor = get_tree().current_scene
+	if contenedor == null:
+		contenedor = get_parent()
+	contenedor.add_child(sonido)
+	sonido.play()
 
 
 func _emitir_particulas_rotura(posicion: Vector2) -> void:

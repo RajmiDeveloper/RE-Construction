@@ -141,5 +141,10 @@ func _on_player_reached_exit() -> void:
 			current_index = index
 			break
 	var next_index := current_index + 1
-	if current_index >= 0 and next_index < LEVEL_CATALOG.ENTRIES.size():
+	if current_index < 0:
+		return
+	if LEVEL_CATALOG.is_available(next_index):
 		get_tree().call_deferred("change_scene_to_file", LEVEL_CATALOG.ENTRIES[next_index]["scene"])
+	else:
+		get_tree().set_meta("open_level_selector", true)
+		get_tree().call_deferred("change_scene_to_file", "res://Escenas/Juego.tscn")
