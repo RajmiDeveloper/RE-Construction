@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="6_button"]
 [ext_resource type="PackedScene" uid="uid://cbst5h3sfyuli" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="7_gate"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/bloque_hielo/bloque_hielo.tscn" id="8_ice"]
-[ext_resource type="Script" uid="uid://dpkskyj3rdn2y" path="res://Escenas/objetos/puerta_salida/controlador_puerta.gd" id="9_0bejk"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="9_module"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/trampa_electrica.tscn" id="10_electric"]
 [ext_resource type="PackedScene" uid="uid://dr1o8mnrmg5r4" path="res://Escenas/objetos/pinches/pinches.tscn" id="11_spikes"]
@@ -49,11 +48,6 @@ position = Vector2(987, 293)
 
 [node name="Salida" parent="." unique_id=1624026952 instance=ExtResource("12_exit")]
 position = Vector2(1279, 742)
-
-[node name="ControladorPuerta" type="Node" parent="." unique_id=1951384001]
-script = ExtResource("9_0bejk")
-door_path = NodePath("../Salida")
-button_paths = Array[NodePath]([NodePath("../Mecanismos/Boton")])
 
 [node name="Sombras" type="Node2D" parent="." unique_id=1019067976]
 
