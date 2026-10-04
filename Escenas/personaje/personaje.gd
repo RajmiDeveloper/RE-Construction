@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 const FORM_SHADER = preload("res://Escenas/personaje/forma_tint.gdshader")
 const ELECTRIC_AUDIO: AudioStreamMP3 = preload("res://Assets/Sonidos/test/ruidoElectrico.mp3")
+const ELECTROCUTION_AUDIO: AudioStreamMP3 = preload("res://Assets/Sonidos/test/electrocutar.mp3")
 const FIRE_AUDIO: AudioStreamMP3 = preload("res://Assets/Sonidos/test/ruidoFuego.mp3")
 const METAL_TRANSFORM_AUDIO: AudioStreamMP3 = preload("res://Assets/Sonidos/test/metalictransformation.mp3")
 const METAL_AMBIENT_AUDIO: AudioStreamMP3 = preload("res://Assets/Sonidos/test/ruidoMetal.mp3")
@@ -34,6 +35,9 @@ const STATIONARY_POSITION_TOLERANCE_SQUARED: float = 0.01
 const ELECTRIC_TRANSFORM_VOLUME_DB: float = -2.0
 const ELECTRIC_AMBIENT_VOLUME_DB: float = -10.0
 const ELECTRIC_VOLUME_FADE_DURATION: float = 0.8
+const ELECTRIC_INTRO_VOLUME_DB: float = -14.0
+const ELECTRIC_INTRO_DURATION: float = 0.6
+const ELECTROCUTION_DEATH_VOLUME_DB: float = -2.0
 const FIRE_AUDIO_LOOP_DURATION: float = 5.0
 const METAL_AUDIO_LOOP_START: float = 4.0
 const METAL_AUDIO_LOOP_END: float = 9.0
@@ -51,6 +55,9 @@ var can_transform: bool = true
 var _form_material: ShaderMaterial
 var _normal_sprite_frames: SpriteFrames
 var _electric_audio_tween: Tween
+var _electric_intro_audio: AudioStreamPlayer
+var _electrocution_death_audio: AudioStreamPlayer
+var _electric_audio_active: bool = false
 var _fire_audio_tween: Tween
 var _metal_transform_audio: AudioStreamPlayer
 var _metal_ambient_audio: AudioStreamPlayer
@@ -157,7 +164,11 @@ func _physics_process(delta: float) -> void:
 	_record_point()
 
 
-func die() -> void:
+func die_by_electrocution() -> void:
+	die(true)
+
+
+func die(electrocuted: bool = false) -> void:
 	if _dead:
 		return
 
@@ -181,6 +192,8 @@ func die() -> void:
 	_update_electric_audio()
 	_update_fire_audio()
 	_update_metal_audio()
+	if electrocuted:
+		_electrocution_death_audio.play()
 	animacion.play("caer")
 	await get_tree().create_timer(DEATH_RESTART_DELAY, false, false, true).timeout
 	if death_sequence != _death_sequence or not _dead:
@@ -290,6 +303,7 @@ func set_controls_enabled(value: bool) -> void:
 
 func _reset_life() -> void:
 	_death_sequence += 1
+	_electrocution_death_audio.stop()
 	hitbox.set_deferred("disabled", false)
 	global_position = _spawn_position
 	velocity = Vector2.ZERO
@@ -393,22 +407,50 @@ func _setup_electric_audio() -> void:
 	var loop_stream := ELECTRIC_AUDIO.duplicate() as AudioStreamMP3
 	loop_stream.loop = true
 	electric_audio.stream = loop_stream
+	_electric_intro_audio = AudioStreamPlayer.new()
+	_electric_intro_audio.name = "AudioTransformacionElectrica"
+	var intro_stream := ELECTROCUTION_AUDIO.duplicate() as AudioStreamMP3
+	intro_stream.loop = false
+	_electric_intro_audio.stream = intro_stream
+	add_child(_electric_intro_audio)
+	_electric_intro_audio.finished.connect(_start_electric_ambient_audio)
+
+	_electrocution_death_audio = AudioStreamPlayer.new()
+	_electrocution_death_audio.name = "AudioMuerteElectrica"
+	_electrocution_death_audio.stream = intro_stream
+	_electrocution_death_audio.volume_db = ELECTROCUTION_DEATH_VOLUME_DB
+	add_child(_electrocution_death_audio)
 
 
 func _update_electric_audio() -> void:
 	if not is_instance_valid(electric_audio):
 		return
 	if current_form == FormCatalog.ELECTRICA and not _dead:
-		if not electric_audio.playing:
+		if not _electric_audio_active:
+			_electric_audio_active = true
 			_kill_electric_audio_tween()
-			electric_audio.volume_db = ELECTRIC_TRANSFORM_VOLUME_DB
-			electric_audio.play()
+			_electric_intro_audio.volume_db = ELECTRIC_INTRO_VOLUME_DB
+			_electric_intro_audio.play()
 			_electric_audio_tween = create_tween()
-			_electric_audio_tween.tween_property(electric_audio, "volume_db", ELECTRIC_AMBIENT_VOLUME_DB, ELECTRIC_VOLUME_FADE_DURATION)
+			_electric_audio_tween.tween_interval(ELECTRIC_INTRO_DURATION - 0.1)
+			_electric_audio_tween.tween_property(_electric_intro_audio, "volume_db", -60.0, 0.1)
+			_electric_audio_tween.tween_callback(_start_electric_ambient_audio)
 	else:
+		_electric_audio_active = false
 		_kill_electric_audio_tween()
+		_electric_intro_audio.stop()
 		electric_audio.stop()
-		electric_audio.volume_db = ELECTRIC_TRANSFORM_VOLUME_DB
+		electric_audio.volume_db = ELECTRIC_AMBIENT_VOLUME_DB
+
+
+func _start_electric_ambient_audio() -> void:
+	if not _electric_audio_active or current_form != FormCatalog.ELECTRICA or _dead:
+		return
+	_kill_electric_audio_tween()
+	_electric_intro_audio.stop()
+	if not electric_audio.playing:
+		electric_audio.volume_db = ELECTRIC_AMBIENT_VOLUME_DB
+		electric_audio.play()
 
 
 func _setup_fire_audio() -> void:

@@ -207,7 +207,10 @@ func _kill_player_if_still_inside(body: Node2D) -> void:
 	if not is_instance_valid(self) or not is_instance_valid(body) or not body.is_in_group("player") or not get_overlapping_bodies().has(body):
 		return
 	if body.has_method("die") and (not body.has_method("get_form_id") or body.call("get_form_id") != FormCatalog.ELECTRICA):
-		body.call("die")
+		if body.has_method("die_by_electrocution"):
+			body.call("die_by_electrocution")
+		else:
+			body.call("die")
 
 
 func _get_configuration_warnings() -> PackedStringArray:
