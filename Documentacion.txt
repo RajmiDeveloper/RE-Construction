@@ -95,7 +95,7 @@ Sala05: Tres ecos
   en Juego.tscn y tambien puede ejecutarse directamente con F6.
 - Reutiliza Escenas/background/background_medio.tscn de Sala01, con camara fija ajustada para mostrar la sala
   completa. Mundo/Terreno es un TileMapLayer editable con el TileSet del templo.
-- El recorrido combina dos placas Metal con sus compuertas, escalones de 16 px,
+- El recorrido combina el fondo medio, dos placas Metal con sus compuertas, escalones de 16 px,
   pinchos ciclicos, una barrera de hielo y un rayo vertical antes de la salida.
 - Solucion prevista en cuatro vidas: dejar una sombra Metal sobre la placa I; en la
   segunda vida subir la escalera y dejar otra sombra Metal en la placa II; en la tercera

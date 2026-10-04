@@ -11,7 +11,7 @@ void fragment() {
 	// por paleta que usan las formas de fuego y eléctrica.
 	vec3 silver_color = mix(tint_color.rgb * 0.48, tint_color.rgb, luminance);
 	sprite_color = mix(source.rgb, silver_color, grayscale_strength);
-	# Conserva la modulacion heredada del nodo, incluida la transparencia
-	# azul que distingue visualmente a las sombras.
+	// Conserva la modulacion heredada del nodo, incluida la transparencia
+	// azul que distingue visualmente a las sombras.
 	COLOR = vec4(sprite_color, source.a * tint_color.a) * COLOR;
 }
