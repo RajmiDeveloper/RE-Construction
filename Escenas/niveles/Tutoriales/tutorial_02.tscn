@@ -1,86 +1,80 @@
-[gd_scene format=3]
+[gd_scene format=4 uid="uid://bvf8fc1axp3pk"]
 
-[ext_resource type="Script" path="res://Escenas/niveles/nivel_base.gd" id="base"]
-[ext_resource type="PackedScene" path="res://Escenas/personaje/personaje.tscn" id="player"]
-[ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="shadow"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="exit"]
-[ext_resource type="PackedScene" path="res://Escenas/background/backgroundChico.tscn" id="bg"]
-[ext_resource type="TileSet" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="tiles"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_fuego.tscn" id="fire_icon"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_metal.tscn" id="metal_icon"]
+[ext_resource type="Texture2D" uid="uid://b1ynuh4gs1op1" path="res://Assets/UI/Formas/forma_metal.svg" id="11_xd8ck"]
+[ext_resource type="Texture2D" uid="uid://bvfrf0cjj8r2o" path="res://Assets/UI/Formas/forma_electrica.svg" id="13_i8gpe"]
+[ext_resource type="Script" uid="uid://dfq68sj7h2epr" path="res://Escenas/niveles/nivel_base.gd" id="base"]
+[ext_resource type="PackedScene" uid="uid://buucika8pnbrp" path="res://Escenas/background/backgroundChico.tscn" id="bg"]
+[ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="button"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_electrica.tscn" id="electric_icon"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/bloque_hielo/bloque_hielo.tscn" id="ice"]
+[ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="exit"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="gate"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/boton/boton.tscn" id="button"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_metal.tscn" id="metal_icon"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="module"]
+[ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="player"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/trampa_electrica.tscn" id="ray"]
+[ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="shadow"]
+[ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="tiles"]
 
-[node name="Tutorial02" type="Node2D"]
+[node name="Tutorial02" type="Node2D" unique_id=1342970592]
 script = ExtResource("base")
 level_title = "Tutorial 2"
 shadow_scene = ExtResource("shadow")
 
-[node name="Fondo" type="Node2D" parent="." instance=ExtResource("bg")]
-z_index = -10
+[node name="Fondo" type="Node2D" parent="." unique_id=414463768]
 
-[node name="Camera2D" parent="Fondo" index="1"]
-enabled = false
+[node name="Background" parent="Fondo" unique_id=823027555 instance=ExtResource("bg")]
 
-[node name="Terreno" type="TileMapLayer" parent="."]
+[node name="Terreno" type="TileMapLayer" parent="." unique_id=495014279]
+tile_map_data = PackedByteArray("AADy/wYAAgAGABAAAADz/wYAAgADABAAAAD0/wYAAgAEABAAAAD1/wYAAgAFABAAAAD2/wYAAgAGABAAAAD3/wYAAgADABAAAAD4/wYAAgAEABAAAAD5/wYAAgAFABAAAAD6/wYAAgAGABAAAAD7/wYAAgADABAAAAD8/wYAAgAEABAAAAD9/wYAAgAFABAAAAD+/wYAAgAGABAAAAD//wYAAgADABAAAAAAAAYAAgAEABAAAAABAAYAAgAFABAAAAACAAYAAgAGABAAAAADAAYAAgADABAAAAAEAAYAAgAEABAAAAAFAAYAAgAFABAAAAAGAAYAAgAGABAAAAAHAAYAAgADABAAAAAIAAYAAgAEABAAAAAJAAYAAgAFABAAAAAKAAYAAgAGABAAAAALAAYAAgADABAAAAAMAAYAAgAEABAAAAANAAYAAgAFABAAAAAOAAYAAgAGABAAAADy/wcAAgAGABEAAADz/wcAAgADABEAAAD0/wcAAgAEABEAAAD1/wcAAgAFABEAAAD2/wcAAgAGABEAAAD3/wcAAgADABEAAAD4/wcAAgAEABEAAAD5/wcAAgAFABEAAAD6/wcAAgAGABEAAAD7/wcAAgADABEAAAD8/wcAAgAEABEAAAD9/wcAAgAFABEAAAD+/wcAAgAGABEAAAD//wcAAgADABEAAAAAAAcAAgAEABEAAAABAAcAAgAFABEAAAACAAcAAgAGABEAAAADAAcAAgADABEAAAAEAAcAAgAEABEAAAAFAAcAAgAFABEAAAAGAAcAAgAGABEAAAAHAAcAAgADABEAAAAIAAcAAgAEABEAAAAJAAcAAgAFABEAAAAKAAcAAgAGABEAAAALAAcAAgADABEAAAAMAAcAAgAEABEAAAANAAcAAgAFABEAAAAOAAcAAgAGABEAAADy/wgAAgAGABEAAADz/wgAAgADABEAAAD0/wgAAgAEABEAAAD1/wgAAgAFABEAAAD2/wgAAgAGABEAAAD3/wgAAgADABEAAAD4/wgAAgAEABEAAAD5/wgAAgAFABEAAAD6/wgAAgAGABEAAAD7/wgAAgADABEAAAD8/wgAAgAEABEAAAD9/wgAAgAFABEAAAD+/wgAAgAGABEAAAD//wgAAgADABEAAAAAAAgAAgAEABEAAAABAAgAAgAFABEAAAACAAgAAgAGABEAAAADAAgAAgADABEAAAAEAAgAAgAEABEAAAAFAAgAAgAFABEAAAAGAAgAAgAGABEAAAAHAAgAAgADABEAAAAIAAgAAgAEABEAAAAJAAgAAgAFABEAAAAKAAgAAgAGABEAAAALAAgAAgADABEAAAAMAAgAAgAEABEAAAANAAgAAgAFABEAAAAOAAgAAgAGABEAAADx/wYAAgAFABAAAADx/wcAAgAFABEAAADx/wgAAgAFABEAAAA=")
 tile_set = ExtResource("tiles")
-tile_map_data = PackedByteArray("AADy/wYAAgAFABAAAADz/wYAAgAGABAAAAD0/wYAAgADABAAAAD1/wYAAgAEABAAAAD2/wYAAgAFABAAAAD3/wYAAgAGABAAAAD4/wYAAgADABAAAAD5/wYAAgAEABAAAAD6/wYAAgAFABAAAAD7/wYAAgAGABAAAAD8/wYAAgADABAAAAD9/wYAAgAEABAAAAD+/wYAAgAFABAAAAD//wYAAgAGABAAAAAAAAYAAgADABAAAAABAAYAAgAEABAAAAACAAYAAgAFABAAAAADAAYAAgAGABAAAAAEAAYAAgADABAAAAAFAAYAAgAEABAAAAAGAAYAAgAFABAAAAAHAAYAAgAGABAAAAAIAAYAAgADABAAAAAJAAYAAgAEABAAAAAKAAYAAgAFABAAAAALAAYAAgAGABAAAAAMAAYAAgADABAAAAANAAYAAgAEABAAAAAOAAYAAgAFABAAAADy/wcAAgAFABEAAADz/wcAAgAGABEAAAD0/wcAAgADABEAAAD1/wcAAgAEABEAAAD2/wcAAgAFABEAAAD3/wcAAgAGABEAAAD4/wcAAgADABEAAAD5/wcAAgAEABEAAAD6/wcAAgAFABEAAAD7/wcAAgAGABEAAAD8/wcAAgADABEAAAD9/wcAAgAEABEAAAD+/wcAAgAFABEAAAD//wcAAgAGABEAAAAAAAcAAgADABEAAAABAAcAAgAEABEAAAACAAcAAgAFABEAAAADAAcAAgAGABEAAAAEAAcAAgADABEAAAAFAAcAAgAEABEAAAAGAAcAAgAFABEAAAAHAAcAAgAGABEAAAAIAAcAAgADABEAAAAJAAcAAgAEABEAAAAKAAcAAgAFABEAAAALAAcAAgAGABEAAAAMAAcAAgADABEAAAANAAcAAgAEABEAAAAOAAcAAgAFABEAAADy/wgAAgAFABEAAADz/wgAAgAGABEAAAD0/wgAAgADABEAAAD1/wgAAgAEABEAAAD2/wgAAgAFABEAAAD3/wgAAgAGABEAAAD4/wgAAgADABEAAAD5/wgAAgAEABEAAAD6/wgAAgAFABEAAAD7/wgAAgAGABEAAAD8/wgAAgADABEAAAD9/wgAAgAEABEAAAD+/wgAAgAFABEAAAD//wgAAgAGABEAAAAAAAgAAgADABEAAAABAAgAAgAEABEAAAACAAgAAgAFABEAAAADAAgAAgAGABEAAAAEAAgAAgADABEAAAAFAAgAAgAEABEAAAAGAAgAAgAFABEAAAAHAAgAAgAGABEAAAAIAAgAAgADABEAAAAJAAgAAgAEABEAAAAKAAgAAgAFABEAAAALAAgAAgAGABEAAAAMAAgAAgADABEAAAANAAgAAgAEABEAAAAOAAgAAgAFABEAAADy/wkAAgAFABEAAADz/wkAAgAGABEAAAD0/wkAAgADABEAAAD1/wkAAgAEABEAAAD2/wkAAgAFABEAAAD3/wkAAgAGABEAAAD4/wkAAgADABEAAAD5/wkAAgAEABEAAAD6/wkAAgAFABEAAAD7/wkAAgAGABEAAAD8/wkAAgADABEAAAD9/wkAAgAEABEAAAD+/wkAAgAFABEAAAD//wkAAgAGABEAAAAAAAkAAgADABEAAAABAAkAAgAEABEAAAACAAkAAgAFABEAAAADAAkAAgAGABEAAAAEAAkAAgADABEAAAAFAAkAAgAEABEAAAAGAAkAAgAFABEAAAAHAAkAAgAGABEAAAAIAAkAAgADABEAAAAJAAkAAgAEABEAAAAKAAkAAgAFABEAAAALAAkAAgAGABEAAAAMAAkAAgADABEAAAANAAkAAgAEABEAAAAOAAkAAgAFABEAAAA=")
 
-[node name="SpawnPoint" type="Marker2D" parent="."]
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=189927764]
 position = Vector2(-196, 80)
 
-[node name="Jugador" parent="." instance=ExtResource("player")]
+[node name="Jugador" parent="." unique_id=280416141 instance=ExtResource("player")]
 position = Vector2(-196, 80)
 death_distance = 220.0
 
-[node name="Mecanismos" type="Node2D" parent="."]
+[node name="Mecanismos" type="Node2D" parent="." unique_id=122843640]
 
+[node name="Boton" parent="Mecanismos" unique_id=840482965 instance=ExtResource("button")]
+position = Vector2(-120, 88)
 
-[node name="Sombras" type="Node2D" parent="."]
-
-
-[node name="Salida" parent="." instance=ExtResource("exit")]
-position = Vector2(196, 80)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, 12)
-zoom = Vector2(3.5, 3.5)
-position_smoothing_enabled = false
-
-[node name="Boton" parent="Mecanismos" instance=ExtResource("button")]
-position = Vector2(-116, 89)
-
-[node name="Compuerta" parent="Mecanismos" instance=ExtResource("gate")]
+[node name="Compuerta" parent="Mecanismos" unique_id=583701661 instance=ExtResource("gate")]
 position = Vector2(-12, 54)
 opening_height = 104.0
 move_duration = 0.7
 button_path = NodePath("../Boton")
 
-[node name="ModuloSuperior" parent="Mecanismos" instance=ExtResource("module")]
-position = Vector2(116, 0)
+[node name="ModuloSuperior" parent="Mecanismos" unique_id=1668598210 instance=ExtResource("module")]
+position = Vector2(112, -8)
 
-[node name="ModuloInferior" parent="Mecanismos" instance=ExtResource("module")]
-position = Vector2(116, 100)
+[node name="ModuloInferior" parent="Mecanismos" unique_id=1907853338 instance=ExtResource("module")]
+position = Vector2(112, 88)
 rotation = 3.1415927
 
-[node name="Rayo" parent="Mecanismos" instance=ExtResource("ray")]
+[node name="Rayo" parent="Mecanismos" unique_id=1152002204 instance=ExtResource("ray")]
 modulo_superior_path = NodePath("../ModuloSuperior")
 modulo_inferior_path = NodePath("../ModuloInferior")
 
-[node name="Metal" parent="Mecanismos" instance=ExtResource("metal_icon")]
+[node name="Metal" parent="Mecanismos" unique_id=1159034323 instance=ExtResource("metal_icon")]
+texture_filter = 1
 offset_left = -128.0
 offset_top = 52.0
 offset_right = -104.0
 offset_bottom = 76.0
+texture = ExtResource("11_xd8ck")
 
-[node name="Electrica" parent="Mecanismos" instance=ExtResource("electric_icon")]
+[node name="Electrica" parent="Mecanismos" unique_id=1170922895 instance=ExtResource("electric_icon")]
+texture_filter = 1
 offset_left = 72.0
 offset_top = 50.0
 offset_right = 96.0
 offset_bottom = 74.0
+texture = ExtResource("13_i8gpe")
 
-[editable path="Fondo"]
+[node name="Sombras" type="Node2D" parent="." unique_id=1490534049]
+
+[node name="Salida" parent="." unique_id=370086510 instance=ExtResource("exit")]
+z_index = 1
+position = Vector2(200, 88)
