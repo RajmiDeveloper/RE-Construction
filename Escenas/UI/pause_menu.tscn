@@ -82,6 +82,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(468, 74)
 script = ExtResource("button")
 lettering_size = 26
+elongated = true
 text = "Continuar"
 
 [node name="SelectorButton" type="Button" parent="Design/Options"]
@@ -89,6 +90,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(468, 74)
 script = ExtResource("button")
 lettering_size = 26
+elongated = true
 text = "Selector de niveles"
 
 [node name="RestartButton" type="Button" parent="Design/Options"]
@@ -96,6 +98,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(468, 74)
 script = ExtResource("button")
 lettering_size = 26
+elongated = true
 text = "Reiniciar"
 
 [node name="SoundButton" type="Button" parent="Design"]

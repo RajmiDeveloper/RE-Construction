@@ -2,9 +2,16 @@
 extends Button
 
 const STONE: Texture2D = preload("res://Assets/UI/Menu/piedra.png")
+const LONG_STONE: Texture2D = preload("res://Assets/UI/Menu/piedra_alargada.png")
+const LONG_REGION := Rect2(40.0 / 2172.0, 176.0 / 724.0, 2092.0 / 2172.0, 376.0 / 724.0)
 const FONT: Font = preload("res://Assets/UI/Menu/fonts/menu_font.tres")
 
 @export var lettering_size: int = 26
+@export var elongated: bool = false:
+	set(value):
+		elongated = value
+		if is_node_ready():
+			_apply_styles()
 
 
 func _ready() -> void:
@@ -16,6 +23,10 @@ func _ready() -> void:
 	for color_name in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color", "font_disabled_color", "font_hover_pressed_color"]:
 		add_theme_color_override(color_name, Color.TRANSPARENT)
 	add_theme_constant_override("outline_size", 0)
+	_apply_styles()
+
+
+func _apply_styles() -> void:
 	add_theme_stylebox_override("normal", _stone_style(Color.WHITE))
 	add_theme_stylebox_override("hover", _stone_style(Color(1.18, 1.22, 1.12)))
 	add_theme_stylebox_override("pressed", _stone_style(Color(0.78, 0.91, 0.88), true))
@@ -50,9 +61,15 @@ func _draw() -> void:
 
 func _stone_style(tint: Color, pressed: bool = false) -> StyleBoxTexture:
 	var style := StyleBoxTexture.new()
-	style.texture = STONE
+	style.texture = LONG_STONE if elongated else STONE
 	style.modulate_color = tint
 	var border := float(STONE.get_width()) * 0.14
+	if elongated:
+		# Recorta el margen transparente sin alterar el PNG original.
+		var texture_size := LONG_STONE.get_size()
+		style.region_rect = Rect2(LONG_REGION.position * texture_size, LONG_REGION.size * texture_size)
+		# El grosor depende de la altura, para conservar las esquinas.
+		border = style.region_rect.size.y * 0.2
 	for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
 		style.set_texture_margin(side, border)
 		style.set_content_margin(side, 16)

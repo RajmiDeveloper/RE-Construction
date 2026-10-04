@@ -16,6 +16,12 @@
       "path": "Assets/UI/Menu/piedra.png",
       "transparent_background": true,
       "prompt": "Use case: stylized-concept. Asset type: reusable square stone UI button texture for a pixel-art ancient turquoise temple game. Attached atlas is STYLE REFERENCE ONLY. Create ONE perfectly square front-facing thick dark turquoise-gray stone slab, full slab visible and centered, simple clipped corners, a narrow chiseled beveled cyan-gray edge, darker underside, a few tiny cracks near edges and sparse moss only at two outer corners. A large calm flat central stone area for engraved text to be drawn later. Crisp chunky pixel art with logical 64x64 style, nearest-neighbor square pixel blocks, controlled highlights, darker than cyan temple flames. No text, no icon, no symbol, no shadow beyond the slab. Transparent background outside the slab. Exactly one button, no sheet, no mockup."
+    },
+    {
+      "path": "Assets/UI/Menu/piedra_alargada.png",
+      "reference": "Assets/UI/Menu/piedra.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Asset type: reusable elongated horizontal stone UI button for the same pixel-art temple game as the reference. Input image: STYLE REFERENCE ONLY, match its dark turquoise-gray stone, cyan chiseled bevel, chunky pixel edges, small cracks and sparse moss. Create a NEW naturally long rectangular slab, width exactly SIX TIMES its height (6:1), front-facing, square pixel proportions, flat broad center suitable for a line of engraved text added by the engine later. Design the stone edges and cracks specifically for this long shape: thin even bevel, small clipped corners, a few small cracks at ends, moss at two corners, quiet uninterrupted middle. It must look like a long piece of solid stone, with crisp square pixels throughout; no smeared, stretched or horizontally elongated individual pixels. Logical pixel-art resolution approximately 288x48. One slab only, centered, fully visible, transparent background outside its silhouette. Tight framing on a wide landscape canvas. No text, no symbols, no mockup, no shadow outside the slab, no extra objects."
     }
   ]
 }

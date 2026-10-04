@@ -242,5 +242,6 @@ offset_right = 792.0
 offset_bottom = 686.0
 script = ExtResource("button")
 lettering_size = 24
+elongated = true
 text = "Volver"
 

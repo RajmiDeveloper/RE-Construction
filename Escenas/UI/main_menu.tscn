@@ -85,6 +85,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(468, 80)
 script = ExtResource("button")
 lettering_size = 26
+elongated = true
 text = "Iniciar partida"
 
 [node name="LevelsButton" type="Button" parent="Design/Options"]
@@ -92,6 +93,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(468, 80)
 script = ExtResource("button")
 lettering_size = 26
+elongated = true
 text = "Selección de niveles"
 
 [node name="QuitButton" type="Button" parent="Design/Options"]
@@ -99,5 +101,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(468, 80)
 script = ExtResource("button")
 lettering_size = 26
+elongated = true
 text = "Salir"
 
