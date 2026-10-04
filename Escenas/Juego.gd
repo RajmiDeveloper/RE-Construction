@@ -154,6 +154,10 @@ func _resume_game() -> void:
 
 
 func _show_screen(screen: Screen) -> void:
+	if screen == Screen.GAME or screen == Screen.TRANSITION:
+		var focus_owner := get_viewport().gui_get_focus_owner()
+		if is_instance_valid(focus_owner):
+			focus_owner.release_focus()
 	_screen = screen
 	main_menu.visible = screen == Screen.MAIN
 	selector.visible = screen == Screen.SELECTOR

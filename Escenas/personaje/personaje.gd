@@ -44,6 +44,7 @@ var _normal_sprite_frames: SpriteFrames
 var _electric_audio_tween: Tween
 
 func _ready() -> void:
+	_configure_control_equivalences()
 	_spawn_position = global_position
 	_death_y = global_position.y + death_distance
 	add_to_group("player")
@@ -53,6 +54,24 @@ func _ready() -> void:
 	reset_form()
 	_set_animation(ANIM_IDLE)
 	_record_point()
+
+
+func _configure_control_equivalences() -> void:
+	_add_physical_key_binding(&"ui_left", KEY_A)
+	_add_physical_key_binding(&"ui_right", KEY_D)
+	_add_physical_key_binding(&"ui_up", KEY_W)
+	_add_physical_key_binding(&"ui_accept", KEY_SPACE)
+
+
+func _add_physical_key_binding(action: StringName, physical_keycode: int) -> void:
+	if not InputMap.has_action(action):
+		InputMap.add_action(action)
+	for existing_event in InputMap.action_get_events(action):
+		if existing_event is InputEventKey and (existing_event.physical_keycode == physical_keycode or existing_event.keycode == physical_keycode):
+			return
+	var key_event := InputEventKey.new()
+	key_event.physical_keycode = physical_keycode
+	InputMap.action_add_event(action, key_event)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -71,7 +90,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Salto con flecha arriba o barra espaciadora.
-	var enter_pressed := Input.is_key_pressed(KEY_ENTER) or Input.is_key_pressed(KEY_KP_ENTER)
+	var enter_pressed := Input.is_key_pressed(KEY_ENTER) or Input.is_key_pressed(KEY_KP_ENTER) or Input.is_key_pressed(KEY_E)
 	var is_jumping := Input.is_action_just_pressed("ui_up") or (Input.is_action_just_pressed("ui_accept") and not enter_pressed)
 	if is_jumping and is_on_floor():
 		velocity.y = jump_velocity

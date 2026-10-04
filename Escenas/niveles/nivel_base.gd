@@ -4,6 +4,8 @@ signal level_completed
 
 const MECHANISM_REWINDER = preload("res://Escenas/niveles/mechanism_rewind.gd")
 const STANDALONE_PAUSE = preload("res://Escenas/UI/standalone_pause.tscn")
+const TUTORIAL_TWO_SCENE := "res://Escenas/niveles/Tutoriales/tutorial_02.tscn"
+const TUTORIAL_ONE_SCENE := "res://Escenas/niveles/Tutoriales/tutorial_01.tscn"
 
 @export var level_title: String = "Sala"
 @export var shadow_scene: PackedScene
@@ -111,3 +113,6 @@ func _on_player_reached_exit() -> void:
 	_completed = true
 	player.set_controls_enabled(false)
 	level_completed.emit()
+	# Al ejecutar T1 directamente con F6 no existe Juego.gd para avanzar.
+	if scene_file_path == TUTORIAL_ONE_SCENE and get_tree().get_first_node_in_group("game_shell") == null:
+		get_tree().call_deferred("change_scene_to_file", TUTORIAL_TWO_SCENE)

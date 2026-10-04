@@ -38,12 +38,12 @@ func set_open(value: bool) -> void:
 	_update_visuals()
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if _rewinding:
 		return
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
-	if event.keycode != KEY_ENTER and event.keycode != KEY_KP_ENTER:
+	if event.keycode != KEY_ENTER and event.keycode != KEY_KP_ENTER and event.keycode != KEY_E:
 		return
 	if not is_open or not _player_nearby or _completed:
 		return

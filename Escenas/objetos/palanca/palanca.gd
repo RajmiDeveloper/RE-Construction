@@ -25,7 +25,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
-	if event.keycode != KEY_ENTER and event.keycode != KEY_KP_ENTER:
+	if event.keycode != KEY_ENTER and event.keycode != KEY_KP_ENTER and event.keycode != KEY_E:
 		return
 
 	_activate()

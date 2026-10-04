@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://Assets/Mapa/Indicaciones/tecla_generica.png" id="1_key"]
+[ext_resource type="Script" path="res://Escenas/objetos/indicaciones/tecla_letra.gd" id="2_letter"]
+
+[node name="TeclaW" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+
+[node name="Fondo" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_key")
+
+[node name="Letra" type="Node2D" parent="."]
+script = ExtResource("2_letter")
+letra = "W"

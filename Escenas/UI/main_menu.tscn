@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://Escenas/UI/main_menu.gd" id="screen"]
 [ext_resource type="Script" path="res://Escenas/UI/stone_button.gd" id="button"]
-[ext_resource type="FontVariation" path="res://Assets/UI/Menu/fonts/menu_font.tres" id="font"]
 [ext_resource type="Texture2D" path="res://Assets/UI/Menu/fondo_principal.png" id="background"]
 
 [node name="MainMenu" type="Control"]
@@ -46,31 +45,18 @@ offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
 
-[node name="Title" type="Label" parent="Design"]
+[node name="Title" type="Button" parent="Design"]
 layout_mode = 0
-offset_left = 80.0
-offset_top = 130.0
-offset_right = 1200.0
-offset_bottom = 228.0
+offset_left = 206.0
+offset_top = 100.0
+offset_right = 1074.0
+offset_bottom = 254.0
+focus_mode = 0
 mouse_filter = 2
-theme_override_fonts/font = ExtResource("font")
-theme_override_font_sizes/font_size = 62
-theme_override_colors/font_color = Color(0.72, 0.85, 0.75, 1)
-theme_override_colors/font_shadow_color = Color(0.005, 0.06, 0.08, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = -3
+script = ExtResource("button")
+lettering_size = 54
+elongated = true
 text = "RE:CONSTRUCTION"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Divider" type="ColorRect" parent="Design"]
-layout_mode = 0
-offset_left = 504.0
-offset_top = 240.0
-offset_right = 776.0
-offset_bottom = 242.0
-mouse_filter = 2
-color = Color(0.28, 0.59, 0.58, 0.85)
 
 [node name="Options" type="VBoxContainer" parent="Design"]
 layout_mode = 0
@@ -103,4 +89,3 @@ script = ExtResource("button")
 lettering_size = 26
 elongated = true
 text = "Salir"
-

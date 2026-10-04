@@ -17,10 +17,11 @@ El sonido silencia el bus Master y guarda la preferencia en `user://interface.cf
 
 ## Destinos jugables
 
-`level_catalog.gd` contiene las rutas y el orden: T1, 1–5, T2, 6–10.
+`level_catalog.gd` contiene las rutas y el orden de progreso: T1, T2 y después los niveles 1–10. La disposición del selector es independiente: muestra T1/T2 a la izquierda y los niveles numerados en dos filas.
 
 - T1: camino corto con hielo e indicación de Fuego.
 - T2: placa Metal, compuerta y rayo; permite aprender a dejar una sombra Metal y cruzar como Eléctrica.
+- La puerta de T1 lleva a T2 tanto en la campaña como al ejecutar T1 directamente con F6.
 - 1–5: las salas existentes.
 - 6: variante de Sala01 con pinchos y rayo al final.
 - 7: variante de Sala02 con compuerta vinculada a la placa y pinchos.

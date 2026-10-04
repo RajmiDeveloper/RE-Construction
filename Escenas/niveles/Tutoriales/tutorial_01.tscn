@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/tecla_flecha_derecha.tscn" id="12_q35qe"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/tecla_flecha_izquierda.tscn" id="13_p8yce"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/tecla_tab.tscn" id="14_q35qe"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/tecla_enter.tscn" id="15_p8yce"]
 [ext_resource type="Script" uid="uid://dfq68sj7h2epr" path="res://Escenas/niveles/nivel_base.gd" id="base"]
 [ext_resource type="PackedScene" uid="uid://buucika8pnbrp" path="res://Escenas/background/backgroundChico.tscn" id="bg"]
 [ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="exit"]
@@ -55,7 +56,6 @@ texture = ExtResource("8_t4umu")
 position = Vector2(-10, -32)
 
 [node name="Salida" parent="." unique_id=1500979928 instance=ExtResource("exit")]
-z_index = 1
 position = Vector2(186, 53)
 
 [node name="IndicacionTeclaGenerica" parent="." unique_id=1993914899 instance=ExtResource("10_w2hxy")]
@@ -78,3 +78,6 @@ position = Vector2(-220, 13)
 
 [node name="TeclaTab" parent="." unique_id=1183155618 instance=ExtResource("14_q35qe")]
 position = Vector2(-81, 19)
+
+[node name="TeclaEnter" parent="." unique_id=705172000 instance=ExtResource("15_p8yce")]
+position = Vector2(181, -9)
