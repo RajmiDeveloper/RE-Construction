@@ -1,0 +1,10 @@
+{
+  "tool": "image_gen.imagegen",
+  "prompt": "Edit target: the supplied credit banner. Make this a very shallow, ultrawide horizontal banner, approximately 4.65:1 width to height, suitable for a 720px wide by 155px tall slot in a video. Crop away most of the decorative ceiling and floor. Keep the entire logo RE:CONSTRUCTION intact, and the exact complete credit text 'matias rajmilevich y guido caamañe' intact below it. Compress the layout by reducing the logo height and keeping the names close below it; preserve the reference pixel art, dark teal stone, cyan edges and moss. ONLY the rectangular banner in the output, edge-to-edge opaque background, no screenshot or mockup. Aim for 2160 x 464 pixels. All letters must fit within a central horizontal strip whose height is at most one fifth of the total canvas width, with breathing room, so this remains legible if the output is cropped to 4.65:1. No additional text or changes to the spelling.",
+  "source": "/home/matias/.codex/generated_images/01a102fe-217c-7692-905d-abe0902bfad7/exec-30011d5b-06d4-4667-b157-07e063f12429.png",
+  "export": {
+    "width": 1821,
+    "height": 392,
+    "cropY": 238
+  }
+}
