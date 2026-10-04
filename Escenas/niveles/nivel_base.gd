@@ -5,6 +5,7 @@ signal level_completed
 const MECHANISM_REWINDER = preload("res://Escenas/niveles/mechanism_rewind.gd")
 const STANDALONE_PAUSE = preload("res://Escenas/UI/standalone_pause.tscn")
 const LEVEL_CATALOG = preload("res://Escenas/UI/level_catalog.gd")
+const BACKGROUND_MUSIC = preload("res://Assets/Sonidos/test/musicafondo.mp3")
 
 @export var level_title: String = "Sala"
 @export var shadow_scene: PackedScene
@@ -32,6 +33,15 @@ func get_required_transformation(_player_position: Vector2) -> int:
 
 
 func _ready() -> void:
+	var background_music := AudioStreamPlayer.new()
+	background_music.name = "MusicaFondo"
+	var music_stream := BACKGROUND_MUSIC.duplicate() as AudioStreamMP3
+	music_stream.loop = true
+	background_music.stream = music_stream
+	background_music.volume_db = -12.0
+	background_music.process_mode = Node.PROCESS_MODE_PAUSABLE
+	add_child(background_music)
+	background_music.play()
 	if get_tree().get_first_node_in_group("game_shell") == null:
 		var local_pause := STANDALONE_PAUSE.instantiate()
 		add_child(local_pause)

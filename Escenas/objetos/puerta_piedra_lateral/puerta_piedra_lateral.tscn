@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://d24s6tddsvaq7" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dxx5vmtj3tbgt" path="res://Assets/Mapa/CompuertaPiedra/puerta_piedra_lateral.png" id="2_texture"]
 [ext_resource type="Texture2D" uid="uid://bunt55p1y03no" path="res://Assets/Mapa/CompuertaPiedra/puerta_piedra_lateral_activada.png" id="3_activated"]
+[ext_resource type="AudioStream" uid="uid://o3ucoknpmu80" path="res://Assets/Sonidos/test/LevantarPuertaMetal.mp3" id="4_move_audio"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gate"]
 size = Vector2(47, 83)
@@ -21,3 +22,6 @@ texture = ExtResource("2_texture")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1287162697]
 position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_gate")
+
+[node name="AudioMovimiento" type="AudioStreamPlayer" parent="." unique_id=1720818264]
+stream = ExtResource("4_move_audio")

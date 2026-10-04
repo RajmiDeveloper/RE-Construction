@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bvfrf0cjj8r2o" path="res://Assets/UI/Formas/forma_electrica.svg" id="8_form_electric"]
 [ext_resource type="AudioStream" uid="uid://dkik5ku3qef43" path="res://Assets/Sonidos/test/ruidoElectrico.mp3" id="9_electric_audio"]
 [ext_resource type="SpriteFrames" uid="uid://bd6b0y86ynob4" path="res://Escenas/personaje/animacion_efecto_metal.tres" id="9_metal_effect"]
+[ext_resource type="AudioStream" uid="uid://b2lbq7kdgnct2" path="res://Assets/Sonidos/test/ruidoFuego.mp3" id="10_fire_audio"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(13, 16)
@@ -54,6 +55,10 @@ sprite_frames = ExtResource("9_metal_effect")
 
 [node name="AudioElectrico" type="AudioStreamPlayer" parent="." unique_id=1009065674]
 stream = ExtResource("9_electric_audio")
+volume_db = -2.0
+
+[node name="AudioFuego" type="AudioStreamPlayer" parent="." unique_id=1875629381]
+stream = ExtResource("10_fire_audio")
 volume_db = -2.0
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=2103552631]

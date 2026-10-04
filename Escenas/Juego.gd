@@ -2,6 +2,7 @@ extends Node
 
 const CATALOG = preload("res://Escenas/UI/level_catalog.gd")
 const AUDIO = preload("res://Escenas/UI/audio_preferences.gd")
+const MENU_MUSIC = preload("res://Assets/Sonidos/test/musicaMenu.mp3")
 
 enum Screen { MAIN, SELECTOR, GAME, PAUSE, TRANSITION }
 
@@ -20,12 +21,21 @@ var _current_index: int = -1
 var _screen: Screen = Screen.MAIN
 var _selector_origin: Screen = Screen.MAIN
 var _navigation_generation: int = 0
+var _menu_music: AudioStreamPlayer
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	add_to_group("game_shell")
 	AUDIO.restore()
+	_menu_music = AudioStreamPlayer.new()
+	_menu_music.name = "MusicaMenu"
+	var menu_stream := MENU_MUSIC.duplicate() as AudioStreamMP3
+	menu_stream.loop = true
+	_menu_music.stream = menu_stream
+	_menu_music.volume_db = -12.0
+	_menu_music.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(_menu_music)
 	main_menu.start_requested.connect(start_game)
 	main_menu.levels_requested.connect(open_level_selector)
 	main_menu.quit_requested.connect(_quit_game)
@@ -159,6 +169,11 @@ func _show_screen(screen: Screen) -> void:
 		if is_instance_valid(focus_owner):
 			focus_owner.release_focus()
 	_screen = screen
+	if screen == Screen.MAIN or screen == Screen.SELECTOR:
+		if not _menu_music.playing:
+			_menu_music.play()
+	else:
+		_menu_music.stop()
 	main_menu.visible = screen == Screen.MAIN
 	selector.visible = screen == Screen.SELECTOR
 	pause_menu.visible = screen == Screen.PAUSE

@@ -2,6 +2,9 @@ extends CharacterBody2D
 
 const FORM_SHADER = preload("res://Escenas/personaje/forma_tint.gdshader")
 const ELECTRIC_AUDIO: AudioStreamMP3 = preload("res://Assets/Sonidos/test/ruidoElectrico.mp3")
+const FIRE_AUDIO: AudioStreamMP3 = preload("res://Assets/Sonidos/test/ruidoFuego.mp3")
+const METAL_TRANSFORM_AUDIO: AudioStreamMP3 = preload("res://Assets/Sonidos/test/metalictransformation.mp3")
+const METAL_AMBIENT_AUDIO: AudioStreamMP3 = preload("res://Assets/Sonidos/test/ruidoMetal.mp3")
 
 @export var animacion: AnimatedSprite2D
 @export var Trigger: Area2D
@@ -12,6 +15,7 @@ const ELECTRIC_AUDIO: AudioStreamMP3 = preload("res://Assets/Sonidos/test/ruidoE
 @onready var electric_effect: AnimatedSprite2D = $EfectoElectrico
 @onready var metal_effect: AnimatedSprite2D = $EfectoMetal
 @onready var electric_audio: AudioStreamPlayer = $AudioElectrico
+@onready var fire_audio: AudioStreamPlayer = $AudioFuego
 @onready var form_menu = $FormMenu
 @onready var hitbox: CollisionShape2D = $Hitbox
 
@@ -30,6 +34,9 @@ const STATIONARY_POSITION_TOLERANCE_SQUARED: float = 0.01
 const ELECTRIC_TRANSFORM_VOLUME_DB: float = -2.0
 const ELECTRIC_AMBIENT_VOLUME_DB: float = -10.0
 const ELECTRIC_VOLUME_FADE_DURATION: float = 0.8
+const FIRE_AUDIO_LOOP_DURATION: float = 5.0
+const METAL_AUDIO_LOOP_START: float = 4.0
+const METAL_AUDIO_LOOP_END: float = 9.0
 
 var _spawn_position: Vector2
 var _death_y: float
@@ -44,6 +51,10 @@ var can_transform: bool = true
 var _form_material: ShaderMaterial
 var _normal_sprite_frames: SpriteFrames
 var _electric_audio_tween: Tween
+var _fire_audio_tween: Tween
+var _metal_transform_audio: AudioStreamPlayer
+var _metal_ambient_audio: AudioStreamPlayer
+var _metal_audio_active: bool = false
 
 func _ready() -> void:
 	_configure_control_equivalences()
@@ -52,6 +63,8 @@ func _ready() -> void:
 	add_to_group("player")
 	form_menu.form_selected.connect(_on_form_selected)
 	_setup_electric_audio()
+	_setup_fire_audio()
+	_setup_metal_audio()
 	_setup_form_material()
 	reset_form()
 	_set_animation(ANIM_IDLE)
@@ -79,6 +92,15 @@ func _add_physical_key_binding(action: StringName, physical_keycode: int) -> voi
 func _unhandled_input(event: InputEvent) -> void:
 	if not get_tree().paused and not _dead and _controls_enabled and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
 		die()
+
+
+func _process(_delta: float) -> void:
+	if current_form == FormCatalog.FUEGO and not _dead and fire_audio.playing \
+			and fire_audio.get_playback_position() >= FIRE_AUDIO_LOOP_DURATION:
+		fire_audio.play()
+	if current_form == FormCatalog.METAL and not _dead and _metal_ambient_audio.playing \
+			and _metal_ambient_audio.get_playback_position() >= METAL_AUDIO_LOOP_END:
+		_metal_ambient_audio.play(METAL_AUDIO_LOOP_START)
 
 
 func _physics_process(delta: float) -> void:
@@ -157,6 +179,8 @@ func die() -> void:
 	_update_effect(electric_effect, false, false)
 	_update_effect(metal_effect, false, false)
 	_update_electric_audio()
+	_update_fire_audio()
+	_update_metal_audio()
 	animacion.play("caer")
 	await get_tree().create_timer(DEATH_RESTART_DELAY, false, false, true).timeout
 	if death_sequence != _death_sequence or not _dead:
@@ -343,6 +367,8 @@ func _setup_form_material() -> void:
 func _apply_form_visual() -> void:
 	_update_form_effects()
 	_update_electric_audio()
+	_update_fire_audio()
+	_update_metal_audio()
 	if not is_instance_valid(_form_material):
 		return
 	var form_frames := FormCatalog.get_sprite_frames(current_form)
@@ -383,6 +409,71 @@ func _update_electric_audio() -> void:
 		_kill_electric_audio_tween()
 		electric_audio.stop()
 		electric_audio.volume_db = ELECTRIC_TRANSFORM_VOLUME_DB
+
+
+func _setup_fire_audio() -> void:
+	# El archivo es largo; el loop reproduce solo su fragmento inicial de 5 segundos.
+	var loop_stream := FIRE_AUDIO.duplicate() as AudioStreamMP3
+	loop_stream.loop = false
+	fire_audio.stream = loop_stream
+
+
+func _update_fire_audio() -> void:
+	if not is_instance_valid(fire_audio):
+		return
+	if current_form == FormCatalog.FUEGO and not _dead:
+		if not fire_audio.playing:
+			_kill_fire_audio_tween()
+			fire_audio.volume_db = ELECTRIC_TRANSFORM_VOLUME_DB
+			fire_audio.play()
+			_fire_audio_tween = create_tween()
+			_fire_audio_tween.tween_property(fire_audio, "volume_db", ELECTRIC_AMBIENT_VOLUME_DB, ELECTRIC_VOLUME_FADE_DURATION)
+	else:
+		_kill_fire_audio_tween()
+		fire_audio.stop()
+		fire_audio.volume_db = ELECTRIC_TRANSFORM_VOLUME_DB
+
+
+func _setup_metal_audio() -> void:
+	_metal_transform_audio = AudioStreamPlayer.new()
+	_metal_transform_audio.name = "AudioTransformacionMetal"
+	var transform_stream := METAL_TRANSFORM_AUDIO.duplicate() as AudioStreamMP3
+	transform_stream.loop = false
+	_metal_transform_audio.stream = transform_stream
+	_metal_transform_audio.volume_db = -2.0
+	add_child(_metal_transform_audio)
+	_metal_transform_audio.finished.connect(_start_metal_ambient_audio)
+
+	_metal_ambient_audio = AudioStreamPlayer.new()
+	_metal_ambient_audio.name = "AudioAmbienteMetal"
+	var ambient_stream := METAL_AMBIENT_AUDIO.duplicate() as AudioStreamMP3
+	ambient_stream.loop = false
+	_metal_ambient_audio.stream = ambient_stream
+	_metal_ambient_audio.volume_db = -10.0
+	add_child(_metal_ambient_audio)
+	_metal_ambient_audio.finished.connect(_start_metal_ambient_audio)
+
+
+func _update_metal_audio() -> void:
+	if current_form == FormCatalog.METAL and not _dead:
+		if not _metal_audio_active:
+			_metal_audio_active = true
+			_metal_transform_audio.play()
+	else:
+		_metal_audio_active = false
+		_metal_transform_audio.stop()
+		_metal_ambient_audio.stop()
+
+
+func _start_metal_ambient_audio() -> void:
+	if _metal_audio_active and current_form == FormCatalog.METAL and not _dead:
+		_metal_ambient_audio.play(METAL_AUDIO_LOOP_START)
+
+
+func _kill_fire_audio_tween() -> void:
+	if is_instance_valid(_fire_audio_tween):
+		_fire_audio_tween.kill()
+		_fire_audio_tween = null
 
 
 func _kill_electric_audio_tween() -> void:

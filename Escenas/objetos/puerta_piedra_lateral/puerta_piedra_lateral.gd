@@ -7,6 +7,7 @@ extends AnimatableBody2D
 @export_node_path("Area2D") var button_path: NodePath
 
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var move_audio: AudioStreamPlayer = $AudioMovimiento
 
 var _closed_position: Vector2
 var _initial_open_state: bool
@@ -102,6 +103,7 @@ func _move_to_state(open: bool, animate: bool) -> void:
 		return
 	if _move_tween != null and _move_tween.is_running():
 		_move_tween.kill()
+	move_audio.stop()
 	sprite.texture = activated_texture if open and animate and move_duration > 0.0 and activated_texture != null else _closed_texture
 
 	var target_position := _closed_position
@@ -111,8 +113,16 @@ func _move_to_state(open: bool, animate: bool) -> void:
 	if not animate or move_duration <= 0.0:
 		position = target_position
 		return
+	if position.is_equal_approx(target_position):
+		return
 
+	move_audio.play()
 	_move_tween = create_tween()
 	_move_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	_move_tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 	_move_tween.tween_property(self, "position", target_position, move_duration)
+	_move_tween.tween_callback(_stop_move_audio)
+
+
+func _stop_move_audio() -> void:
+	move_audio.stop()
