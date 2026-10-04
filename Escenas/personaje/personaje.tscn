@@ -4,12 +4,12 @@
 [ext_resource type="SpriteFrames" uid="uid://cb046vrq8fdu0" path="res://Escenas/personaje/animacion_base.tres" id="2_frames"]
 [ext_resource type="SpriteFrames" uid="uid://bmja33aiaugci" path="res://Escenas/personaje/animacion_efecto_fuego.tres" id="3_fire_effect"]
 [ext_resource type="SpriteFrames" uid="uid://bv44bopltbmcm" path="res://Escenas/personaje/animacion_efecto_electrico.tres" id="4_electric_effect"]
-[ext_resource type="AudioStream" uid="uid://dkik5ku3qef43" path="res://Assets/Sonidos/test/ruidoElectrico.mp3" id="9_electric_audio"]
 [ext_resource type="Script" uid="uid://boqytgtjxmybu" path="res://Escenas/form_menu.gd" id="5_form_menu"]
 [ext_resource type="Texture2D" uid="uid://b1ynuh4gs1op1" path="res://Assets/UI/Formas/forma_metal.svg" id="6_form_metal"]
 [ext_resource type="Texture2D" uid="uid://ccwfdp1k523d6" path="res://Assets/UI/Formas/forma_fuego.svg" id="7_form_fire"]
 [ext_resource type="Texture2D" uid="uid://bvfrf0cjj8r2o" path="res://Assets/UI/Formas/forma_electrica.svg" id="8_form_electric"]
-[ext_resource type="SpriteFrames" path="res://Escenas/personaje/animacion_efecto_metal.tres" id="9_metal_effect"]
+[ext_resource type="AudioStream" uid="uid://dkik5ku3qef43" path="res://Assets/Sonidos/test/ruidoElectrico.mp3" id="9_electric_audio"]
+[ext_resource type="SpriteFrames" uid="uid://bd6b0y86ynob4" path="res://Escenas/personaje/animacion_efecto_metal.tres" id="9_metal_effect"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(13, 16)
@@ -44,7 +44,7 @@ position = Vector2(0, 0.99999976)
 scale = Vector2(0.7999367, 0.98199624)
 sprite_frames = ExtResource("4_electric_effect")
 
-[node name="EfectoMetal" type="AnimatedSprite2D" parent="."]
+[node name="EfectoMetal" type="AnimatedSprite2D" parent="." unique_id=2061191412]
 visible = false
 z_index = 1
 texture_filter = 1
@@ -52,7 +52,7 @@ position = Vector2(0, -2)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("9_metal_effect")
 
-[node name="AudioElectrico" type="AudioStreamPlayer" parent="."]
+[node name="AudioElectrico" type="AudioStreamPlayer" parent="." unique_id=1009065674]
 stream = ExtResource("9_electric_audio")
 volume_db = -2.0
 

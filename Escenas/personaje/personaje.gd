@@ -19,7 +19,7 @@ signal death_started
 signal form_changed(form_id: int)
 
 const walk_speed: float = 100.0
-const jump_velocity: float = -250.0
+const jump_velocity: float = -275.0
 
 const ANIM_IDLE: int = 0
 const ANIM_RUN: int = 1
