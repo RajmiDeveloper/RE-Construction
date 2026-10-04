@@ -14,7 +14,6 @@ const FORM_SHADER = preload("res://Escenas/personaje/forma_tint.gdshader")
 signal life_finished(recording: Array)
 signal death_started
 signal form_changed(form_id: int)
-signal restart_requested
 
 const walk_speed: float = 100.0
 const jump_velocity: float = -250.0
@@ -50,7 +49,6 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not get_tree().paused and not _dead and _controls_enabled and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
-		restart_requested.emit()
 		die()
 
 

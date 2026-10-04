@@ -7,6 +7,7 @@ extends Area2D
 var _player_in_range: Node2D
 var _activated: bool = false
 var _trampa_electrica: Node
+var _rewinding: bool = false
 
 
 func _ready() -> void:
@@ -20,7 +21,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if get_tree().paused or _activated or not is_instance_valid(_player_in_range):
+	if get_tree().paused or _rewinding or _activated or not is_instance_valid(_player_in_range):
 		return
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
@@ -38,7 +39,7 @@ func activate_from_shadow() -> void:
 
 
 func _activate() -> void:
-	if _activated:
+	if _rewinding or _activated:
 		return
 	_activated = true
 	animated_sprite.play("activar")
@@ -52,6 +53,15 @@ func reset_state() -> void:
 	animated_sprite.frame = 0
 	if is_instance_valid(_trampa_electrica) and _trampa_electrica.has_method("reset_state"):
 		_trampa_electrica.call("reset_state")
+
+
+func freeze_for_rewind() -> void:
+	_rewinding = true
+	animated_sprite.stop()
+
+
+func finish_rewind() -> void:
+	_rewinding = false
 
 
 func _on_body_entered(body: Node2D) -> void:

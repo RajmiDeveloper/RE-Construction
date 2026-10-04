@@ -11,6 +11,7 @@ var is_open: bool = false
 
 var _player_nearby: bool = false
 var _completed: bool = false
+var _rewinding: bool = false
 
 
 func _ready() -> void:
@@ -29,6 +30,8 @@ func reset_state() -> void:
 
 
 func set_open(value: bool) -> void:
+	if _rewinding:
+		return
 	if is_open == value:
 		return
 	is_open = value
@@ -36,6 +39,8 @@ func set_open(value: bool) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if _rewinding:
+		return
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
 	if event.keycode != KEY_ENTER and event.keycode != KEY_KP_ENTER:
@@ -49,6 +54,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	if _rewinding:
+		return
 	if _is_player(body):
 		_player_nearby = true
 		is_open = true
@@ -56,6 +63,8 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func _on_body_exited(body: Node2D) -> void:
+	if _rewinding:
+		return
 	if _is_player(body):
 		_player_nearby = false
 		is_open = false
@@ -72,3 +81,11 @@ func _update_visuals() -> void:
 		return
 	closed_visual.visible = not is_open
 	open_visual.visible = is_open
+
+
+func freeze_for_rewind() -> void:
+	_rewinding = true
+
+
+func finish_rewind() -> void:
+	_rewinding = false

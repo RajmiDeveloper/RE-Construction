@@ -5,6 +5,7 @@ extends Node
 
 var _door
 var _buttons: Array = []
+var _rewinding: bool = false
 
 func _ready() -> void:
 	add_to_group("level_resettable")
@@ -23,6 +24,8 @@ func reset_state() -> void:
 
 
 func _update_door(_ignored_state: bool = false) -> void:
+	if _rewinding:
+		return
 	if not is_instance_valid(_door):
 		return
 	var all_pressed := not _buttons.is_empty()
@@ -31,3 +34,12 @@ func _update_door(_ignored_state: bool = false) -> void:
 			all_pressed = false
 			break
 	_door.set_open(all_pressed)
+
+
+func freeze_for_rewind() -> void:
+	_rewinding = true
+
+
+func finish_rewind() -> void:
+	_rewinding = false
+	call_deferred("_update_door")

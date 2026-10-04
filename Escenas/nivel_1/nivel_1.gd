@@ -1,5 +1,7 @@
 extends Node2D
 
+const MECHANISM_REWINDER = preload("res://Escenas/niveles/mechanism_rewind.gd")
+
 @export var shadow_scene: PackedScene
 
 @onready var player = $personaje
@@ -9,13 +11,16 @@ extends Node2D
 var _spawn_position: Vector2
 var _shadows: Array[Node] = []
 var _recordings: Array[Array] = []
+var _mechanism_rewinder: Node
 
 func _ready() -> void:
+	_mechanism_rewinder = MECHANISM_REWINDER.new()
+	add_child(_mechanism_rewinder)
+	_mechanism_rewinder.configure(self)
 	# Esta escena tambien se ejecuta sola desde el editor con F6, por eso
 	# mantiene el input activo mientras el arbol esta pausado.
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_spawn_position = player.global_position
-	player.restart_requested.connect(_on_player_restart_requested)
 	player.death_started.connect(_on_player_death_started)
 	player.life_finished.connect(_on_player_life_finished)
 	pause_menu.get_node("Panel/ContinueButton").pressed.connect(_resume_game)
@@ -61,11 +66,8 @@ func _on_player_life_finished(recording: Array) -> void:
 		_shadows.append(shadow)
 
 
-func _on_player_restart_requested() -> void:
-	_reset_mechanisms()
-
-
 func _on_player_death_started() -> void:
+	_mechanism_rewinder.start_rewind()
 	for shadow in _shadows:
 		if is_instance_valid(shadow) and shadow.has_method("disappear"):
 			shadow.disappear()
@@ -73,6 +75,7 @@ func _on_player_death_started() -> void:
 
 
 func reset_run() -> void:
+	_mechanism_rewinder.cancel()
 	for shadow in _shadows:
 		if is_instance_valid(shadow):
 			shadow.queue_free()

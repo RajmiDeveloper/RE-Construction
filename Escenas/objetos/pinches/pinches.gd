@@ -76,6 +76,10 @@ func _set_frame(frame_index: int) -> void:
 		killzone_shape.position = Vector2(0.0, -6.0 - height / 2.0)
 
 
+func rewind_set_frame(frame_index: int) -> void:
+	_set_frame(clampi(frame_index, 0, 3))
+
+
 func _on_spike_timer_timeout() -> void:
 	if state != State.RETRACTED:
 		return

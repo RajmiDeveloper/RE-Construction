@@ -2,6 +2,8 @@ extends Node2D
 
 signal level_completed
 
+const MECHANISM_REWINDER = preload("res://Escenas/niveles/mechanism_rewind.gd")
+
 @export var level_title: String = "Sala"
 @export var shadow_scene: PackedScene
 
@@ -14,11 +16,14 @@ var _shadows: Array[Node] = []
 var _recordings: Array[Array] = []
 var _active: bool = false
 var _completed: bool = false
+var _mechanism_rewinder: Node
 
 
 func _ready() -> void:
+	_mechanism_rewinder = MECHANISM_REWINDER.new()
+	add_child(_mechanism_rewinder)
+	_mechanism_rewinder.configure(self)
 	player.set_spawn_position(spawn_point.global_position)
-	player.restart_requested.connect(_on_player_restart_requested)
 	player.death_started.connect(_on_player_death_started)
 	player.life_finished.connect(_on_player_life_finished)
 	if is_instance_valid(exit_door) and exit_door.has_signal("player_reached"):
@@ -33,6 +38,7 @@ func set_active(value: bool) -> void:
 
 
 func reset_level() -> void:
+	_mechanism_rewinder.cancel()
 	_completed = false
 	for shadow in _shadows:
 		if is_instance_valid(shadow):
@@ -50,6 +56,8 @@ func reset_level() -> void:
 func restart_current_life() -> void:
 	if _completed:
 		return
+	_mechanism_rewinder.cancel()
+	_reset_mechanisms()
 	for shadow in _shadows:
 		if is_instance_valid(shadow) and shadow.has_method("restart_replay"):
 			shadow.restart_replay()
@@ -58,11 +66,8 @@ func restart_current_life() -> void:
 	player.set_controls_enabled(_active)
 
 
-func _on_player_restart_requested() -> void:
-	_reset_mechanisms()
-
-
 func _on_player_death_started() -> void:
+	_mechanism_rewinder.start_rewind()
 	for shadow in _shadows:
 		if is_instance_valid(shadow) and shadow.has_method("disappear"):
 			shadow.disappear()

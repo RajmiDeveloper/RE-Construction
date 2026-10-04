@@ -13,6 +13,7 @@ var _initial_open_state: bool
 var _move_tween: Tween
 var _closed_texture: Texture2D
 var _button: Node
+var _rewinding: bool = false
 
 
 func _ready() -> void:
@@ -33,6 +34,8 @@ func _ready() -> void:
 
 
 func set_open(value: bool) -> void:
+	if _rewinding:
+		return
 	if is_open == value and (_move_tween == null or not _move_tween.is_running()):
 		return
 	is_open = value
@@ -40,6 +43,10 @@ func set_open(value: bool) -> void:
 
 
 func reset_state() -> void:
+	if _rewinding:
+		is_open = _initial_open_state
+		_move_to_state(is_open, false)
+		return
 	if is_instance_valid(_button):
 		call_deferred("_sync_button_state")
 	else:
@@ -54,6 +61,17 @@ func _on_button_state_changed(pressed: bool) -> void:
 func _sync_button_state() -> void:
 	if is_instance_valid(_button):
 		set_open(bool(_button.get("is_pressed")))
+
+
+func freeze_for_rewind() -> void:
+	_rewinding = true
+	if _move_tween != null and _move_tween.is_running():
+		_move_tween.kill()
+
+
+func finish_rewind() -> void:
+	_rewinding = false
+	call_deferred("_sync_button_state")
 
 
 func _exit_tree() -> void:

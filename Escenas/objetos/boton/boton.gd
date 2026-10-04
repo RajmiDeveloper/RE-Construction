@@ -15,6 +15,7 @@ var is_pressed: bool = false
 var _pressing_bodies: Array[Node2D] = []
 var _pressing_areas: Array[Area2D] = []
 var _linked_gate: Node
+var _rewinding: bool = false
 
 func _ready() -> void:
 	add_to_group("level_resettable")
@@ -26,6 +27,8 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	if _rewinding:
+		return
 	# Tambien se consulta el area en cada frame para detectar cuerpos cuya
 	# colision se habilito mientras ya estaban superpuestos, como una sombra
 	# que acaba de solidificarse encima del boton.
@@ -41,6 +44,8 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	if _rewinding:
+		return
 	if not _is_pressing_body(body):
 		return
 	if not _pressing_bodies.has(body):
@@ -49,18 +54,24 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func _on_body_exited(body: Node2D) -> void:
+	if _rewinding:
+		return
 	if _pressing_bodies.has(body):
 		_pressing_bodies.erase(body)
 	_update_state()
 
 
 func _on_area_entered(area: Area2D) -> void:
+	if _rewinding:
+		return
 	if _is_pressing_area(area) and not _pressing_areas.has(area):
 		_pressing_areas.append(area)
 	_update_state()
 
 
 func _on_area_exited(area: Area2D) -> void:
+	if _rewinding:
+		return
 	if _pressing_areas.has(area):
 		_pressing_areas.erase(area)
 	_update_state()
@@ -117,6 +128,14 @@ func reset_state() -> void:
 	is_pressed = false
 	_update_visual()
 	state_changed.emit(false)
+
+
+func freeze_for_rewind() -> void:
+	_rewinding = true
+
+
+func finish_rewind() -> void:
+	_rewinding = false
 
 
 func claim_gate(gate: Node) -> bool:
