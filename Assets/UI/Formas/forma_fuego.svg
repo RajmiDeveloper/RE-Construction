@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" shape-rendering="crispEdges">
+  <title>Llama</title>
+  <path d="M12 2h2v3h2v3h3v3h2v5h-2v4h-3v2H7v-2H4v-4H2v-4h2v-3h3V8h2V5h2z" fill="#4a2635"/>
+  <path d="M12 4h1v4h2v3h3v3h2v3h-2v3h-3v2H8v-2H5v-3H3v-3h2v-3h3v-3h2V8h2z" fill="#ed6a35"/>
+  <path d="M12 9h2v3h2v2h2v3h-2v2h-3v1H9v-2H7v-3h2v-2h2v-2h1z" fill="#ffbd45"/>
+  <path d="M12 14h2v3h2v2h-2v1h-4v-2h1v-2h1z" fill="#fff0ae"/>
+</svg>

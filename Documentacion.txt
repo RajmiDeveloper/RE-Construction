@@ -100,6 +100,9 @@ Sala05: Tres ecos
 - R inicia otra vida conservando las sombras; Backspace reinicia la sala y las elimina.
   Cada muerte, tambien por trampas, restaura los obstaculos para que los ecos vuelvan
   a activar sus mecanismos. El hielo necesita cuatro segundos de calor sostenido.
-- El HUD muestra la cantidad de ecos y el estado de las placas y el hielo. Enter junto
-  a la salida completa el nivel. Las compuertas se cierran rapido para impedir cruzarlas
-  abandonando una placa sin dejar una sombra.
+- Enter junto a la salida completa el nivel. Las compuertas se cierran rapido para
+  impedir cruzarlas abandonando una placa sin dejar una sombra. La sala no muestra
+  instrucciones ni estado en texto: usa simbolos de las formas y de la salida.
+- Los simbolos reutilizables viven en Escenas/objetos/indicaciones. indicacion.tscn es
+  la base visual sin texto; sus variantes Metal, Fuego, Electrica y Salida se pueden
+  instanciar en otros niveles y configurar con su textura de simbolo.

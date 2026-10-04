@@ -5,6 +5,9 @@
 [ext_resource type="SpriteFrames" uid="uid://bmja33aiaugci" path="res://Escenas/personaje/animacion_efecto_fuego.tres" id="3_fire_effect"]
 [ext_resource type="SpriteFrames" uid="uid://bv44bopltbmcm" path="res://Escenas/personaje/animacion_efecto_electrico.tres" id="4_electric_effect"]
 [ext_resource type="Script" uid="uid://boqytgtjxmybu" path="res://Escenas/form_menu.gd" id="5_form_menu"]
+[ext_resource type="Texture2D" path="res://Assets/UI/Formas/forma_metal.svg" id="6_form_metal"]
+[ext_resource type="Texture2D" path="res://Assets/UI/Formas/forma_fuego.svg" id="7_form_fire"]
+[ext_resource type="Texture2D" path="res://Assets/UI/Formas/forma_electrica.svg" id="8_form_electric"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(13, 16)
@@ -95,15 +98,21 @@ horizontal_alignment = 1
 [node name="MetalButton" type="Button" parent="FormMenu/Panel"]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
+icon = ExtResource("6_form_metal")
+icon_max_width = 32
+expand_icon = true
 theme_override_colors/font_color = Color(0.72, 0.84, 0.92, 1)
 theme_override_colors/font_hover_color = Color(0.86, 0.94, 1, 1)
 theme_override_font_sizes/font_size = 24
-text = "▰  METAL"
+text = "METAL"
 tooltip_text = "Transformarse en metal: activa botones"
 
 [node name="FireButton" type="Button" parent="FormMenu/Panel"]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
+icon = ExtResource("7_form_fire")
+icon_max_width = 32
+expand_icon = true
 theme_override_colors/font_color = Color(1, 0.55, 0.18, 1)
 theme_override_colors/font_hover_color = Color(1, 0.78, 0.35, 1)
 theme_override_font_sizes/font_size = 24
@@ -113,6 +122,9 @@ tooltip_text = "Transformarse en fuego"
 [node name="ElectricButton" type="Button" parent="FormMenu/Panel"]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
+icon = ExtResource("8_form_electric")
+icon_max_width = 32
+expand_icon = true
 theme_override_colors/font_color = Color(1, 0.88, 0.22, 1)
 theme_override_colors/font_hover_color = Color(1, 0.97, 0.62, 1)
 theme_override_font_sizes/font_size = 24

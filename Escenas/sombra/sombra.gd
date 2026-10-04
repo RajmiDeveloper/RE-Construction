@@ -9,6 +9,7 @@ const ANIM_JUMP: int = 2
 # El jugador no utiliza esta capa en su collision_mask, por lo que no choca
 # con las sombras cuando se vuelven fisicas.
 const SOLID_COLLISION_LAYER: int = 8
+const PLATFORM_WEIGHT_GROUP: StringName = &"shadow_platform_weight"
 
 @onready var animacion: AnimatedSprite2D = $Animacion
 @onready var fire_effect: AnimatedSprite2D = $EfectoFuego
@@ -35,6 +36,7 @@ func _ready() -> void:
 	interaction_area.monitorable = false
 	interaction_area.monitoring = false
 	interaction_area.add_to_group("shadow_interaction")
+	interaction_area.add_to_group(PLATFORM_WEIGHT_GROUP)
 	_setup_form_material()
 	_apply_form_visual()
 	modulate = Color(0.45, 0.55, 0.9, 0.62)
@@ -59,9 +61,12 @@ func restart_replay() -> void:
 	collision_layer = 0
 	collision_mask = 0
 	collision_shape.set_deferred("disabled", true)
-	interaction_area.collision_layer = 0
-	interaction_area.monitorable = false
-	interaction_shape.set_deferred("disabled", true)
+	# La sombra sigue siendo intangible para el resto del nivel, pero la
+	# plataforma puede detectarla como peso a traves de este area dedicada.
+	interaction_area.collision_layer = SOLID_COLLISION_LAYER
+	interaction_area.monitorable = true
+	interaction_shape.set_deferred("disabled", false)
+	interaction_area.remove_from_group("shadow_interaction")
 	_elapsed = 0.0
 	_point_index = 0
 	_processed_action_index = -1
@@ -149,9 +154,14 @@ func _become_solid() -> void:
 	collision_layer = SOLID_COLLISION_LAYER
 	collision_mask = 0
 	collision_shape.set_deferred("disabled", false)
+	interaction_area.add_to_group("shadow_interaction")
 	interaction_area.collision_layer = SOLID_COLLISION_LAYER
 	interaction_area.monitorable = true
 	interaction_shape.set_deferred("disabled", false)
+
+
+func is_replaying() -> bool:
+	return _replaying
 
 
 func set_form(form_id: int) -> void:

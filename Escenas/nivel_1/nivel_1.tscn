@@ -54,7 +54,7 @@ tile_map_data = PackedByteArray("AAD7/wkAAQAAAAAAAAD8/wkAAQAAAAAAAAD8/wgAAQAAAAA
 tile_set = SubResource("TileSet_d5i3i")
 
 [node name="personaje" parent="." unique_id=1412559796 instance=ExtResource("3_jfjvu")]
-position = Vector2(-129, 80)
+position = Vector2(216, 151)
 scale = Vector2(0.95, 0.95)
 
 [node name="Boton" parent="." unique_id=353612186 instance=ExtResource("6_button")]
@@ -134,7 +134,7 @@ modulo_superior_path = NodePath("../ModuloElectrico")
 modulo_inferior_path = NodePath("../ModuloElectrico2")
 
 [node name="PlataformaMetal" parent="." unique_id=933048396 instance=ExtResource("12_metal_platform")]
-position = Vector2(42, 87)
+position = Vector2(256, 176)
 
 [node name="PuntoInferior" parent="PlataformaMetal" index="1"]
 position = Vector2(0, 48)

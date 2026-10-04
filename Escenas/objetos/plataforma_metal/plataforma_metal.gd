@@ -2,8 +2,9 @@
 extends Node2D
 
 const TEXTURA_COLUMNA: Texture2D = preload("res://Assets/Mapa/PlataformaMetal/columna_32x16.png")
-const ALTO_PLATAFORMA: float = 32.0
-const ALTO_TRAMO: float = 16.0
+const ALTO_PLATAFORMA: float = 16.0
+const ESCALA_COLUMNA: float = 0.5
+const ALTO_TRAMO: float = 8.0
 const CAPA_SOMBRA: int = 8
 
 @export_range(1.0, 240.0, 1.0) var velocidad_bajada: float = 60.0
@@ -104,12 +105,13 @@ func _detectar_peso_metal(sombras_encima: Array[Node2D]) -> bool:
 			hay_metal = true
 
 	for area in zona_peso.get_overlapping_areas():
-		if not area.is_in_group("shadow_interaction"):
+		if not area.is_in_group("shadow_platform_weight") and not area.is_in_group("shadow_interaction"):
 			continue
 		var sombra := area.get_parent() as Node2D
 		if sombra == null:
 			continue
-		if not sombras_encima.has(sombra):
+		var sombra_reproduciendose: bool = sombra.has_method("is_replaying") and sombra.call("is_replaying")
+		if not sombra_reproduciendose and not sombras_encima.has(sombra):
 			sombras_encima.append(sombra)
 		if _es_metal(sombra):
 			hay_metal = true
@@ -130,6 +132,7 @@ func _actualizar_columna() -> void:
 		tramo.name = "Tramo%d" % _tramos.size()
 		tramo.texture = TEXTURA_COLUMNA
 		tramo.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		tramo.scale = Vector2.ONE * ESCALA_COLUMNA
 		columnas.add_child(tramo)
 		_tramos.append(tramo)
 	while _tramos.size() > cantidad:
@@ -142,8 +145,9 @@ func _actualizar_columna() -> void:
 		var tramo: Sprite2D = _tramos[indice]
 		var inicio_tramo: float = float(indice) * ALTO_TRAMO
 		var alto_tramo: float = minf(ALTO_TRAMO, distancia - inicio_tramo)
+		var alto_textura: float = alto_tramo / ESCALA_COLUMNA
 		tramo.region_enabled = true
-		tramo.region_rect = Rect2(0.0, 0.0, TEXTURA_COLUMNA.get_width(), alto_tramo)
+		tramo.region_rect = Rect2(0.0, 0.0, TEXTURA_COLUMNA.get_width(), alto_textura)
 		tramo.position = Vector2(cuerpo.position.x, inicio + inicio_tramo + alto_tramo * 0.5)
 
 
