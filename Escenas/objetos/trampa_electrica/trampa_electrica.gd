@@ -206,10 +206,25 @@ func _actualizar_cuadros() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player") and body.has_method("die"):
-		if body.has_method("get_form_id") and body.call("get_form_id") == FormCatalog.ELECTRICA:
-			return
-		body.call_deferred("die")
+	if not body.is_in_group("player") or not body.has_method("die"):
+		return
+	# Godot puede entregar body_entered despues de que el personaje ya salio
+	# del area (por ejemplo, cuando el rewind lo devuelve al spawn).
+	if not get_overlapping_bodies().has(body):
+		return
+	if body.has_method("get_form_id") and body.call("get_form_id") == FormCatalog.ELECTRICA:
+		return
+	call_deferred("_kill_player_if_still_inside", body)
+
+
+func _kill_player_if_still_inside(body: Node2D) -> void:
+	# Espera a que el servidor de fisica actualice los solapamientos. El cuerpo
+	# puede haber sido teleportado al spawn durante el rewind en este mismo frame.
+	await get_tree().physics_frame
+	if not is_instance_valid(self) or not is_instance_valid(body) or not body.is_in_group("player") or not get_overlapping_bodies().has(body):
+		return
+	if body.has_method("die") and (not body.has_method("get_form_id") or body.call("get_form_id") != FormCatalog.ELECTRICA):
+		body.call("die")
 
 
 func _get_configuration_warnings() -> PackedStringArray:

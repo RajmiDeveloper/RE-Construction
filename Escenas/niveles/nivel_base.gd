@@ -4,9 +4,7 @@ signal level_completed
 
 const MECHANISM_REWINDER = preload("res://Escenas/niveles/mechanism_rewind.gd")
 const STANDALONE_PAUSE = preload("res://Escenas/UI/standalone_pause.tscn")
-const TUTORIAL_TWO_SCENE := "res://Escenas/niveles/Tutoriales/tutorial_02.tscn"
-const TUTORIAL_ONE_SCENE := "res://Escenas/niveles/Tutoriales/tutorial_01.tscn"
-const LEVEL_ONE_SCENE := "res://Escenas/niveles/Sala01/sala_01.tscn"
+const LEVEL_CATALOG = preload("res://Escenas/UI/level_catalog.gd")
 
 @export var level_title: String = "Sala"
 @export var shadow_scene: PackedScene
@@ -124,10 +122,14 @@ func _on_player_reached_exit() -> void:
 	_completed = true
 	player.set_controls_enabled(false)
 	level_completed.emit()
-	# Al ejecutar un tutorial directamente con F6 no existe Juego.gd para avanzar.
+	# Al ejecutar una escena directamente con F6 no existe Juego.gd para avanzar.
 	if get_tree().get_first_node_in_group("game_shell") != null:
 		return
-	if scene_file_path == TUTORIAL_ONE_SCENE:
-		get_tree().call_deferred("change_scene_to_file", TUTORIAL_TWO_SCENE)
-	elif scene_file_path == TUTORIAL_TWO_SCENE:
-		get_tree().call_deferred("change_scene_to_file", LEVEL_ONE_SCENE)
+	var current_index := -1
+	for index in LEVEL_CATALOG.ENTRIES.size():
+		if LEVEL_CATALOG.ENTRIES[index]["scene"] == scene_file_path:
+			current_index = index
+			break
+	var next_index := current_index + 1
+	if current_index >= 0 and next_index < LEVEL_CATALOG.ENTRIES.size():
+		get_tree().call_deferred("change_scene_to_file", LEVEL_CATALOG.ENTRIES[next_index]["scene"])
