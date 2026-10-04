@@ -1,12 +1,15 @@
-[gd_scene format=3 uid="uid://beyqegop07qnx"]
+[gd_scene format=4 uid="uid://beyqegop07qnx"]
 
 [ext_resource type="Script" uid="uid://dfq68sj7h2epr" path="res://Escenas/niveles/nivel_base.gd" id="1_level"]
 [ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://buucika8pnbrp" path="res://Escenas/background/backgroundChico.tscn" id="3_b5jl8"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="3_shadow"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/plataforma/plataforma.tscn" id="4_platform"]
-[ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="5_button"]
+[ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="4_4prf6"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/bloque_hielo/bloque_hielo.tscn" id="6_75we2"]
 [ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="6_exit"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/trampa_electrica.tscn" id="7_lgqrc"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="8_ips4y"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/palanca/palanca.tscn" id="9_hxgyf"]
 
 [node name="Sala04" type="Node2D" unique_id=329187380]
 script = ExtResource("1_level")
@@ -15,35 +18,38 @@ shadow_scene = ExtResource("3_shadow")
 
 [node name="FondoChico" parent="." unique_id=823027555 instance=ExtResource("3_b5jl8")]
 
-[node name="Mundo" type="Node2D" parent="." unique_id=1146796492]
-
-[node name="SueloIzquierdo" parent="Mundo" unique_id=150898675 instance=ExtResource("4_platform")]
-position = Vector2(-120, 104)
-platform_size = Vector2(150, 16)
-
-[node name="SueloCentro" parent="Mundo" unique_id=703938007 instance=ExtResource("4_platform")]
-position = Vector2(0, 104)
-platform_size = Vector2(58, 16)
-
-[node name="SueloDerecho" parent="Mundo" unique_id=1638723708 instance=ExtResource("4_platform")]
-position = Vector2(120, 104)
-platform_size = Vector2(150, 16)
+[node name="TileMapLayer" type="TileMapLayer" parent="FondoChico" unique_id=219573881]
+tile_map_data = PackedByteArray("AAD2/wEAAgACAAQAAAD3/wEAAgADAAQAAAD4/wEAAgAEAAQAAAD5/wEAAgAFAAQAAAD6/wEAAgAGAAQAAAD7/wEAAgAHAAQAAAD8/wEAAgACAAQAAAD+/wMAAgAKACAAAAD+/wQAAgAKACEAAAD//wMAAgALACAAAAD//wQAAgALACEAAAD//wUAAgALACIAAAAAAAMAAgAMACAAAAAAAAQAAgAMACEAAAAAAAUAAgAMACIAAAABAAMAAgANACAAAAABAAQAAgANACEAAAABAAUAAgANACIAAAACAAMAAgAOACAAAAACAAQAAgAOACEAAAACAAUAAgAOACIAAAADAAMAAgAPACAAAAADAAQAAgAPACEAAAD//wYAAgAMACYAAAD//wcAAgAMACcAAAAAAAYAAgANACYAAAAAAAcAAgANACcAAAABAAYAAgAOACYAAAABAAcAAgAOACcAAAACAAYAAgAPACYAAAACAAcAAgAPACcAAAAAAAEAAgAKACoAAAAAAAIAAgAKACsAAAABAAEAAgALACoAAAABAAIAAgALACsAAADz//3/AgAIACgAAADz//7/AgAIACkAAAD0//3/AgAJACgAAAD0//7/AgAJACkAAAD7//3/AgAIACgAAAD7//7/AgAIACkAAAD8//3/AgAJACgAAAD8//7/AgAJACkAAAADAP3/AgAIACgAAAADAP7/AgAIACkAAAAEAP3/AgAJACgAAAAEAP7/AgAJACkAAAAAAP//AgAQABoAAAAAAAAAAgAQABsAAAABAP//AgARABoAAAABAAAAAgARABsAAAABAP7/AgATABYAAAAAAP7/AgASABYAAAALAAgAAgAYAC0AAAAMAAgAAgAZAC0AAAANAAgAAgAWAC0AAAAOAAgAAgAXAC0AAADx/wgAAgAWAC0AAADy/wgAAgAXAC0AAADz/wgAAgAYAC0AAAD0/wgAAgAZAC0AAAD1/wgAAgAWAC0AAAD2/wgAAgAXAC0AAAD3/wgAAgAYAC0AAAD4/wgAAgAZAC0AAAD5/wgAAgAWAC0AAAD6/wgAAgAXAC0AAAD7/wgAAgAYAC0AAAD8/wgAAgAZAC0AAAD9/wgAAgAWAC0AAAD+/wgAAgAXAC0AAAD//wgAAgAYAC0AAAAAAAgAAgAZAC0AAAABAAgAAgAWAC0AAAACAAgAAgAXAC0AAAADAAgAAgAYAC0AAAAEAAgAAgAZAC0AAAAFAAgAAgAWAC0AAAAGAAgAAgAXAC0AAAAHAAgAAgAYAC0AAAAIAAgAAgAZAC0AAAAJAAgAAgAWAC0AAAAKAAgAAgAXAC0AAAAGAAAAAgACABkAAAAGAAEAAgACABoAAAAGAAIAAgAEABoAAAAHAAAAAgADABkAAAAHAAEAAgADABoAAAAHAAIAAgAFABoAAAAHAP//AgADABgAAAAIAP7/AgADABgAAAAJAP7/AgAEABgAAAAKAP7/AgAEABgAAAALAP7/AgAEABgAAAAMAP7/AgAEABgAAAAIAP//AgADABkAAAAIAAAAAgADABoAAAAIAAEAAgADABsAAAAIAAIAAgAEAB0AAAAJAP//AgAEAB0AAAAKAP//AgAEAB0AAAALAP//AgAEAB0AAAAMAP//AgAEAB0AAAANAP7/AgAEABgAAAAOAP7/AgAFABgAAAANAP//AgAEAB0AAAAOAP//AgAEAB0AAAAGAAMAAgAEABsAAAAHAAMAAgAFABsAAAAGAAQAAgAEAB0AAAAHAAQAAgAEAB0AAAA=")
+tile_set = ExtResource("4_4prf6")
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=206171617]
-position = Vector2(-175, 88)
+position = Vector2(-153, 6)
 
 [node name="Jugador" parent="." unique_id=619624165 instance=ExtResource("2_player")]
-position = Vector2(-175, 88)
+position = Vector2(-152, 5)
 
 [node name="Mecanismos" type="Node2D" parent="." unique_id=1148414149]
 
-[node name="BotonA" parent="Mecanismos" unique_id=253432780 instance=ExtResource("5_button")]
-position = Vector2(-45, 89)
+[node name="BloqueHielo" parent="Mecanismos" unique_id=363962542 instance=ExtResource("6_75we2")]
+position = Vector2(112, 120)
 
-[node name="BotonB" parent="Mecanismos" unique_id=1627756560 instance=ExtResource("5_button")]
-position = Vector2(45, 89)
+[node name="TrampaElectrica" parent="Mecanismos" unique_id=277203444 instance=ExtResource("7_lgqrc")]
+position = Vector2(161, -86)
+modulo_superior_path = NodePath("../ModuloElectrico")
+modulo_inferior_path = NodePath("../ModuloElectrico2")
+
+[node name="ModuloElectrico" parent="Mecanismos" unique_id=338964125 instance=ExtResource("8_ips4y")]
+position = Vector2(162, -116)
+
+[node name="ModuloElectrico2" parent="Mecanismos" unique_id=180938280 instance=ExtResource("8_ips4y")]
+position = Vector2(162, -43)
+rotation = 3.1415927
+
+[node name="Palanca" parent="Mecanismos" unique_id=837606050 instance=ExtResource("9_hxgyf")]
+position = Vector2(219, 141)
+trampa_electrica_path = NodePath("../TrampaElectrica")
 
 [node name="Sombras" type="Node2D" parent="." unique_id=723894979]
 
 [node name="Salida" parent="." unique_id=1314581305 instance=ExtResource("6_exit")]
-position = Vector2(160, 86)
+position = Vector2(213, -44)
