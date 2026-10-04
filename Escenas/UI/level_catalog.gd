@@ -8,11 +8,11 @@ const ENTRIES: Array[Dictionary] = [
 	{"id": "3", "title": "Nivel 3", "scene": "res://Escenas/niveles/Sala03/sala_03.tscn"},
 	{"id": "4", "title": "Nivel 4", "scene": "res://Escenas/niveles/Sala04/sala_04.tscn"},
 	{"id": "5", "title": "Nivel 5", "scene": "res://Escenas/niveles/Sala05/sala_05.tscn"},
-	{"id": "6", "title": "Nivel 6", "scene": "res://Escenas/niveles/Sala06/nivel_06.tscn"},
-	{"id": "7", "title": "Nivel 7", "scene": "res://Escenas/niveles/Sala07/nivel_07.tscn"},
-	{"id": "8", "title": "Nivel 8", "scene": "res://Escenas/niveles/Sala08/nivel_08.tscn"},
-	{"id": "9", "title": "Nivel 9", "scene": "res://Escenas/niveles/Sala09/nivel_09.tscn"},
-	{"id": "10", "title": "Nivel 10", "scene": "res://Escenas/niveles/Sala10/nivel_10.tscn"},
+	{"id": "6", "title": "Nivel 6", "scene": "res://Escenas/niveles/Sala06/nivel_06.tscn", "available": false},
+	{"id": "7", "title": "Nivel 7", "scene": "res://Escenas/niveles/Sala07/nivel_07.tscn", "available": false},
+	{"id": "8", "title": "Nivel 8", "scene": "res://Escenas/niveles/Sala08/nivel_08.tscn", "available": false},
+	{"id": "9", "title": "Nivel 9", "scene": "res://Escenas/niveles/Sala09/nivel_09.tscn", "available": false},
+	{"id": "10", "title": "Nivel 10", "scene": "res://Escenas/niveles/Sala10/nivel_10.tscn", "available": false},
 ]
 
 
@@ -21,3 +21,7 @@ static func index_of(entry_id: String) -> int:
 		if ENTRIES[index]["id"] == entry_id:
 			return index
 	return -1
+
+
+static func is_available(index: int) -> bool:
+	return index >= 0 and index < ENTRIES.size() and bool(ENTRIES[index].get("available", true))
