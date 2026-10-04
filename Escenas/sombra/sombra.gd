@@ -194,8 +194,8 @@ func _apply_form_visual() -> void:
 		var form_frames := FormCatalog.get_sprite_frames(_current_form)
 		if form_frames != null:
 			animacion.sprite_frames = form_frames
-			_form_material.set_shader_parameter("tint_color", Color.WHITE)
-			_form_material.set_shader_parameter("grayscale_strength", 0.0)
+			_form_material.set_shader_parameter("tint_color", FormCatalog.get_tint(_current_form))
+			_form_material.set_shader_parameter("grayscale_strength", 1.0 if _current_form == FormCatalog.METAL else 0.0)
 		else:
 			animacion.sprite_frames = _normal_sprite_frames
 			_form_material.set_shader_parameter("tint_color", FormCatalog.get_tint(_current_form))

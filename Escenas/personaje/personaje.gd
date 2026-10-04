@@ -9,6 +9,7 @@ const FORM_SHADER = preload("res://Escenas/personaje/forma_tint.gdshader")
 @onready var fire_effect: AnimatedSprite2D = $EfectoFuego
 @onready var electric_effect: AnimatedSprite2D = $EfectoElectrico
 @onready var form_menu = $FormMenu
+@onready var hitbox: CollisionShape2D = $Hitbox
 
 signal life_finished(recording: Array)
 signal form_changed(form_id: int)
@@ -20,6 +21,7 @@ const jump_velocity: float = -250.0
 const ANIM_IDLE: int = 0
 const ANIM_RUN: int = 1
 const ANIM_JUMP: int = 2
+const DEATH_RESTART_DELAY: float = 3.0
 const STATIONARY_POSITION_TOLERANCE_SQUARED: float = 0.01
 
 var _spawn_position: Vector2
@@ -27,6 +29,7 @@ var _death_y: float
 var _recording: Array[Dictionary] = []
 var _recording_time: float = 0.0
 var _dead: bool = false
+var _death_sequence: int = 0
 var _controls_enabled: bool = true
 var current_form: int = FormCatalog.NORMAL
 var can_transform: bool = true
@@ -45,7 +48,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not get_tree().paused and _controls_enabled and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
+	if not get_tree().paused and not _dead and _controls_enabled and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
 		restart_requested.emit()
 		die()
 
@@ -100,12 +103,24 @@ func die() -> void:
 		return
 
 	_dead = true
+	_death_sequence += 1
+	var death_sequence := _death_sequence
 	var finished_recording: Array[Dictionary] = _recording.duplicate(true)
 	if finished_recording.is_empty():
 		_record_point()
 		finished_recording = _recording.duplicate(true)
 
 	_trim_stationary_tail(finished_recording)
+	velocity = Vector2.ZERO
+	form_menu.close()
+	hitbox.set_deferred("disabled", true)
+	_update_effect(fire_effect, false)
+	_update_effect(electric_effect, false)
+	animacion.play("caer")
+	await get_tree().create_timer(DEATH_RESTART_DELAY).timeout
+	if death_sequence != _death_sequence or not _dead:
+		return
+
 	life_finished.emit(finished_recording)
 	_reset_life()
 
@@ -191,6 +206,8 @@ func set_controls_enabled(value: bool) -> void:
 
 
 func _reset_life() -> void:
+	_death_sequence += 1
+	hitbox.set_deferred("disabled", false)
 	global_position = _spawn_position
 	velocity = Vector2.ZERO
 	_recording.clear()
@@ -270,8 +287,8 @@ func _apply_form_visual() -> void:
 	var form_frames := FormCatalog.get_sprite_frames(current_form)
 	if form_frames != null:
 		animacion.sprite_frames = form_frames
-		_form_material.set_shader_parameter("tint_color", Color.WHITE)
-		_form_material.set_shader_parameter("grayscale_strength", 0.0)
+		_form_material.set_shader_parameter("tint_color", FormCatalog.get_tint(current_form))
+		_form_material.set_shader_parameter("grayscale_strength", 1.0 if current_form == FormCatalog.METAL else 0.0)
 	else:
 		animacion.sprite_frames = _normal_sprite_frames
 		_form_material.set_shader_parameter("tint_color", FormCatalog.get_tint(current_form))

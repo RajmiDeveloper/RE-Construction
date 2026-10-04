@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dubj1g5ntdrjy"
-path="res://.godot/imported/pinches_sprite.png-0040afd8d2733cd195b9943ebf119c34.ctex"
+uid="uid://cknx12awhjj4q"
+path="res://.godot/imported/AnimationSheet_backup.png-50832790e32ffde91d72d50eafe2faae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mapa/Pinches/pinches_sprite.png"
-dest_files=["res://.godot/imported/pinches_sprite.png-0040afd8d2733cd195b9943ebf119c34.ctex"]
+source_file="res://Assets/Personaje/Final/Metal/AnimationSheet_backup.png"
+dest_files=["res://.godot/imported/AnimationSheet_backup.png-50832790e32ffde91d72d50eafe2faae.ctex"]
 
 [params]
 
