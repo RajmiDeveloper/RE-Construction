@@ -5,6 +5,7 @@ const STONE: Texture2D = preload("res://Assets/UI/Menu/piedra.png")
 const LONG_STONE: Texture2D = preload("res://Assets/UI/Menu/piedra_alargada.png")
 const LONG_REGION := Rect2(40.0 / 2172.0, 176.0 / 724.0, 2092.0 / 2172.0, 376.0 / 724.0)
 const FONT: Font = preload("res://Assets/UI/Menu/fonts/menu_font.tres")
+const HIGHLIGHT_TINT := Color(1.18, 1.22, 1.12)
 
 @export var lettering_size: int = 26
 @export var elongated: bool = false:
@@ -23,21 +24,21 @@ func _ready() -> void:
 	for color_name in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color", "font_disabled_color", "font_hover_pressed_color"]:
 		add_theme_color_override(color_name, Color.TRANSPARENT)
 	add_theme_constant_override("outline_size", 0)
+	focus_entered.connect(_update_focus_style)
+	focus_exited.connect(_update_focus_style)
 	_apply_styles()
 
 
 func _apply_styles() -> void:
-	add_theme_stylebox_override("normal", _stone_style(Color.WHITE))
-	add_theme_stylebox_override("hover", _stone_style(Color(1.18, 1.22, 1.12)))
+	_update_focus_style()
+	add_theme_stylebox_override("hover", _stone_style(HIGHLIGHT_TINT))
 	add_theme_stylebox_override("pressed", _stone_style(Color(0.78, 0.91, 0.88), true))
 	add_theme_stylebox_override("disabled", _stone_style(Color(0.52, 0.57, 0.56)))
-	var focus := StyleBoxFlat.new()
-	focus.bg_color = Color.TRANSPARENT
-	focus.border_color = Color("9bddc5")
-	focus.set_border_width_all(3)
-	focus.set_corner_radius_all(3)
-	focus.set_expand_margin_all(-7)
-	add_theme_stylebox_override("focus", focus)
+	add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+
+
+func _update_focus_style() -> void:
+	add_theme_stylebox_override("normal", _stone_style(HIGHLIGHT_TINT if has_focus() else Color.WHITE))
 
 
 func _draw() -> void:

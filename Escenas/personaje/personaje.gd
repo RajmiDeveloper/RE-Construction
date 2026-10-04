@@ -8,6 +8,7 @@ const FORM_SHADER = preload("res://Escenas/personaje/forma_tint.gdshader")
 
 @onready var fire_effect: AnimatedSprite2D = $EfectoFuego
 @onready var electric_effect: AnimatedSprite2D = $EfectoElectrico
+@onready var metal_effect: AnimatedSprite2D = $EfectoMetal
 @onready var form_menu = $FormMenu
 @onready var hitbox: CollisionShape2D = $Hitbox
 
@@ -116,6 +117,7 @@ func die() -> void:
 	hitbox.set_deferred("disabled", true)
 	_update_effect(fire_effect, false, false)
 	_update_effect(electric_effect, false, false)
+	_update_effect(metal_effect, false, false)
 	animacion.play("caer")
 	await get_tree().create_timer(DEATH_RESTART_DELAY, false, false, true).timeout
 	if death_sequence != _death_sequence or not _dead:
@@ -298,6 +300,7 @@ func _apply_form_visual() -> void:
 func _update_form_effects(restart: bool = false) -> void:
 	_update_effect(fire_effect, current_form == FormCatalog.FUEGO, restart)
 	_update_effect(electric_effect, current_form == FormCatalog.ELECTRICA, restart)
+	_update_effect(metal_effect, current_form == FormCatalog.METAL, restart)
 
 
 func _update_effect(effect: AnimatedSprite2D, should_play: bool, restart: bool) -> void:
