@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dr1o8mnrmg5r4" path="res://Escenas/objetos/pinches/pinches.tscn" id="11_spikes"]
 [ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="12_exit"]
 
-[node name="Sala01" type="Node2D" unique_id=2119282324]
+[node name="Sala05" type="Node2D" unique_id=2119282324]
 script = ExtResource("1_level")
 level_title = "Sala 1: Templo de ecos"
 shadow_scene = ExtResource("3_shadow")

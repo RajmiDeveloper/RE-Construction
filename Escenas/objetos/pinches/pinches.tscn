@@ -8,6 +8,9 @@ size = Vector2(20, 16)
 
 [node name="Pinches" type="Node2D" unique_id=1779459369]
 script = ExtResource("1_4muq3")
+animation_frame_duration = 0.15000000000000002
+retracted_duration = 0.8
+extended_duration = 0.6000000000000001
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1099525702]
 texture_filter = 1

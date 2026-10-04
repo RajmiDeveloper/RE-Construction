@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="3_shadow"]
 [ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="4_mkcnq"]
 [ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="5_button"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="6_dqkrm"]
 [ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="6_exit"]
+[ext_resource type="PackedScene" uid="uid://dr1o8mnrmg5r4" path="res://Escenas/objetos/pinches/pinches.tscn" id="9_xnj7t"]
 
 [node name="Sala02" type="Node2D" unique_id=1013500567]
 script = ExtResource("1_level")
@@ -15,24 +17,41 @@ shadow_scene = ExtResource("3_shadow")
 
 [node name="Fondo" parent="." unique_id=823027555 instance=ExtResource("3_mkcnq")]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Fondo" unique_id=961885389]
-tile_map_data = PackedByteArray("AADx/wcAAgADABAAAADx/wgAAgADABEAAADy/wcAAgAEABAAAADy/wgAAgAEABEAAADz/wcAAgAFABAAAADz/wgAAgAFABEAAAD0/wcAAgAGABAAAAD0/wgAAgAGABEAAAD1/wcAAgADABAAAAD1/wgAAgADABEAAAD2/wcAAgAEABAAAAD2/wgAAgAEABEAAAD3/wcAAgAFABAAAAD3/wgAAgAFABEAAAD4/wcAAgAGABAAAAD4/wgAAgAGABEAAAD5/wcAAgADABAAAAD5/wgAAgADABEAAAD6/wcAAgAEABAAAAD6/wgAAgAEABEAAAD7/wcAAgAFABAAAAD7/wgAAgAFABEAAAD8/wcAAgAGABAAAAD8/wgAAgAGABEAAAD9/wcAAgADABAAAAD9/wgAAgADABEAAAD+/wcAAgAEABAAAAD+/wgAAgAEABEAAAD//wcAAgAFABAAAAD//wgAAgAFABEAAAAAAAcAAgAGABAAAAAAAAgAAgAGABEAAAABAAcAAgADABAAAAABAAgAAgADABEAAAACAAcAAgAEABAAAAACAAgAAgAEABEAAAADAAcAAgAFABAAAAADAAgAAgAFABEAAAAEAAcAAgAGABAAAAAEAAgAAgAGABEAAAAFAAcAAgADABAAAAAFAAgAAgADABEAAAAGAAcAAgAEABAAAAAGAAgAAgAEABEAAAAHAAcAAgAFABAAAAAHAAgAAgAFABEAAAAIAAcAAgAGABAAAAAIAAgAAgAGABEAAAAJAAcAAgADABAAAAAJAAgAAgADABEAAAAKAAcAAgAEABAAAAAKAAgAAgAEABEAAAALAAcAAgAFABAAAAALAAgAAgAFABEAAAAMAAcAAgAGABAAAAAMAAgAAgAGABEAAAANAAcAAgADABAAAAANAAgAAgADABEAAAAOAAcAAgAEABAAAAAOAAgAAgAEABEAAAA=")
+[node name="piso" type="TileMapLayer" parent="Fondo" unique_id=961885389]
+tile_map_data = PackedByteArray("AADx/wcAAgADABAAAADx/wgAAgADABEAAADy/wcAAgAEABAAAADy/wgAAgAEABEAAADz/wcAAgAFABAAAADz/wgAAgAFABEAAAD0/wcAAgAGABAAAAD0/wgAAgAGABEAAAD1/wcAAgADABAAAAD1/wgAAgADABEAAAD2/wcAAgAEABAAAAD2/wgAAgAEABEAAAD3/wcAAgAFABAAAAD3/wgAAgAFABEAAAD4/wcAAgAGABAAAAD4/wgAAgAGABEAAAD5/wcAAgADABAAAAD5/wgAAgADABEAAAD6/wcAAgAEABAAAAD6/wgAAgAEABEAAAD7/wcAAgAFABAAAAD7/wgAAgAFABEAAAD8/wcAAgAGABAAAAD8/wgAAgAGABEAAAD9/wcAAgADABAAAAD9/wgAAgADABEAAAD+/wcAAgAEABAAAAD+/wgAAgAEABEAAAD//wcAAgAFABAAAAD//wgAAgAFABEAAAAAAAcAAgAGABAAAAAAAAgAAgAGABEAAAABAAcAAgADABAAAAABAAgAAgADABEAAAACAAcAAgAEABAAAAACAAgAAgAEABEAAAADAAcAAgAFABAAAAADAAgAAgAFABEAAAAEAAcAAgAAABwAAAAEAAgAAgAAAB0AAAAFAAcAAgABABwAAAAFAAgAAgABAB0AAAAGAAcAAgACABwAAAAGAAgAAgACAB0AAAAHAAcAAgADABwAAAAHAAgAAgADAB0AAAAIAAcAAgAEABwAAAAIAAgAAgAEAB0AAAAJAAcAAgADABAAAAAJAAgAAgADABEAAAAKAAcAAgAEABAAAAAKAAgAAgAEABEAAAALAAcAAgAFABAAAAALAAgAAgAFABEAAAAMAAcAAgAGABAAAAAMAAgAAgAGABEAAAANAAcAAgADABAAAAANAAgAAgADABEAAAAOAAcAAgAEABAAAAAOAAgAAgAEABEAAAAEAAYAAgAAABsAAAAFAAUAAgABABoAAAAFAAYAAgABABsAAAAGAAQAAgACABkAAAAGAAUAAgACABoAAAAGAAYAAgACABsAAAAHAAMAAgADABgAAAAHAAQAAgADABkAAAAHAAUAAgADABoAAAAHAAYAAgADABsAAAAIAAMAAgAEABgAAAAIAAQAAgAEABkAAAAIAAUAAgAEABoAAAAIAAYAAgAEABsAAAA=")
+tile_set = ExtResource("4_mkcnq")
+
+[node name="pared" type="TileMapLayer" parent="Fondo/piso" unique_id=431669397]
+tile_map_data = PackedByteArray("AAAAAPn/AgAAACIAAAAAAPr/AgAAACMAAAAAAPv/AgAAACMAAAAAAPz/AgAAACIAAAAAAP3/AgAAACMAAAAAAP7/AgAAACMAAAAAAP//AgAAACIAAAAAAAAAAgAAACIAAAAAAAEAAgABACUAAAABAPn/AgAYACAAAAABAPr/AgAYAB8AAAABAPv/AgAYACAAAAABAPz/AgAYAB8AAAABAP3/AgAYACAAAAABAP7/AgAYAB8AAAABAP//AgAYACAAAAABAAAAAgAYACAAAAABAAEAAgAEABUAAAACAPn/AgAZACAAAAACAPr/AgAZAB8AAAACAPv/AgAZACAAAAACAPz/AgAZAB8AAAACAP3/AgAZACAAAAACAP7/AgAZAB8AAAACAP//AgAZACAAAAACAAAAAgAZACAAAAACAAEAAgAEABUAAAADAPn/AgAHABEAAAADAPr/AgAHABIAAAADAPv/AgAHABMAAAADAPz/AgAHABEAAAADAP3/AgAHABIAAAADAP7/AgAHABMAAAADAP//AgAHABQAAAADAAAAAgAHABQAAAADAAEAAgAHABUAAAAAAPj/AgAAACMAAAABAPj/AgAYAB8AAAACAPj/AgAZAB8AAAADAPj/AgAHABMAAAA=")
 tile_set = ExtResource("4_mkcnq")
 
 [node name="Mundo" type="Node2D" parent="." unique_id=1348614121]
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=1111103830]
-position = Vector2(-170, 88)
+position = Vector2(-217, 92)
 
 [node name="Jugador" parent="." unique_id=335173760 instance=ExtResource("2_player")]
-position = Vector2(-170, 88)
+position = Vector2(-215, 96)
 
 [node name="Mecanismos" type="Node2D" parent="." unique_id=2137301935]
 
-[node name="BotonA" parent="Mecanismos" unique_id=530336367 instance=ExtResource("5_button")]
-position = Vector2(-42, 89)
+[node name="PuertaPiedraLateral" parent="Mecanismos" unique_id=651133313 instance=ExtResource("6_dqkrm")]
+position = Vector2(33, 70)
+button_path = NodePath("../BotonA")
 
-[node name="Sombras" type="Node2D" parent="." unique_id=1861709952]
+[node name="BotonA" parent="Mecanismos" unique_id=530336367 instance=ExtResource("5_button")]
+position = Vector2(-144, 108)
 
 [node name="Salida" parent="." unique_id=1136325335 instance=ExtResource("6_exit")]
-position = Vector2(160, 86)
+position = Vector2(201, 101)
+
+[node name="Enemigos" type="Node2D" parent="." unique_id=1674711946]
+
+[node name="Pinches" parent="Enemigos" unique_id=1779459369 instance=ExtResource("9_xnj7t")]
+position = Vector2(-92, 112)
+
+[node name="Pinches2" parent="Enemigos" unique_id=1172165447 instance=ExtResource("9_xnj7t")]
+position = Vector2(156, 111)
+
+[node name="Sombras" type="Node2D" parent="." unique_id=1861709952]
+position = Vector2(-269, 3)

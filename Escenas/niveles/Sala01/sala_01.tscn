@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_electrica.tscn" id="15_indicacion_electrica"]
 [ext_resource type="Texture2D" uid="uid://bvfrf0cjj8r2o" path="res://Assets/UI/Formas/forma_electrica.svg" id="17_48873"]
 
-[node name="Sala05" type="Node2D" unique_id=151462984]
+[node name="Sala01" type="Node2D" unique_id=151462984]
 texture_filter = 1
 script = ExtResource("1_level")
 level_title = "Sala 5: Tres ecos"
