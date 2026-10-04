@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b8afhgnq4wup5" path="res://Escenas/niveles/Sala05/sala_05_controller.gd" id="1_level"]
 [ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="2_player"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="3_shadow"]
-[ext_resource type="PackedScene" uid="uid://n4v6wbkxnyrb" path="res://Assets/tilesets/background_chico.tscn" id="4_background"]
+[ext_resource type="PackedScene" uid="uid://n4v6wbkxnyrb" path="res://Escenas/background/background_medio.tscn" id="4_background"]
 [ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="5_tiles"]
 [ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="6_button"]
 [ext_resource type="PackedScene" uid="uid://cbst5h3sfyuli" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="7_gate"]

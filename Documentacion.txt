@@ -89,7 +89,7 @@ Estructura de niveles:
 Sala05: Tres ecos
 - Escena jugable: Escenas/niveles/Sala05/sala_05.tscn. Esta integrada despues de Sala04
   en Juego.tscn y tambien puede ejecutarse directamente con F6.
-- Reutiliza background_chico.tscn de Sala01, con camara fija ajustada para mostrar la sala
+- Reutiliza Escenas/background/background_medio.tscn de Sala01, con camara fija ajustada para mostrar la sala
   completa. Mundo/Terreno es un TileMapLayer editable con el TileSet del templo.
 - El recorrido combina dos placas Metal con sus compuertas, escalones de 16 px,
   pinchos ciclicos, una barrera de hielo y un rayo vertical antes de la salida.

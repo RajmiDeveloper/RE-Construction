@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="8_button"]
 [ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="9_exit"]
 [ext_resource type="PackedScene" uid="uid://dr1o8mnrmg5r4" path="res://Escenas/objetos/pinches/pinches.tscn" id="9_nbcrp"]
-[ext_resource type="PackedScene" uid="uid://n4v6wbkxnyrb" path="res://Assets/tilesets/background_chico.tscn" id="9_vd2ea"]
+[ext_resource type="PackedScene" uid="uid://n4v6wbkxnyrb" path="res://Escenas/background/background_medio.tscn" id="9_vd2ea"]
 [ext_resource type="Script" uid="uid://dpkskyj3rdn2y" path="res://Escenas/objetos/puerta_salida/controlador_puerta.gd" id="10_door_controller"]
 
 [node name="Sala01" type="Node2D" unique_id=2119282324]
