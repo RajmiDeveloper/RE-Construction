@@ -1,3 +1,4 @@
+@tool
 extends Node2D
 
 @export_enum("A", "W", "D", "E") var letra: String = "A":
@@ -21,5 +22,5 @@ func _draw() -> void:
 	var origin := -glyph_size * 0.5
 	for y in glyph.size():
 		for x in glyph[y].length():
-			if glyph[y][x] == "1":
+			if glyph[y].substr(x, 1) == "1":
 				draw_rect(Rect2(origin + Vector2(x, y) * PIXEL_SIZE, Vector2.ONE * PIXEL_SIZE), COLOR_TECLA)

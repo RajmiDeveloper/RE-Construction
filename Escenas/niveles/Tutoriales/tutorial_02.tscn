@@ -1,15 +1,17 @@
-[gd_scene format=4 uid="uid://bvf8fc1axp3pk"]
+[gd_scene format=4 uid="uid://dx8ukanjbdaww"]
 
 [ext_resource type="Texture2D" uid="uid://b1ynuh4gs1op1" path="res://Assets/UI/Formas/forma_metal.svg" id="11_xd8ck"]
 [ext_resource type="Texture2D" uid="uid://bvfrf0cjj8r2o" path="res://Assets/UI/Formas/forma_electrica.svg" id="13_i8gpe"]
-[ext_resource type="Script" uid="uid://dfq68sj7h2epr" path="res://Escenas/niveles/nivel_base.gd" id="base"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/tecla_tab.tscn" id="14_ngh03"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/tecla_r.tscn" id="15_moin4"]
+[ext_resource type="Script" uid="uid://bxh0qplu1shac" path="res://Escenas/niveles/Tutoriales/tutorial_02.gd" id="base"]
 [ext_resource type="PackedScene" uid="uid://buucika8pnbrp" path="res://Escenas/background/backgroundChico.tscn" id="bg"]
 [ext_resource type="PackedScene" uid="uid://3h823soyy8gf" path="res://Escenas/objetos/boton/boton.tscn" id="button"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_electrica.tscn" id="electric_icon"]
 [ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="exit"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="gate"]
+[ext_resource type="PackedScene" uid="uid://cbst5h3sfyuli" path="res://Escenas/objetos/puerta_piedra_lateral/puerta_piedra_lateral.tscn" id="gate"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/indicacion_metal.tscn" id="metal_icon"]
-[ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="module"]
+[ext_resource type="PackedScene" uid="uid://ixetx4dgiaq5" path="res://Escenas/objetos/trampa_electrica/modulo_electrico.tscn" id="module"]
 [ext_resource type="PackedScene" uid="uid://btpmum142fwbi" path="res://Escenas/personaje/personaje.tscn" id="player"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/trampa_electrica/trampa_electrica.tscn" id="ray"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="shadow"]
@@ -25,29 +27,30 @@ shadow_scene = ExtResource("shadow")
 [node name="Background" parent="Fondo" unique_id=823027555 instance=ExtResource("bg")]
 
 [node name="Terreno" type="TileMapLayer" parent="." unique_id=495014279]
-tile_map_data = PackedByteArray("AADy/wYAAgAGABAAAADz/wYAAgADABAAAAD0/wYAAgAEABAAAAD1/wYAAgAFABAAAAD2/wYAAgAGABAAAAD3/wYAAgADABAAAAD4/wYAAgAEABAAAAD5/wYAAgAFABAAAAD6/wYAAgAGABAAAAD7/wYAAgADABAAAAD8/wYAAgAEABAAAAD9/wYAAgAFABAAAAD+/wYAAgAGABAAAAD//wYAAgADABAAAAAAAAYAAgAEABAAAAABAAYAAgAFABAAAAACAAYAAgAGABAAAAADAAYAAgADABAAAAAEAAYAAgAEABAAAAAFAAYAAgAFABAAAAAGAAYAAgAGABAAAAAHAAYAAgADABAAAAAIAAYAAgAEABAAAAAJAAYAAgAFABAAAAAKAAYAAgAGABAAAAALAAYAAgADABAAAAAMAAYAAgAEABAAAAANAAYAAgAFABAAAAAOAAYAAgAGABAAAADy/wcAAgAGABEAAADz/wcAAgADABEAAAD0/wcAAgAEABEAAAD1/wcAAgAFABEAAAD2/wcAAgAGABEAAAD3/wcAAgADABEAAAD4/wcAAgAEABEAAAD5/wcAAgAFABEAAAD6/wcAAgAGABEAAAD7/wcAAgADABEAAAD8/wcAAgAEABEAAAD9/wcAAgAFABEAAAD+/wcAAgAGABEAAAD//wcAAgADABEAAAAAAAcAAgAEABEAAAABAAcAAgAFABEAAAACAAcAAgAGABEAAAADAAcAAgADABEAAAAEAAcAAgAEABEAAAAFAAcAAgAFABEAAAAGAAcAAgAGABEAAAAHAAcAAgADABEAAAAIAAcAAgAEABEAAAAJAAcAAgAFABEAAAAKAAcAAgAGABEAAAALAAcAAgADABEAAAAMAAcAAgAEABEAAAANAAcAAgAFABEAAAAOAAcAAgAGABEAAADy/wgAAgAGABEAAADz/wgAAgADABEAAAD0/wgAAgAEABEAAAD1/wgAAgAFABEAAAD2/wgAAgAGABEAAAD3/wgAAgADABEAAAD4/wgAAgAEABEAAAD5/wgAAgAFABEAAAD6/wgAAgAGABEAAAD7/wgAAgADABEAAAD8/wgAAgAEABEAAAD9/wgAAgAFABEAAAD+/wgAAgAGABEAAAD//wgAAgADABEAAAAAAAgAAgAEABEAAAABAAgAAgAFABEAAAACAAgAAgAGABEAAAADAAgAAgADABEAAAAEAAgAAgAEABEAAAAFAAgAAgAFABEAAAAGAAgAAgAGABEAAAAHAAgAAgADABEAAAAIAAgAAgAEABEAAAAJAAgAAgAFABEAAAAKAAgAAgAGABEAAAALAAgAAgADABEAAAAMAAgAAgAEABEAAAANAAgAAgAFABEAAAAOAAgAAgAGABEAAADx/wYAAgAFABAAAADx/wcAAgAFABEAAADx/wgAAgAFABEAAAA=")
+tile_map_data = PackedByteArray("AADy/wYAAgAGABAAAADz/wYAAgADABAAAAD0/wYAAgAEABAAAAD1/wYAAgAFABAAAAD2/wYAAgAGABAAAAD3/wYAAgADABAAAAD4/wYAAgAEABAAAAD5/wYAAgAFABAAAAD6/wYAAgAGABAAAAD7/wYAAgADABAAAAD8/wYAAgAEABAAAAD9/wYAAgAFABAAAAD+/wYAAgAGABAAAAD//wYAAgADABAAAAAAAAYAAgAEABAAAAABAAYAAgAFABAAAAACAAYAAgAGABAAAAADAAYAAgADABAAAAAEAAYAAgAEABAAAAAFAAYAAgAFABAAAAAGAAYAAgAGABAAAAAHAAYAAgADABAAAAAIAAYAAgAEABAAAAAJAAYAAgAFABAAAAAKAAYAAgAGABAAAAALAAYAAgADABAAAAAMAAYAAgAEABAAAAANAAYAAgAFABAAAAAOAAYAAgAGABAAAADy/wcAAgAGABEAAADz/wcAAgADABEAAAD0/wcAAgAEABEAAAD1/wcAAgAFABEAAAD2/wcAAgAGABEAAAD3/wcAAgADABEAAAD4/wcAAgAEABEAAAD5/wcAAgAFABEAAAD6/wcAAgAGABEAAAD7/wcAAgADABEAAAD8/wcAAgAEABEAAAD9/wcAAgAFABEAAAD+/wcAAgAGABEAAAD//wcAAgADABEAAAAAAAcAAgAEABEAAAABAAcAAgAFABEAAAACAAcAAgAGABEAAAADAAcAAgADABEAAAAEAAcAAgAEABEAAAAFAAcAAgAFABEAAAAGAAcAAgAGABEAAAAHAAcAAgADABEAAAAIAAcAAgAEABEAAAAJAAcAAgAFABEAAAAKAAcAAgAGABEAAAALAAcAAgADABEAAAAMAAcAAgAEABEAAAANAAcAAgAFABEAAAAOAAcAAgAGABEAAADy/wgAAgAGABEAAADz/wgAAgADABEAAAD0/wgAAgAEABEAAAD1/wgAAgAFABEAAAD2/wgAAgAGABEAAAD3/wgAAgADABEAAAD4/wgAAgAEABEAAAD5/wgAAgAFABEAAAD6/wgAAgAGABEAAAD7/wgAAgADABEAAAD8/wgAAgAEABEAAAD9/wgAAgAFABEAAAD+/wgAAgAGABEAAAD//wgAAgADABEAAAAAAAgAAgAEABEAAAABAAgAAgAFABEAAAACAAgAAgAGABEAAAADAAgAAgADABEAAAAEAAgAAgAEABEAAAAFAAgAAgAFABEAAAAGAAgAAgAGABEAAAAHAAgAAgADABEAAAAIAAgAAgAEABEAAAAJAAgAAgAFABEAAAAKAAgAAgAGABEAAAALAAgAAgADABEAAAAMAAgAAgAEABEAAAANAAgAAgAFABEAAAAOAAgAAgAGABEAAADx/wYAAgAFABAAAADx/wcAAgAFABEAAADx/wgAAgAFABEAAAAAAPj/AgAHABMAAAAAAPn/AgAHABEAAAAAAPr/AgAHABIAAAAAAPv/AgAHABMAAAAAAPz/AgAHABEAAAAAAP3/AgAHABIAAAAAAP7/AgAHABMAAAAAAP//AgAHABQAAAAAAAAAAgAHABUAAAD9//j/AgAAACMAAAD9//n/AgAAACIAAAD9//r/AgAAACMAAAD9//v/AgAAACMAAAD9//z/AgAAACIAAAD9//3/AgAAACMAAAD9//7/AgAAACMAAAD9////AgAAACIAAAD9/wAAAgABACUAAAD+//j/AgAYAB8AAAD+//n/AgAYACAAAAD///j/AgAZAB8AAAD///n/AgAZACAAAAD+//r/AgAYAB8AAAD+//v/AgAYACAAAAD///r/AgAZAB8AAAD///v/AgAZACAAAAD+//z/AgAYAB8AAAD+//3/AgAYACAAAAD///z/AgAZAB8AAAD///3/AgAZACAAAAD+//7/AgAYAB8AAAD+////AgAYACAAAAD///7/AgAZAB8AAAD/////AgAZACAAAAD+/wAAAgAEABUAAAD//wAAAgAEABUAAAA=")
 tile_set = ExtResource("tiles")
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=189927764]
 position = Vector2(-196, 80)
 
 [node name="Jugador" parent="." unique_id=280416141 instance=ExtResource("player")]
+z_index = 3
 position = Vector2(-196, 80)
 death_distance = 220.0
 
 [node name="Mecanismos" type="Node2D" parent="." unique_id=122843640]
 
 [node name="Boton" parent="Mecanismos" unique_id=840482965 instance=ExtResource("button")]
-position = Vector2(-120, 88)
+position = Vector2(-113, 92)
 
 [node name="Compuerta" parent="Mecanismos" unique_id=583701661 instance=ExtResource("gate")]
-position = Vector2(-12, 54)
+position = Vector2(-16, 54)
 opening_height = 104.0
 move_duration = 0.7
 button_path = NodePath("../Boton")
 
 [node name="ModuloSuperior" parent="Mecanismos" unique_id=1668598210 instance=ExtResource("module")]
-position = Vector2(112, -8)
+position = Vector2(112, -118)
 
 [node name="ModuloInferior" parent="Mecanismos" unique_id=1907853338 instance=ExtResource("module")]
 position = Vector2(112, 88)
@@ -59,10 +62,10 @@ modulo_inferior_path = NodePath("../ModuloInferior")
 
 [node name="Metal" parent="Mecanismos" unique_id=1159034323 instance=ExtResource("metal_icon")]
 texture_filter = 1
-offset_left = -128.0
-offset_top = 52.0
-offset_right = -104.0
-offset_bottom = 76.0
+offset_left = -193.0
+offset_top = 36.0
+offset_right = -169.0
+offset_bottom = 60.0
 texture = ExtResource("11_xd8ck")
 
 [node name="Electrica" parent="Mecanismos" unique_id=1170922895 instance=ExtResource("electric_icon")]
@@ -73,8 +76,17 @@ offset_right = 96.0
 offset_bottom = 74.0
 texture = ExtResource("13_i8gpe")
 
+[node name="TeclaTab" parent="Mecanismos" unique_id=1682187870 instance=ExtResource("14_ngh03")]
+position = Vector2(-208, 49)
+
+[node name="TeclaR" parent="Mecanismos" unique_id=2138882275 instance=ExtResource("15_moin4")]
+position = Vector2(-112, 70)
+
+[node name="TeclaTab2" parent="Mecanismos" unique_id=1332176225 instance=ExtResource("14_ngh03")]
+position = Vector2(60, 60)
+
 [node name="Sombras" type="Node2D" parent="." unique_id=1490534049]
 
 [node name="Salida" parent="." unique_id=370086510 instance=ExtResource("exit")]
 z_index = 1
-position = Vector2(200, 88)
+position = Vector2(200, 85)

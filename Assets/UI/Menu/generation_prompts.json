@@ -22,6 +22,12 @@
       "reference": "Assets/UI/Menu/piedra.png",
       "transparent_background": true,
       "prompt": "Use case: stylized-concept. Asset type: reusable elongated horizontal stone UI button for the same pixel-art temple game as the reference. Input image: STYLE REFERENCE ONLY, match its dark turquoise-gray stone, cyan chiseled bevel, chunky pixel edges, small cracks and sparse moss. Create a NEW naturally long rectangular slab, width exactly SIX TIMES its height (6:1), front-facing, square pixel proportions, flat broad center suitable for a line of engraved text added by the engine later. Design the stone edges and cracks specifically for this long shape: thin even bevel, small clipped corners, a few small cracks at ends, moss at two corners, quiet uninterrupted middle. It must look like a long piece of solid stone, with crisp square pixels throughout; no smeared, stretched or horizontally elongated individual pixels. Logical pixel-art resolution approximately 288x48. One slab only, centered, fully visible, transparent background outside its silhouette. Tight framing on a wide landscape canvas. No text, no symbols, no mockup, no shadow outside the slab, no extra objects."
+    },
+    {
+      "path": "Assets/UI/Menu/titulo_piedra.png",
+      "reference": "Assets/UI/Menu/piedra_alargada.png",
+      "transparent_background": true,
+      "prompt": "Transform the attached dark turquoise stone menu-button art into an IMPACTFUL pixel-art GAME TITLE WORDMARK. The letters themselves must be carved individual 3D stone blocks made of the same material and palette as the reference button: dark teal stone faces, bright cyan beveled upper edges, almost-black side depth, tiny cracks and sparse lime moss on a few corners. Exact title text, one line, every letter correct and fully readable: RE:CONSTRUCTION. Emphasize the colon as two tiny cyan runes carved in stone. Make the wordmark broad, dramatic, centered, with strongly legible thick block letters and a restrained cyan glow along selected bevels. Transparent background outside the letter shapes; NO rectangular slab, plaque, button, frame, background scene, extra words, subtitle, watermark, or symbols. Crisp square pixel-art edges, coherent with a 2D ancient submerged temple game, not glossy 3D rendering. Preserve generous spacing around the entire one-line wordmark so no letters are cropped."
     }
   ]
 }

@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/tecla_flecha_izquierda.tscn" id="13_p8yce"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/tecla_tab.tscn" id="14_q35qe"]
 [ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/tecla_enter.tscn" id="15_p8yce"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/tecla_w.tscn" id="16_sgt0k"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/tecla_d.tscn" id="17_ytpk3"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/tecla_a.tscn" id="18_wcpi8"]
+[ext_resource type="PackedScene" path="res://Escenas/objetos/indicaciones/tecla_e.tscn" id="19_6nh8m"]
 [ext_resource type="Script" uid="uid://dfq68sj7h2epr" path="res://Escenas/niveles/nivel_base.gd" id="base"]
 [ext_resource type="PackedScene" uid="uid://buucika8pnbrp" path="res://Escenas/background/backgroundChico.tscn" id="bg"]
 [ext_resource type="PackedScene" uid="uid://bntej8xllgwpn" path="res://Escenas/objetos/puerta_salida/puerta_salida.tscn" id="exit"]
@@ -20,6 +24,8 @@
 script = ExtResource("base")
 level_title = "Tutorial 1"
 shadow_scene = ExtResource("shadow")
+allowed_transformations = Array[int]([2])
+required_transformation = 2
 
 [node name="Fondo" type="Node2D" parent="." unique_id=1583925481]
 
@@ -59,25 +65,49 @@ position = Vector2(-10, -32)
 position = Vector2(186, 53)
 
 [node name="IndicacionTeclaGenerica" parent="." unique_id=1993914899 instance=ExtResource("10_w2hxy")]
+modulate = Color(1, 1, 1, 0.5137255)
 position = Vector2(-220, 13)
 
 [node name="IndicacionTeclaGenerica2" parent="." unique_id=891452871 instance=ExtResource("10_w2hxy")]
+modulate = Color(1, 1, 1, 0.5137255)
 position = Vector2(-199, -8)
 
 [node name="IndicacionTeclaGenerica3" parent="." unique_id=297690831 instance=ExtResource("10_w2hxy")]
+modulate = Color(1, 1, 1, 0.5137255)
 position = Vector2(-174, 13)
 
 [node name="TeclaFlechaArriba" parent="." unique_id=1695140215 instance=ExtResource("11_0sa4t")]
+modulate = Color(1, 1, 1, 0.5137255)
 position = Vector2(-199, -8)
 
 [node name="TeclaFlechaDerecha" parent="." unique_id=1025318343 instance=ExtResource("12_q35qe")]
+modulate = Color(1, 1, 1, 0.5137255)
 position = Vector2(-174, 13)
 
 [node name="TeclaFlechaIzquierda" parent="." unique_id=1689589059 instance=ExtResource("13_p8yce")]
+modulate = Color(1, 1, 1, 0.5137255)
 position = Vector2(-220, 13)
 
 [node name="TeclaTab" parent="." unique_id=1183155618 instance=ExtResource("14_q35qe")]
+modulate = Color(1, 1, 1, 0.5137255)
 position = Vector2(-81, 19)
 
 [node name="TeclaEnter" parent="." unique_id=705172000 instance=ExtResource("15_p8yce")]
+modulate = Color(1, 1, 1, 0.5137255)
 position = Vector2(181, -9)
+
+[node name="TeclaW" parent="." unique_id=610198926 instance=ExtResource("16_sgt0k")]
+modulate = Color(1, 1, 1, 0.5137255)
+position = Vector2(-199, -69)
+
+[node name="TeclaD" parent="." unique_id=306167562 instance=ExtResource("17_ytpk3")]
+modulate = Color(1, 1, 1, 0.5137255)
+position = Vector2(-174, -48)
+
+[node name="TeclaA" parent="." unique_id=112163721 instance=ExtResource("18_wcpi8")]
+modulate = Color(1, 1, 1, 0.5137255)
+position = Vector2(-220, -48)
+
+[node name="TeclaE" parent="." unique_id=1144298861 instance=ExtResource("19_6nh8m")]
+modulate = Color(1, 1, 1, 0.5137255)
+position = Vector2(181, -48)

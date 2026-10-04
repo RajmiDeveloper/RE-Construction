@@ -9,6 +9,8 @@ const TUTORIAL_ONE_SCENE := "res://Escenas/niveles/Tutoriales/tutorial_01.tscn"
 
 @export var level_title: String = "Sala"
 @export var shadow_scene: PackedScene
+@export var allowed_transformations: Array[int] = [FormCatalog.METAL, FormCatalog.FUEGO, FormCatalog.ELECTRICA]
+@export_enum("Ninguna:-1", "Metal:1", "Fuego:2", "Eléctrica:3") var required_transformation: int = -1
 
 @onready var spawn_point: Marker2D = $SpawnPoint
 @onready var player = $Jugador
@@ -20,6 +22,14 @@ var _recordings: Array[Array] = []
 var _active: bool = false
 var _completed: bool = false
 var _mechanism_rewinder: Node
+
+
+func get_allowed_transformations(_player_position: Vector2) -> Array[int]:
+	return allowed_transformations.duplicate()
+
+
+func get_required_transformation(_player_position: Vector2) -> int:
+	return required_transformation
 
 
 func _ready() -> void:

@@ -163,6 +163,8 @@ func transform_to(form_id: int) -> bool:
 		return false
 	if not FormCatalog.is_valid(form_id) or form_id == FormCatalog.NORMAL:
 		return false
+	if not get_allowed_transformations().has(form_id):
+		return false
 
 	current_form = form_id
 	can_transform = false
@@ -204,11 +206,25 @@ func can_open_form_menu() -> bool:
 	return not _dead and _controls_enabled and can_transform and current_form == FormCatalog.NORMAL
 
 
+func get_allowed_transformations() -> Array[int]:
+	var level := get_parent()
+	if level.has_method("get_allowed_transformations"):
+		return level.get_allowed_transformations(global_position)
+	return [FormCatalog.METAL, FormCatalog.FUEGO, FormCatalog.ELECTRICA]
+
+
+func get_required_transformation() -> int:
+	var level := get_parent()
+	if level.has_method("get_required_transformation"):
+		return int(level.get_required_transformation(global_position))
+	return -1
+
+
 func _on_form_selected(form_id: int) -> void:
 	if not form_menu.visible:
 		return
-	transform_to(form_id)
-	form_menu.close()
+	if transform_to(form_id):
+		form_menu.close()
 
 
 func reset_form() -> void:
