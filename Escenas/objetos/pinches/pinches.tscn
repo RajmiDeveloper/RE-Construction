@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dr1o8mnrmg5r4"]
 
 [ext_resource type="Script" uid="uid://b031iun6gdoim" path="res://Escenas/objetos/pinches/pinches.gd" id="1_4muq3"]
-[ext_resource type="Texture2D" uid="uid://bwgp8ept0t6no" path="res://Escenas/objetos/pinches/pinches_sprite.png" id="2_m2efn"]
+[ext_resource type="Texture2D" uid="uid://dubj1g5ntdrjy" path="res://Assets/Mapa/Pinches/pinches_sprite.png" id="2_m2efn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0bck"]
 size = Vector2(20, 16)
@@ -27,10 +27,12 @@ disabled = true
 
 [node name="retract_timer" type="Timer" parent="." unique_id=1164648163]
 process_callback = 0
+wait_time = 0.5
 one_shot = true
 
 [node name="spike_timer" type="Timer" parent="." unique_id=1807206155]
 process_callback = 0
+wait_time = 0.5
 one_shot = true
 
 [connection signal="body_entered" from="killzone" to="." method="_on_killzone_body_entered"]
