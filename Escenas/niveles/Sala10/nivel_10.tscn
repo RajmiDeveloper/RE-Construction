@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://cb7d3uvxok5g3"]
 
-[ext_resource type="Script" uid="uid://bttkh2ocbt2jk" path="res://Escenas/niveles/Sala01/sala_01_controller.gd" id="1_y2vfr"]
+[ext_resource type="Script" uid="uid://bttkh2ocbt2jk" path="res://Escenas/niveles/Sala05/sala_05_controller.gd" id="1_y2vfr"]
 [ext_resource type="PackedScene" path="res://Escenas/sombra/sombra.tscn" id="2_50gwv"]
 [ext_resource type="PackedScene" uid="uid://n4v6wbkxnyrb" path="res://Escenas/background/background_medio.tscn" id="3_klxqd"]
 [ext_resource type="TileSet" uid="uid://bmqmwuyy8i3ay" path="res://Assets/tilesets/sunken_temple_v1/Sunken-temple.tres" id="4_y0nnu"]
